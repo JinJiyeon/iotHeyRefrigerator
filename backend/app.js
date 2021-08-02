@@ -14,9 +14,9 @@ dotenv.config({
 });
 
 
-
 // 앱 실행
-const testRouter = require('./routes/test');
+const ingredientRouter = require('./routes/ingredient');
+// const testRouter = require('./routes/test');
 // const userRouter = require('./routes/user');
 const recipeRouter = require('./routes/recipe');
 const ingredientRouter = require('./routes/ingredient');
@@ -36,9 +36,15 @@ app.use(cors({
 	credentials: true,
 }));                                // Django 서버와 통신하기 위함
 
+// 배포할 때 dotenv 수정해주기!
+app.use((req, res, next) => {
+  global.django_origin = process.env.DJANGO_ORIGIN||'http://localhost:8000'
+  console.log(django_origin)
+  next()
+})
 
 // 라우터
-app.use('/test', testRouter);
+app.use('/ingredient', ingredientRouter)
 // app.use('/user', userRouter);
 app.use('/recipe', recipeRouter);
 app.use('/ingredient', ingredientRouter);

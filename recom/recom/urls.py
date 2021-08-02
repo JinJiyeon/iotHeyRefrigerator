@@ -18,9 +18,7 @@ from django.urls import path
 from . import views
 
 urlpatterns = [
+    path('recipe/recom/retaining/', views.recommend_from_retaining_ingredient),
+    path('recipe/recom/expire/', views.recommend_from_urgent_expiration_date),
     path('admin/', admin.site.urls),
-    path('', views.index),
-    path('node_to_django/', views.node_to_django),
-    path('django_to_node/', views.django_to_node),
-    path('nodedb_to_django/<int:recipe_id>/', views.nodedb_to_django)
 ]
