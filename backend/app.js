@@ -7,7 +7,7 @@ const session = require('express-session');
 // const FileStore = require('session-file-store')(session);
 const path = require('path');
 const cors = require('cors');     // Django 서버와 통신하기 위함
-const { passport } = require('./utils/auth');
+// const { passport } = require('./utils/auth');
 // dotenv
 dotenv.config({
   path:path.join(__dirname, '.env')
@@ -19,8 +19,10 @@ dotenv.config({
 const testRouter = require('./routes/test');
 // const userRouter = require('./routes/user');
 const recipeRouter = require('./routes/recipe');
+const ingredientRouter = require('./routes/ingredient');
 const searchRouter = require('./routes/search');
-const app = express()
+const mypageRouter = require('./routes/mypage');
+const app = express();
 app.set('port', process.env.PORT || 3000);
 
 
@@ -39,7 +41,9 @@ app.use(cors({
 app.use('/test', testRouter);
 // app.use('/user', userRouter);
 app.use('/recipe', recipeRouter);
+app.use('/ingredient', ingredientRouter);
 app.use('/search', searchRouter);
+app.use('/mypage', mypageRouter);
 
 app.get('/', (req, res) => {
   res.send('hello node')
