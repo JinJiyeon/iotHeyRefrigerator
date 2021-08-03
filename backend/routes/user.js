@@ -243,6 +243,8 @@ router.post('/signup', util.isLogin, (req, res)=> {
 })
 
 
+// .post('create/)
+
 /// 3. 회원 정보(R)
 // ~ /user/detail/:userId
 router.get('/detail/:userId', util.authCheck, (req, res)=> {
