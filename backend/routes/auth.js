@@ -186,7 +186,7 @@ router.get('/', (req, res)=>{
 
 router.get('/signup', util.isLogin, (req,res) => {
   res.send(`
-    <form action="/user/signup" method="post">
+    <form action="/auth/signup" method="post">
         email : <input type="text" name="email" /> <br />
         name : <input type="text" name="user_id" /> <br />
         password : <input type="text" name="password" /> <br />
@@ -263,7 +263,7 @@ router.post('/signup', util.isLogin, (req, res)=> {
 //4 U (수정)
 // ~ user/edit/:userId
 router.get('/edit/:userId', util.authCheck, (req, res)=>{
-  res.send( `<form action="/user/edit" method="post">
+  res.send( `<form action="/auth/edit" method="post">
   email : <input type="text" name="email" /> <br />
   name : <input type="text" name="user_id" /> <br />
   password : <input type="text" name="password" /> <br />
@@ -354,7 +354,7 @@ router.delete('/:username', function(req, res){
 // 로그인
 router.get('/login', util.isLogin, (req, res)=> {
   res.send(`
-    <form action="/user/login" method="post">
+    <form action="/auth/login" method="post">
         name : <input type="text" name="user_id" /> <br />
         password : <input type="text" name="password" /> <br />
         <input type="submit">

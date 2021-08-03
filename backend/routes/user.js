@@ -1,30 +1,38 @@
 //routes/user.js
+const dotenv = require('dotenv');
 const express = require('express');
 const router = express.Router();
 const db = require('../lib/db'); // mysql 연결
 const cors = require('cors');
 
-//util.js
+dotenv.config();
+
 const util = require('../utils/util')
 
 // 미들웨어
 router.use(cors({
-  origin: global.django_origin,
+  origin: process.env.DJANGO_ORIGIN,
   credentials: true
-}))                                 // Django 서버와 통신하기 위함
+}))                                 /
 router.use(express.json());
 router.use(express.urlencoded({ extended: true }));
 
-// 임시 변수
-const recom_user_id = 'expire'
-
-router.get('/expire', (req, res, next) => {
-  db.query(`SELECT * FROM users_and_ingredients 
-            WHERE user_id='${recom_user_id}' AND DATEDIFF(expiration_date, CURDATE()) < 3`, 
-            (err, rows, fields) => {
+// 로그인 되어 있을 경우에만
+// 얼마 남지 않은 유통기한 + 이미 지난 유통기한
+router.get('/myingredients/expired', util.thisisRealLogin, (req, res, next) => {
+    const accessToken = req.cookies.accessToken
+    // 로그인한 사람만
+    // if (accessToken === undefined ) {
+    //     res.redirect('/auth/login/')
+    // }
+    const accessUserId = util.accessUserId(accessToken)
+    db.query(`SELECT * FROM users_and_ingredients 
+            WHERE user_id='${accessUserId}' 
+            AND DATEDIFF(expiration_date, CURDATE()) < 3`,  
+            (err, rows) => {
     if (err) next (err)
     res.send(rows)
-  })
+    })
 })
 
 
@@ -33,7 +41,7 @@ router.get('/myingredients', (req, res, next) => {
     // user id 수정 필요 (로그인 정보 확인)
     const userid = 'admin'
 
-    db.query('select * from users_and_ingredients where user_id=?', [userid], (err, rows) => {
+    db.query('select * from users_and_ingredients where user_id=?', [accessUserId], (err, rows) => {
         if (err) next(err);
         res.send(rows);
     })

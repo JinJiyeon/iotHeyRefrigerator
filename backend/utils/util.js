@@ -12,8 +12,20 @@ const jwt = require('jsonwebtoken');
 const isLogin = (req, res, next) =>{
     if (req.cookies.accessToken){
       return res.json({error:"이미 로그인 되어있습니다."})
+      // console.log('로그인한 사용자가 아닙니다. 로그인 창으로 이동합니다')
+      // next()
     }
+    // res.redirect('/auth/login/')
     next()
+}
+
+const thisisRealLogin = (req, res, next) =>{
+  if (req.cookies.accessToken){
+    // return res.json({error:"이미 로그인 되어있습니다."})
+    console.log('로그인한 사용자가 아닙니다. 로그인 창으로 이동합니다')
+    next()
+  }
+  res.redirect('/auth/login/')
 }
 
 
@@ -57,5 +69,6 @@ const accessUserId = (accessToken) => {
 module.exports = {
     isLogin : isLogin,
     authCheck : authCheck,
-    accessUserId : accessUserId
+    accessUserId : accessUserId,
+    thisisRealLogin : thisisRealLogin
 }
