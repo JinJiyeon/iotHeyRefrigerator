@@ -21,6 +21,15 @@ const App = () => {
   const [newFoodItem, setNewFoodItem] = useState();
   const [expItem, setExpItem] = useState(['7']);
   const [newExpItem, setNewExpItem] = useState();
+
+  function createData(id, date, name) {
+    return { id, date, name };
+  }
+  const [rows, setRows] = useState([
+    {id:0, date:5, name:'Dummy1'},
+    {id:1, date:7, name:'Dummy2'},
+    {id:2, date:10, name:'Dummy3'},
+  ]);
   return (
     <CommonContext.Provider
       value={{
@@ -42,6 +51,9 @@ const App = () => {
         setExpItem,
         newExpItem,
         setNewExpItem,
+
+        rows,
+        setRows,
       }}
     >
       <BrowserRouter>
