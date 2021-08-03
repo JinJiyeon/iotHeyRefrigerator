@@ -3,7 +3,6 @@ const morgan = require('morgan');
 const path = require('path');
 const db = require('../lib/db.js');
 const router = express.Router();
-const db = require('../lib/db');
 const cors = require('cors');
 
 
