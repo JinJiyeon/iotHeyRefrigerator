@@ -4,7 +4,6 @@ const express = require('express');
 const morgan = require('morgan');
 const cookieParser = require('cookie-parser');
 const session = require('express-session');
-// const FileStore = require('session-file-store')(session);
 const path = require('path');
 const cors = require('cors');     // Django 서버와 통신하기 위함
 // const { passport } = require('./utils/auth');
@@ -19,7 +18,6 @@ dotenv.config({
 const userRouter = require('./routes/user');
 const ingredientRouter = require('./routes/ingredient');
 const recipeRouter = require('./routes/recipe');
-const ingredientRouter = require('./routes/ingredient');
 const searchRouter = require('./routes/search');
 const mypageRouter = require('./routes/mypage');
 const app = express();
