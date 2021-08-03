@@ -38,7 +38,7 @@ router.post('/title/:searchWord', (req, res, next) => {
             db.query(`select * from
                 (select *
                 from recipe_infos
-                where match(title) against ('불고기*' in boolean mode)
+                where match(title) against ('${searchWord}*' in boolean mode)
                     and
                     (
                         (view = ${beforeView} and recipe_info_id<${beforeId})

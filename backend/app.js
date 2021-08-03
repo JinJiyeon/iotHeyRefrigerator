@@ -19,7 +19,6 @@ dotenv.config({
 const userRouter = require('./routes/user');
 const ingredientRouter = require('./routes/ingredient');
 const recipeRouter = require('./routes/recipe');
-const ingredientRouter = require('./routes/ingredient');
 const searchRouter = require('./routes/search');
 const mypageRouter = require('./routes/mypage');
 const app = express();

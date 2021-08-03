@@ -1,7 +1,6 @@
 const express = require('express');
 const morgan = require('morgan');
 const path = require('path');
-const db = require('../lib/db.js');
 const router = express.Router();
 const db = require('../lib/db');
 const cors = require('cors');
@@ -99,5 +98,17 @@ router.patch('/user/modify', (req, res, next) => {
     })
 })
 
+// 재료추가 시 연관 재료 목록 반환
+router.get('/associated/:searchWord', (req, res, next) => {
+    const searchWord = req.params.searchWord;
+
+    db.query(`select ingredient_name
+        from ingredients_preprocessing
+        where match(original) against('${searchWord}*' in boolean mode)
+        group by ingredient_name`, (err, rows) => {
+        if (err) next(err);
+        res.send(rows);
+    })
+})
 
 module.exports = router;
