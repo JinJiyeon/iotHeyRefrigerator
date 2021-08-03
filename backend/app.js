@@ -5,8 +5,8 @@ const morgan = require('morgan');
 const cookieParser = require('cookie-parser');
 const session = require('express-session');
 const path = require('path');
-const cors = require('cors');     // Django 서버와 통신하기 위함
-// const { passport } = require('./utils/auth');
+const cors = require('cors');
+
 // dotenv
 dotenv.config({
   path:path.join(__dirname, '.env')
@@ -16,10 +16,8 @@ dotenv.config({
 // 앱 실행
 
 const userRouter = require('./routes/user');
-const ingredientRouter = require('./routes/ingredient');
 const recipeRouter = require('./routes/recipe');
-const searchRouter = require('./routes/search');
-const mypageRouter = require('./routes/mypage');
+const authRouter = require('./routes/auth');
 const app = express();
 app.set('port', process.env.PORT || 3000);
 
@@ -42,12 +40,9 @@ app.use((req, res, next) => {
 })
 
 // 라우터
-app.use('/ingredient', ingredientRouter)
 app.use('/user', userRouter);
 app.use('/recipe', recipeRouter);
-app.use('/ingredient', ingredientRouter);
-app.use('/search', searchRouter);
-app.use('/mypage', mypageRouter);
+app.use('/auth', authRouter);
 
 app.get('/', (req, res) => {
   res.send('hello node')
