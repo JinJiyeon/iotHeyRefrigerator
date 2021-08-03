@@ -3,9 +3,6 @@ import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import TextField from '@material-ui/core/TextField';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Checkbox from '@material-ui/core/Checkbox';
-import Link from '@material-ui/core/Link';
 import Paper from '@material-ui/core/Paper';
 import Box from '@material-ui/core/Box';
 import Grid from '@material-ui/core/Grid';
@@ -69,7 +66,7 @@ export default function SignInSide() {
             <LockOutlinedIcon />
           </Avatar>
           <Typography component="h1" variant="h5">
-            Login
+            Sign Up
           </Typography>
           <form className={classes.form} noValidate>
             <TextField
@@ -77,9 +74,20 @@ export default function SignInSide() {
               margin="normal"
               required
               fullWidth
+              name="email를 입력해주세요"
+              label="email"
+              type="email"
+              id="email"
+              autoComplete="email"
+            />
+            <TextField
+              variant="outlined"
+              margin="normal"
+              required
+              fullWidth
               id="ID"
               label="ID"
-              name="ID"
+              name="ID를 입력해주세요"
               autoComplete="ID"
               autoFocus
             />
@@ -88,16 +96,24 @@ export default function SignInSide() {
               margin="normal"
               required
               fullWidth
-              name="password"
-              label="Password"
-              type="password"
-              id="password"
-              autoComplete="current-password"
+              name="password1"
+              label="password를 입력해주세요"
+              type="password1"
+              id="password1"
+              autoComplete="password1"
             />
-            <FormControlLabel
-              control={<Checkbox value="remember" color="primary" />}
-              label="Remember me"
+            <TextField
+              variant="outlined"
+              margin="normal"
+              required
+              fullWidth
+              name="password2"
+              label="동일한 password를 다시 입력해주세요"
+              type="password2"
+              id="password2"
+              autoComplete="password2"
             />
+           
             <Button
               type="submit"
               fullWidth
@@ -105,15 +121,8 @@ export default function SignInSide() {
               color="primary"
               className={classes.submit}
             >
-              Sign In
+              확인
             </Button>
-            <Grid container>
-              <Grid item>                 
-                <Link href="#" variant="Signup">     {/* Sign up 으로 보내주는거 추가 */}
-                  {"회원이 아니신가요?"}
-                </Link>
-              </Grid>
-            </Grid>
             <Box mt={5}>
               <Copyright />
             </Box>
@@ -121,5 +130,4 @@ export default function SignInSide() {
         </div>
       </Grid>
     </Grid>
-  );
-}
+  );}
