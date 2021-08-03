@@ -17,7 +17,7 @@ dotenv.config({
 
 // 앱 실행
 const testRouter = require('./routes/test');
-// const userRouter = require('./routes/user');
+const userRouter = require('./routes/user');
 const recipeRouter = require('./routes/recipe');
 const searchRouter = require('./routes/search');
 const app = express()
@@ -37,7 +37,7 @@ app.use(cors({
 
 // 라우터
 app.use('/test', testRouter);
-// app.use('/user', userRouter);
+app.use('/user', userRouter);
 app.use('/recipe', recipeRouter);
 app.use('/search', searchRouter);
 
