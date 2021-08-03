@@ -1,6 +1,6 @@
 # 프로젝트 명
 
-## 목차
+## 목차(수정 필요)
 
 - [프로젝트 소개](#프로젝트-소개)   
 - [텍스트 ... ](#프로젝트-소개)   
@@ -15,16 +15,54 @@
 
 소개 입력:
 
-- 주제: 2030 1인가구를 위한 냉장고 관리 서비스
+- 팀 명: 7링 바이브
+- 트랙 : 웹IoT 
+- 주제: 요리에 관심이 있는 2030 1인가구를 위한 냉장고 관리 서비스
 - 핵심 키워드: 2030 1인가구, IoT, 냉장고
-
 - 활용 기술 스택
-  React, Node.js, Maria DB, 아두이노, 라즈베리파이, 스케치 툴, Python, Vanilla JS, vsCode, Chrome Browser, 
+  React, Node.js, Django, DB(Mysql), 아두이노, 라즈베리파이, Whimsical, Python, Vanilla JS, vsCode, Chrome Browser, 센서들
 
 
-- 개요: 점점 늘어가는 2030 1인가구를 위한 냉장고 매니저이고, 2030 1인가구들의 입장에서 냉장고를 보다 효율적으로 활용할 수 있게 서비스를 제공하고자 함.
-  요리에 관심이 있고 레시피 추천이 필요한 사람, 요리에 관심이 있지만 재료관리를 잘 못하는 사람, 요리에 크게 관심이 없어 레토르트를 쌓아두고 먹는 사람 등 여러 케이스의 사람들을 모두 만족시켜주기 위한 기능들을 구현하고, 작성한 목업에 따라 웹페이지를 완성한 후, 이를 라즈베리파이의 터치스크린을 통하여 보여주는 흐름을 구상.
-  <br>
+- 개요
+  
+  
+  - 목표: 점점 늘어가는 2030 1인가구들 중 요리에 관심있으신 분들의 입장에서 
+    냉장고를 보다 효율적으로 활용할 수 있게 해주는 서비스를 제공하는 냉장고 매니저를 만드는 것
+  
+  - 요리에 관심이 있고 레시피 추천이 필요한 사람, 요리에 관심이 있지만 재료관리를 잘 못하는 사람 등
+    여러 케이스의 사람들을 만족시켜주기 위한 기능들을 토대로 와이어프레임에 따른 웹페이지를 완성한 후, 
+    이를 라즈베리파이의 터치 패널을 통하여 서비스가 제공되게 할 것.
+  
+
+<br>
+
+## 프로젝트 기획
+
+
+
+-  폴더 트리 구조
+
+​    
+
+
+
+- 와이어 프레임 및 화면정의서
+
+
+
+- ERD
+
+
+
+- 시퀀스 다이어그램
+
+
+
+- 개발 방향
+
+​    
+
+​    
 
 ## 프로젝트 명세
 
@@ -48,30 +86,16 @@
 
 #### Back-end
 
-- __Framework__ : Node.js / Flask(예정)
-- __Database__ : MariaDB
+- __Framework__ : Node.js, Express / Django
+- __Database__ : Mysql
 - __담당자__ : 박민상, 윤소영, 진지연
   <br>
 
 #### Design
 
-- __Framework 사용__ : X
-  - [Vuetify](https://vuetifyjs.com/)
-  - [Element Plus](https://element-plus.org/)
-- __Design Tool 사용__ : Adobe XD, Photoshop, Blender, Zeplin 등 (없을 경우 빈칸)
-- __담당자__ : 팀원 A, 팀원 B,
+- Material-UI 및 Bootstrap 활용
+- __담당자__ : 차성민, 엄재식
   <br>
-
-### Design Resources
-
-__외부 템플릿 또는 에셋__ (이미지 또는 링크 첨부)
-
-- 무료 이미지, 아이콘, 폰트 등은 제외
-- [Vue Argon Design System](https://www.creative-tim.com/product/vue-argon-design-system?affiliate_id=116187) (무료)
-  - __사용 기능__ : 디자인 전반 적용
-- [Vue Black Dashboard Pro](https://www.creative-tim.com/product/vue-black-dashboard-pro?affiliate_id=116187) (유료)
-  - __사용 기능__ : 캘린더 컴포넌트 사용
-    <br>
 
 __자체 제작 산출물__ (필요시 이미지 또는 설명 첨부)
 
@@ -86,16 +110,21 @@ __자체 제작 산출물__ (필요시 이미지 또는 설명 첨부)
 기본 제공하는 라이브러리 외 핵심 기능 구현에 사용한 라이브러리가 있다면 작성해주세요.   
 예시 ) VR/AR 라이브러리, 애니메이션 라이브러리, 텍스트/사진/동영상 지원, 편집 라이브러리 등
 
-- __AR CORE__
+- __Material - UI __
   - __링크__ : https://developers.google.com/ar
-  - __소개__ : 구글에서 제공하는 AR 지원 라이브러리
-  - __사용 기능__ : 이미지 인식, 이미지 위 영상 표시
-  - __담당자__ : 팀원 A, 
+  - __소개__ : 
+  - __사용 기능__ : 디자인 컴포넌트 제공
+  - __담당자__ : 차성민, 엄재식
+- __Bootstrap __
+  - __링크__ : https://developers.google.com/ar
+  - __소개__ : 
+  - __사용 기능__ : 디자인 컴포넌트 제공
+  - __담당자__ : 차성민, 엄재식
 
 
 
 
-## Gantt Chart 
+## 진행 단계(Gantt Chart) 
 
 ```mermaid
 gantt
