@@ -18,7 +18,7 @@ from django.urls import path
 from . import views
 
 urlpatterns = [
-    path('recipe/recom/retaining/', views.recommend_from_retaining_ingredient),
-    path('recipe/recom/expire/', views.recommend_from_urgent_expiration_date),
+    path('recipe/recom/important/', views.recommend_from_retaining_ingredient),
+    path('recipe/recom/expired/', views.recommend_from_urgent_expiration_date),
     path('admin/', admin.site.urls),
 ]

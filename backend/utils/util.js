@@ -9,24 +9,31 @@ const jwt = require('jsonwebtoken');
 
 // 로그인 확인
 // accessToken이 있으면 로그인 되어있는 것
-const isLogin = (req, res, next) =>{
+const isNotLogin = (req, res, next) =>{
     if (req.cookies.accessToken){
       return res.json({error:"이미 로그인 되어있습니다."})
-      // console.log('로그인한 사용자가 아닙니다. 로그인 창으로 이동합니다')
-      // next()
     }
-    // res.redirect('/auth/login/')
     next()
 }
 
-const thisisRealLogin = (req, res, next) =>{
-  if (req.cookies.accessToken){
-    // return res.json({error:"이미 로그인 되어있습니다."})
-    console.log('로그인한 사용자가 아닙니다. 로그인 창으로 이동합니다')
-    next()
+// isLogin
+const isLogin = (req, res, next) =>{
+  const accessToken = req.cookies.accessToken;
+  if (accessToken){
+    jwt.verify(accessToken, process.env.ACCESS_TOKEN_SECRET, (err, decoded)=>{
+      if (err) {
+        return res.cookie('accessToken', {maxAge : 0}).redirect('/auth/login');
+      }
+      else {
+        req.user_id = decoded.user_id;
+        next();
+      }
+    })
+  } else {
+    res.redirect('/auth/login/');
   }
-  res.redirect('/auth/login/')
 }
+
 
 
 // 사용자 권한 확인
@@ -67,8 +74,8 @@ const accessUserId = (accessToken) => {
   
 
 module.exports = {
-    isLogin : isLogin,
+    isNotLogin : isNotLogin,
     authCheck : authCheck,
     accessUserId : accessUserId,
-    thisisRealLogin : thisisRealLogin
+    isLogin : isLogin
 }

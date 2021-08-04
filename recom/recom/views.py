@@ -10,8 +10,8 @@ from sklearn.feature_extraction.text import CountVectorizer
 # 배포 전에 dotenv 바꿔주기
 NODE_ORIGIN = os.environ.get("NODE_ORIGIN")
 DJANGO_ORIGIN = os.environ.get("DJANGO_ORIGIN")
-RETAINING = '/ingredient/retaining'
-EXPIRE = '/ingredient/expire'
+RETAINING = '/user/myingredients/important'
+EXPIRE = '/user/myingredients/expired'
 
 def convert_from_retaining_ingredient():
     # node에서 보유 중인 재료 가져오기

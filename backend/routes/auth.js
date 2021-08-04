@@ -127,7 +127,7 @@ const userCheck = (req, res, next) => {
  
 // 1. 로그인
 // ~user/login
-router.post('/login', util.isLogin, (req, res)=>{
+router.post('/login', util.isNotLogin, (req, res)=>{
   const user_id = req.body.user_id
   const password = req.body.password
   
@@ -184,7 +184,7 @@ router.get('/', (req, res)=>{
 })
 
 
-router.get('/signup', util.isLogin, (req,res) => {
+router.get('/signup', util.isNotLogin, (req,res) => {
   res.send(`
     <form action="/auth/signup" method="post">
         email : <input type="text" name="email" /> <br />

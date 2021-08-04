@@ -34,7 +34,6 @@ ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
     # local apps
-    'testings',
     # CORS
     'corsheaders',
     # django apps

@@ -3,14 +3,14 @@ const express = require('express');
 const router = express.Router();
 const db = require('../lib/db');
 const axios = require('axios');
+const util = require('../utils/util')
 
 router.use(express.json());
 router.use(express.urlencoded({ extended: true }));
 
 // 추천로직
-router.get('/recom/myingredients/', (req, res, next) => {
-
-    const url = django_origin + '/recipe/recom/retaining/'
+router.get('/recom/important', util.isLogin, (req, res, next) => {
+    const url = django_origin + '/recipe/recom/important/'
     axios.get(url)
     .then(response => { 
         return response.data.similar_recipe_id
@@ -25,8 +25,8 @@ router.get('/recom/myingredients/', (req, res, next) => {
 });
 
 // 추천로직
-router.get('/recom/myingredients/expired', (req, res, next) => {
-    const url = django_origin + '/recipe/recom/myingredients/expired/'
+router.get('/recom/expired', util.isLogin, (req, res, next) => {
+    const url = django_origin + '/recipe/recom/expired/'
     axios.get(url)
     .then(response => { 
         console.log(response.data.similar_recipe_id)
