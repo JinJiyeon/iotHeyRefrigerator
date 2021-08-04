@@ -21,7 +21,7 @@ const db = require('../lib/db'); // mysql 연결
 // access token을 secret key 기반으로 생성
 const generateAccessToken = (user_id) => {
   return jwt.sign({ user_id }, process.env.ACCESS_TOKEN_SECRET, {
-      expiresIn: "60m",
+      expiresIn: "5 seconds",
   });
 };
 
@@ -127,7 +127,7 @@ const userCheck = (req, res, next) => {
  
 // 1. 로그인
 // ~user/login
-router.post('/login', util.isLogin, (req, res)=>{
+router.post('/login', (req, res)=>{
   const user_id = req.body.user_id
   const password = req.body.password
   
@@ -263,7 +263,7 @@ router.post('/signup', util.isLogin, (req, res)=> {
 //4 U (수정)
 // ~ user/edit/:userId
 router.get('/edit/:userId', util.authCheck, (req, res)=>{
-  res.send( `<form action="/user/edit" method="post">
+  res.send( `<form action="/auth/edit" method="post">
   email : <input type="text" name="email" /> <br />
   name : <input type="text" name="user_id" /> <br />
   password : <input type="text" name="password" /> <br />
@@ -352,9 +352,9 @@ router.delete('/:username', function(req, res){
 
 
 // 로그인
-router.get('/login', util.isLogin, (req, res)=> {
+router.get('/login', (req, res)=> {
   res.send(`
-    <form action="/user/login" method="post">
+    <form action="/auth/login" method="post">
         name : <input type="text" name="user_id" /> <br />
         password : <input type="text" name="password" /> <br />
         <input type="submit">
