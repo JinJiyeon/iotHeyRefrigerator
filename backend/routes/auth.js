@@ -21,7 +21,7 @@ const db = require('../lib/db'); // mysql 연결
 // access token을 secret key 기반으로 생성
 const generateAccessToken = (user_id) => {
   return jwt.sign({ user_id }, process.env.ACCESS_TOKEN_SECRET, {
-      expiresIn: "60m",
+      expiresIn: "5 seconds",
   });
 };
 
@@ -127,7 +127,7 @@ const userCheck = (req, res, next) => {
  
 // 1. 로그인
 // ~user/login
-router.post('/login', util.isNotLogin, (req, res)=>{
+router.post('/login', (req, res)=>{
   const user_id = req.body.user_id
   const password = req.body.password
   
@@ -352,7 +352,7 @@ router.delete('/:username', function(req, res){
 
 
 // 로그인
-router.get('/login', util.isLogin, (req, res)=> {
+router.get('/login', (req, res)=> {
   res.send(`
     <form action="/auth/login" method="post">
         name : <input type="text" name="user_id" /> <br />

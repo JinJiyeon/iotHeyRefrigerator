@@ -40,60 +40,59 @@ router.get('/myingredients/expired', util.isLogin, (req, res, next) => {
 })
 
 
-// R조회 // 수정 필요 : 유저 재료 정보 조회시 get? post?
-router.get('/myingredients', (req, res, next) => {
-    // user id 수정 필요 (로그인 정보 확인)
-    const userid = 'admin'
+// R조회
+router.get('/myingredients', util.isLogin, (req, res, next) => {
+  const user_id = req.user_id;
 
-    db.query('select * from users_and_ingredients where user_id=?', [userid], (err, rows) => {
-        if (err) next(err);
-        res.send(rows);
-    })
+  db.query('select * from users_and_ingredients where user_id=?', [user_id], (err, rows) => {
+      if (err) next(err);
+      res.send(rows);
+  })
 })
 
 // C추가
-router.post('/myingredients/add', (req, res, next) => {
-    // user id 수정 필요 (로그인 정보 확인)
-    const userid = 'admin';
-    const ingredient_name = req.body.ingredient_name;
-    const expiration_date = req.body.expiration_date;
+router.post('/myingredients/add', util.isLogin, (req, res, next) => {
+  const user_id = req.user_id;
 
-    db.query('insert into users_and_ingredients values(?,?,?)',[userid, ingredient_name, expiration_date], (err, rows) => {
-        if (err) next(err);
-        // 수정 필요 : 재료 추가 완료 후 보여야 될 페이지 send
-        res.send(rows);
-    })
+  const ingredient_name = req.body.ingredient_name;
+  const expiration_date = req.body.expiration_date;
+
+  db.query('insert into users_and_ingredients values(?,?,?)',[user_id, ingredient_name, expiration_date], (err, rows) => {
+      if (err) next(err);
+      // 수정 필요 : 재료 추가 완료 후 보여야 될 페이지 send
+      res.send(rows);
+  })
 })
 
 // D삭제
-router.post('/myingredients/delete', (req, res, next) => {
-    // userid 수정 필요 (로그인 정보 확인)
-    const userid = 'admin';
-    const ingredient_name = req.body.ingredient_name;
-    const expiration_date = req.body.expiration_date;
+router.post('/myingredients/delete', util.isLogin, (req, res, next) => {
+  const user_id = req.user_id;
 
-    db.query('delete from users_and_ingredients where user_id=? and ingredient_name=? and expiration_date=?', [userid, ingredient_name, expiration_date], (err, rows) => {
-        if (err) next(err);
-        // 수정 필요 : 삭제 후 보여야 할 페이지 send
-        res.send(rows);
-    })
+  const ingredient_name = req.body.ingredient_name;
+  const expiration_date = req.body.expiration_date;
+
+  db.query('delete from users_and_ingredients where user_id=? and ingredient_name=? and expiration_date=?', [userid, ingredient_name, expiration_date], (err, rows) => {
+      if (err) next(err);
+      // 수정 필요 : 삭제 후 보여야 할 페이지 send
+      res.send(rows);
+  })
 })
 
 // U수정 (날짜 수정)
-router.patch('/myingredients/modify', (req, res, next) => {
-    // userid 수정 필요 (로그인 정보 확인)
-    const userid = 'admin';
-    const ingredient_name = req.body.ingredient_name;
-    const expiration_date = req.body.expiration_date;
-    const update_date = req.body.update_date;
+router.patch('/myingredients/modify', util.isLogin, (req, res, next) => {
+  const user_id = req.user_id;
 
-    db.query(`update users_and_ingredients
-            set expiration_date = ?
-            where user_id=? and ingredient_name=? and expiration_date=?`, [update_date, userid, ingredient_name, expiration_date], (err, rows) => {
-        if (err) next(err);
-        // 수정 필요 : 수정 후 보여야 할 페이지 send
-        res.send(rows);
-    })
+  const ingredient_name = req.body.ingredient_name;
+  const expiration_date = req.body.expiration_date;
+  const update_date = req.body.update_date;
+
+  db.query(`update users_and_ingredients
+          set expiration_date = ?
+          where user_id=? and ingredient_name=? and expiration_date=?`, [update_date, userid, ingredient_name, expiration_date], (err, rows) => {
+      if (err) next(err);
+      // 수정 필요 : 수정 후 보여야 할 페이지 send
+      res.send(rows);
+  })
 })
 
 // 재료추가 시 연관 재료 목록 반환
@@ -111,27 +110,25 @@ router.get('/myingredients/associated/:searchWord', (req, res, next) => {
 
 
 router.get('/mypage', util.isLogin, (req, res, next) => {
-  // userid 수정 필요
-  const userid = 'admin';
-  
+  const user_id = req.user_id;
   let mydata = {};
 
   const user_info = new Promise((resolve, reject) => {
-      db.query('select * from users where user_id=?', [userid], (err, rows) => {
+      db.query('select * from users where user_id=?', [user_id], (err, rows) => {
           if (err) reject(err);
           else resolve(rows);
       })
   })
 
   const user_ingredients = new Promise((resolve, reject) => {
-      db.query('select * from users_and_ingredients where user_id=?', [userid], (err, rows) => {
+      db.query('select * from users_and_ingredients where user_id=?', [user_id], (err, rows) => {
           if (err) reject(err);
           else resolve(rows);
       })
   })
 
   const user_likes = new Promise((resolve, reject) => {
-      db.query('select * from likes where user_id=?', [userid], (err, rows) => {
+      db.query('select * from likes where user_id=?', [user_id], (err, rows) => {
           if (err) reject(err);
           else resolve(rows);
       })
