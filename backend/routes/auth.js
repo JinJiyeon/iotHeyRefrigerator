@@ -26,7 +26,7 @@ const db = require('../lib/db'); // mysql 연결
 // access token을 secret key 기반으로 생성
 const generateAccessToken = (user_id) => {
   return jwt.sign({ user_id }, process.env.ACCESS_TOKEN_SECRET, {
-      expiresIn: "1 seconds",
+      expiresIn: "180 days",
   });
 };
 
