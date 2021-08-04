@@ -5,9 +5,13 @@ import CardMedia from '@material-ui/core/CardMedia';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
-import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles, withStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
-
+import MenuItem from '@material-ui/core/MenuItem';
+import InputLabel from '@material-ui/core/InputLabel';
+import FormControl from '@material-ui/core/FormControl';
+import Select from '@material-ui/core/Select';
+import InputBase from '@material-ui/core/InputBase';
 
 function Copyright() {
   return (
@@ -20,13 +24,50 @@ function Copyright() {
   );
 }
 
+const BootstrapInput = withStyles((theme) => ({
+  root: {
+    'label + &': {
+      marginTop: theme.spacing(3),
+    },
+  },
+  input: {
+    borderRadius: 4,
+    position: 'relative',
+    backgroundColor: theme.palette.background.paper,
+    border: '1px solid #ced4da',
+    fontSize: 16,
+    padding: '10px 26px 10px 12x',
+    transition: theme.transitions.create(['border-color', 'box-shadow']),
+    // Use the system font instead of the default Roboto font.
+    fontFamily: [
+      '-apple-system',
+      'BlinkMacSystemFont',
+      '"Segoe UI"',
+      'Roboto',
+      '"Helvetica Neue"',
+      'Arial',
+      'sans-serif',
+      '"Apple Color Emoji"',
+      '"Segoe UI Emoji"',
+      '"Segoe UI Symbol"',
+    ].join(','),
+    '&:focus': {
+      borderRadius: 4,
+      borderColor: '#80bdff',
+      boxShadow: '0 0 0 0.2rem rgba(0,123,255,.25)',
+    },
+  },
+}))(InputBase);
+
 const useStyles = makeStyles((theme) => ({
   icon: {
     marginRight: theme.spacing(2),
   },
   heroContent: {
-    backgroundColor: theme.palette.background.paper,
-    padding: theme.spacing(8, 0, 6),
+    padding: theme.spacing(10, 0, 10),
+    margin: {
+      margin: theme.spacing(5),
+    },
   },
   cardGrid: {
     paddingTop: theme.spacing(8),
@@ -43,23 +84,49 @@ const useStyles = makeStyles((theme) => ({
   cardContent: {
     flexGrow: 1,
   },
+  search: {
+    width: '80%',
+    height: '80%',
+  },
+  sort: {
+    width: '10%',
+    height: '80%',
+  },
 }));
 
-const cards = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+const cards = [1, 2, 3, 4, 5, 6];
 
 export default function Recipe_Search() {
   const classes = useStyles();
+  
+  const [name, setAge] = React.useState('');
+  const handleChange = (event) => {
+    setAge(event.target.value);
+  };
 
   return (
     <React.Fragment>
       <CssBaseline />
       <main>
-        {/* 검색창*/}
         <div className={classes.heroContent}>
-          <Container maxWidth="sm">
-            <Typography component="h1" variant="h2" align="center" color="textPrimary" gutterBottom>
-              Recipe_Search
-            </Typography>
+          <Container maxWidth="sm" align="center">
+            <FormControl className={classes.search} >
+              <InputLabel htmlFor="demo-customized-textbox">검색</InputLabel>
+              <BootstrapInput id="demo-customized-textbox" />
+            </FormControl>
+            <FormControl className={classes.sort}>
+              <InputLabel id="demo-customized-select-label">분류</InputLabel>
+              <Select
+                labelId="demo-customized-select-label"
+                id="demo-customized-select"
+                value={name}
+                onChange={handleChange}
+                input={<BootstrapInput />}
+              > 
+                <MenuItem value={10}>재료명</MenuItem>
+                <MenuItem value={20}>음식이름</MenuItem>
+              </Select>
+            </FormControl>    
           </Container>
         </div>
 
@@ -76,7 +143,7 @@ export default function Recipe_Search() {
                   />
                   <CardContent className={classes.cardContent}>
                     <Typography gutterBottom variant="h4" component="h2">
-                      Recipe Name
+                      Recipe Name 
                     </Typography>
                   </CardContent>
                 </Card>
