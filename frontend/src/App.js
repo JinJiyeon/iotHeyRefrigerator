@@ -26,8 +26,9 @@ const App = () => {
     return { id, date, name };
   }
   const [rows, setRows] = useState([
-    {id:0, date:5, name:'Dummy1'},
+    createData(3,4,'hi'),
     {id:1, date:7, name:'Dummy2'},
+    {id:0, date:-1, name:'Dummy1'},
     {id:2, date:10, name:'Dummy3'},
   ]);
   return (

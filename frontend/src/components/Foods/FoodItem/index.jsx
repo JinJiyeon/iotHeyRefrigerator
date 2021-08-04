@@ -18,12 +18,13 @@ import DeleteOutlinedIcon from '@material-ui/icons/DeleteOutlined';
 
 import FoodAdd from '../FoodAdd';
 import { CommonContext } from '../../../context/CommonContext';
+import { CompareSharp } from '@material-ui/icons';
 
 const UpdateCntDialog = ({id, date}) => {
   const { infoDialogOpen, setInfoDetailDialogOpen } = useContext(CommonContext);
   const {userDialogIndex, setUserDialogIndex} = useContext(CommonContext);
   const {rows, setRows} = useContext(CommonContext);
-
+console.log(id, date);
   // const [userDialogIndex, setUserDialogIndex] = useState(0);
   // const {userDialogIndex, setUserDialogIndex} = useState(0);
   // 여기서 바로 상태를 선언해주고 값을 바꿨을때는 왜 안됐을까?
@@ -31,9 +32,6 @@ const UpdateCntDialog = ({id, date}) => {
   // const {plus, setPlus} = useState(0);
   const onClickInc = () => {
     date = date + 1;
-    console.log(date);
-    console.log(rows)
-    console.log(id)
   };
 
   const onClickDec = () => {
@@ -84,6 +82,7 @@ const UpdateCntDialog = ({id, date}) => {
           </Button>
         </Grid>
       </Grid>
+      <button onClick={()=>{console.log(date)}}>button</button>
     </Dialog>
   );
 };
@@ -110,18 +109,54 @@ const FoodItem = () => {
 
   const onClickHandler = () => {
     setInfoDetailDialogOpen(true);
-    console.log('here')
-  }
+    // console.log(rows[i].date)
+    console.log('DialogOpen')
+  };
 
   const openHandler = () => {
     setOpenForm(true);
     console.log(rows)
   };
 
-  // item을 list화 시켜서 각 리스트 태그로 호출
-  const {foodItem, expItem} = useContext(CommonContext);
-  const foodList = foodItem.map( foodItem => <li>{foodItem}</li>)
-  const expList = expItem.map( expItem => <li>{expItem}</li>)
+  const array = () => {
+    const res = [];
+    
+    for (let i = 0; i < rows.length; i++) {
+      if (rows[i].date <= 0) {
+        const rowSty = {
+          background : 'red',
+        }
+        res.push( 
+          <TableRow style ={rowSty}>
+            <TableCell> {rows[i].id} </TableCell>
+            <TableCell 
+              onClick={onClickHandler}
+            >
+              {rows[i].date}일
+            </TableCell>
+            {/* <UpdateCntDialog date={rows[i].date}/> */}
+          </TableRow>
+          )
+      }
+      else{
+        const rowSty = {
+          background : 'blue',
+        }
+        res.push( 
+        <TableRow style ={rowSty}>
+          <TableCell> {rows[i].id} </TableCell>
+          <TableCell 
+            onClick={onClickHandler}
+          >
+            {rows[i].date}일
+          </TableCell>
+          {/* <UpdateCntDialog date={rows[i].date}/> */}
+        </TableRow>
+        )
+      }
+    };
+    return res
+  }
 
 
   return (
@@ -139,13 +174,14 @@ const FoodItem = () => {
             </TableCell>
           </TableRow>
         </TableHead>
+
+        {/*  */}
         <TableBody>
           {rows.map((row) => (
             <TableRow key={row.id}>
               <TableCell>{row.name}</TableCell>
               <TableCell onClick={onClickHandler}>{row.date}일</TableCell>
               {/* 문제의 부분 */}
-                <UpdateCntDialog id={row.id} date={row.date}/>
               <TableCell align="right">
                 <Button color="secondary">
                   <DeleteOutlinedIcon />
@@ -154,6 +190,10 @@ const FoodItem = () => {
             </TableRow>
           ))}
         </TableBody>
+          <UpdateCntDialog id={10} date={5}/>
+        <h2>for문</h2>
+          {array()}
+        {/* <button onClick={()=>console.log(array())}>btn</button> */}
       </Table>
 
       <FoodAdd />
