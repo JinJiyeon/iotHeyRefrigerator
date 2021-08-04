@@ -19,6 +19,7 @@ const isNotLogin = (req, res, next) =>{
 // isLogin
 const isLogin = (req, res, next) =>{
   const accessToken = req.cookies.accessToken;
+  console.log('this is accessToken', accessToken)
   if (accessToken){
     jwt.verify(accessToken, process.env.ACCESS_TOKEN_SECRET, (err, decoded)=>{
       if (err) {
