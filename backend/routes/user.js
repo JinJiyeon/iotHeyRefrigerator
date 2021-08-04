@@ -18,10 +18,10 @@ router.use(express.json());
 router.use(express.urlencoded({ extended: true }));
 
 
-router.get('/myingredients/important/', (req, res, next) => {
-    const user_id = 'expire'
-    console.log('user_id is this', user_id)
-    db.query(`SELECT * FROM users_and_ingredients WHERE user_id='${user_id}'`, (err, rows, fields) => {
+router.get('/myingredients/important/:user_id', (req, res, next) => {
+    console.log('user_id is this', req.params.user_id)
+    
+    db.query(`SELECT * FROM users_and_ingredients WHERE user_id='${req.params.user_id}'`, (err, rows, fields) => {
       if (err) next (err)
       res.send(rows)
     })
