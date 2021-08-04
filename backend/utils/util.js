@@ -33,6 +33,25 @@ const isLogin = (req, res, next) =>{
   }
 }
 
+// isLogin
+const isLogin = (req, res, next) =>{
+  const accessToken = req.cookies.accessToken;
+  if (accessToken){
+    jwt.verify(accessToken, process.env.ACCESS_TOKEN_SECRET, (err, decoded)=>{
+      if (err) {
+        return res.cookie('accessToken', {maxAge : 0}).redirect('/auth/login');
+      }
+      else {
+        req.user_id = decoded.user_id;
+        next();
+      }
+    })
+  } else {
+    res.redirect('/auth/login/');
+  }
+}
+
+
 
 // 사용자 권한 확인
 const authCheck = (req, res, next) => {
@@ -72,8 +91,8 @@ const accessUserId = (accessToken) => {
   
 
 module.exports = {
-  isLogin: isLogin,
-    isNotLogin: isNotLogin,
-    authCheck : authCheck,
-    accessUserId : accessUserId
+  isNotLogin: isNotLogin,
+  authCheck : authCheck,
+  accessUserId : accessUserId,
+  isLogin : isLogin
 }

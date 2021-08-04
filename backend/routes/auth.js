@@ -184,9 +184,9 @@ router.get('/', (req, res)=>{
 })
 
 
-router.get('/signup', util.isLogin, (req,res) => {
+router.get('/signup', util.isNotLogin, (req,res) => {
   res.send(`
-    <form action="/user/signup" method="post">
+    <form action="/auth/signup" method="post">
         email : <input type="text" name="email" /> <br />
         name : <input type="text" name="user_id" /> <br />
         password : <input type="text" name="password" /> <br />
