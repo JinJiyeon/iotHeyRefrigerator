@@ -203,7 +203,7 @@ router.post('/signup', util.isNotLogin, (req, res, next)=> {
 
 
 // 회원가입
-router.get('/signup', util.isNotLogin, (req, res) => {
+router.get('/signup', (req, res) => {
   res.send(`
     <form action="/auth/signup" method="post">
         email : <input type="text" name="email" /> <br />
@@ -217,7 +217,7 @@ router.get('/signup', util.isNotLogin, (req, res) => {
 
 
 // 로그인
-router.get('/login', util.isNotLogin, (req, res) => {
+router.get('/login', (req, res) => {
   res.send(`
     <form action="/auth/login" method="post">
         name : <input type="text" name="user_id" /> <br />
