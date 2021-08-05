@@ -4,6 +4,7 @@ const express = require('express');
 const router = express.Router();
 const db = require('../lib/db'); // mysql 연결
 const cors = require('cors');
+const axios = require('axios');
 
 dotenv.config();
 
@@ -18,10 +19,38 @@ router.use(express.json());
 router.use(express.urlencoded({ extended: true }));
 
 
+router.get('/node_to_django', util.isLogin, (req, res, next) => {
+    console.log(req.cookies)
+    const url = django_origin + '/node_to_django'
+    res.send({'msg':'this is from node'})
+})
+
+router.get('/axios_from_node', (req, res, next) => {
+    
+    const url = process.env.DJANGO_ORIGIN + '/axios_from_node'
+    pass_to_django = req.cookies.accessToken
+    axios.get(url+'', {
+        headers: {
+            Cookie: `accessToken=${req.cookies.accessToken}`
+        },
+        withCredentials: true })
+    .then(response => {
+        // res.cookies.tst_cookie = response.headers['set-cookie']
+
+        res.cookie('tst_Token', response.headers['set-cookie'] )
+        res.send({'title입니다':response.headers})
+        
+        // res.send({'title입니다':response.headers['set-cookie']})
+        // req.cookies.accessToken = response.cookies
+        console.log(res.cookies)
+    })
+    .catch(error => { next(error) }) 
+})
+
 router.get('/myingredients/important/:user_id', (req, res, next) => {
     console.log('user_id is this', req.params.user_id)
     
-    db.query(`SELECT * FROM users_and_ingredients WHERE user_id='${req.params.user_id}'`, (err, rows, fields) => {
+    db.query(`SELECT * FROM users_and_ingredients WHERE user_id='${req.params.user_id} AND '`, (err, rows, fields) => {
       if (err) next (err)
       res.send(rows)
     })

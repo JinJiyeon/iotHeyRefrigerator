@@ -13,10 +13,33 @@ DJANGO_ORIGIN = os.environ.get("DJANGO_ORIGIN")
 RETAINING = '/user/myingredients/important'
 EXPIRE = '/user/myingredients/expired'
 
-def convert_from_retaining_ingredient():
+def node_to_django(request): 
+    url = NODE_ORIGIN + '/user/node_to_django'
+    cookies = dict(tst_for_node_to_django='this is cookie')
+    res = requests.get(url).json()
+
+    return requests.get(url).json()
+
+def axios_from_node(request):
+    # print({'msg':'this is from django'})
+    # 쿠키에 있는 정보에 접근하기
+    print(request.COOKIES)
+    tst =request.COOKIES.get('accessToken')
+    print(tst)
+    # JsonResponse 보낼 때 쿠키도 같이 보내기
+    # return JsonResponse({'cookie is': tst})
+    res = JsonResponse({'requset is ': 'value'})
+    res.set_cookie(key='access_tst', value=tst)
+    return res
+
+
+
+def convert_from_retaining_ingredient(user_id, request):
+    print(request.COOKIES)
     # node에서 보유 중인 재료 가져오기
     url = NODE_ORIGIN + RETAINING
-    res = requests.get(url).json()
+    
+    res = requests.get(url+f'/{user_id}').json()
 
     # 계산할 형식에 맞추기 (dataframe으로, 반정규화, 문자열로)
     tmp_my_ingredient = []
@@ -26,10 +49,12 @@ def convert_from_retaining_ingredient():
     my_ingredinet = pd.DataFrame(data={col:[' '.join(tmp_my_ingredient)]})
     return my_ingredinet
 
-def convert_from_urgent_expiration_date():
+def convert_from_urgent_expiration_date(request):
+    print(request)
     # node에서 보유 중인 재료 가져오기
     url = NODE_ORIGIN + EXPIRE
-    res = requests.get(url).json()
+    cookies = dict(accessToken=request.COOKIES.get('accessToken'))
+    res = requests.get(url, cookies=cookies).json()
 
     # 계산할 형식에 맞추기 (dataframe으로, 반정규화, 문자열로)
     tmp_my_ingredient = []
@@ -71,9 +96,9 @@ def find_similar_recipe(recipe_df, tmp):
     return similar_recipes_id
 
 
-def recommend_from_retaining_ingredient(request):
+def recommend_from_retaining_ingredient(request, user_id):
     # 계산 형식에 맞추기
-    my_ingredient = convert_from_retaining_ingredient()
+    my_ingredient = convert_from_retaining_ingredient(user_id, request)
     recipe_df = get_recipe_df()
     tmp = recipe_df[['ingredient']].append(my_ingredient, ignore_index=True)
 
@@ -84,7 +109,7 @@ def recommend_from_retaining_ingredient(request):
 
 def recommend_from_urgent_expiration_date(request):
     # 계산 형식에 맞추기
-    my_ingredient = convert_from_urgent_expiration_date()
+    my_ingredient = convert_from_urgent_expiration_date(request)
     recipe_df = get_recipe_df()
     tmp = recipe_df[['ingredient']].append(my_ingredient, ignore_index=True)
 

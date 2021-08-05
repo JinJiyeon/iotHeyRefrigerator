@@ -11,7 +11,7 @@ router.use(express.urlencoded({ extended: true }));
 // 추천로직
 router.get('/recom/important', util.isLogin, (req, res, next) => {
 
-    const url = django_origin + '/recipe/recom/important'
+    const url = process.env.DJANGO_ORIGIN + '/recipe/recom/important'
     
     axios.get(url+`/user_id?=${req.user_id}`)
     .then(response => { 
@@ -28,8 +28,13 @@ router.get('/recom/important', util.isLogin, (req, res, next) => {
 
 // 추천로직
 router.get('/recom/expired', util.isLogin, (req, res, next) => {
-    const url = django_origin + '/recipe/recom/expired/'
-    axios.get(url+'')
+    const url = process.env.DJANGO_ORIGIN + '/recipe/recom/expired/'
+    axios.get(url, {
+        headers: {
+            Cookie: `accessToken=${req.cookies.accessToken}`
+        },
+        withCredentials: true 
+    })
     .then(response => { 
         console.log(response.data.similar_recipe_id)
         return response.data.similar_recipe_id
