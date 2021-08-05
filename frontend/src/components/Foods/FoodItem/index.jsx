@@ -24,8 +24,7 @@ const UpdateCntDialog = ({id, date}) => {
   const { infoDialogOpen, setInfoDetailDialogOpen } = useContext(CommonContext);
   const {rows, setRows} = useContext(CommonContext);
   const { exp, setExp } = useContext(CommonContext)
-// console.log(date);
-console.log(exp, 'exp:fooditem');
+// console.log(exp, 'exp:fooditem');
 // console.log(setExp, 'setExp')
   // const [userDialogIndex, setUserDialogIndex] = useState(0);
   // const {userDialogIndex, setUserDialogIndex} = useState(0);
@@ -118,7 +117,7 @@ const FoodItem = () => {
 
   const openHandler = () => {
     setOpenForm(true);
-    console.log(rows)
+    // console.log(rows)
   };
 
   const foodList = () => {

@@ -19,6 +19,7 @@ import {
 
 const FoodAdd = () => {
   const {openForm, setOpenForm, rows, setRows} = useContext(CommonContext);
+  const {newFood, setNewFood, newExp, setNewExp} = useContext(CommonContext);
   // 기존 Food, newFood Add
   // 날짜 추가
 
@@ -31,22 +32,24 @@ const FoodAdd = () => {
     margin: 10,
   };
 
-  const changeInputName = e => {
-    e.preventDefault();
-    console.log(e.target.value,'name')
-  }
-  const changeInputExp = e => {
-    e.preventDefault();
-    console.log(e.target.value,'exp')
+  // const changeInputName = e => {
+  //   setNewFood(e.target.value)
+  //   // console.log(e.target.value,'name')
+  // }
+  // const changeInputExp = e => {
+  //   setNewExp(e.target.value)
+  //   // console.log(e.target.value,'exp')
+  // }
+
+  // createData_Dummy
+  const createData = (id, name, date) => {
+    return { id, name, date };
   }
   // addFood
-  const addFood = () => {
-    // foodItem 배열을 뜯고 newFood를 추가
-    // setFoodItem([...foodItem, newFoodItem]);
-    // setExpItem([...expItem, newExpItem]);
-    // 클릭과 동시에 Dialog가 닫히도록
-    console.log()
-    // setRows([...rows, setRows])
+  const addFood = (e) => {
+    e.preventDefault();
+    rows.push(createData(rows.length, newFood, newExp))
+    console.log(rows, 'addFood')
     setOpenForm(false);
   }
   return (
@@ -54,9 +57,9 @@ const FoodAdd = () => {
       <DialogTitle>
         Add Food
       </DialogTitle>
-      <form action="">
+      <form action="" onSubmit={addFood}>
         <TextField 
-          onChange={changeInputName}
+          onChange={ e => {setNewFood(e.target.value)}}
           style={form}
           id="outlined-basic"
           label="name"
@@ -65,7 +68,7 @@ const FoodAdd = () => {
         </TextField>
         <TextField 
           style={form}
-          onChange={changeInputExp}
+          onChange={e => {setNewExp(e.target.value)}}
           id="outlined-basic"
           label="exp"
           variant="outlined"
@@ -73,7 +76,7 @@ const FoodAdd = () => {
           // defaultValue="5"
         >          
         </TextField>
-        <Button onClick={addFood}>
+        <Button type='submit'>
           등록
         </Button>
       </form>

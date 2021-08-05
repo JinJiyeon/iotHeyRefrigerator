@@ -14,6 +14,8 @@ const App = () => {
   const [infoDialogOpen, setInfoDetailDialogOpen] = useState(false);
   const [openForm, setOpenForm] = useState(false);
   const [exp, setExp] = useState();
+  const [newFood, setNewFood] = useState([]);
+  const [newExp, setNewExp] = useState([]);
 
   function createData(id, date, name) {
     return { id, date, name };
@@ -37,6 +39,12 @@ const App = () => {
         setRows,
         exp,
         setExp,
+
+        // FoodAdd
+        newFood,
+        setNewFood,
+        newExp,
+        setNewExp,
       }}
     >
       <BrowserRouter>
