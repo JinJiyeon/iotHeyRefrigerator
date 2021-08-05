@@ -10,17 +10,10 @@ import Foods from './pages/Foods/';
 import NotFound from './pages/NotFound/';
 
 const App = () => {
-  const [homeCard, setHomeCard] = useState("https://as1.ftcdn.net/v2/jpg/01/66/42/76/1000_F_166427637_p7cgjDJ4nSI8OMSmMOy6o2P1an4NETOu.jpg");
-
   // Foods
   const [infoDialogOpen, setInfoDetailDialogOpen] = useState(false);
-  const [userDialogOpen, setUserDetailDialogOpen] = useState(false);
-  
   const [openForm, setOpenForm] = useState(false);
-  const [foodItem, setFoodItem] = useState(['재료이름']);
-  const [newFoodItem, setNewFoodItem] = useState();
-  const [expItem, setExpItem] = useState(['7']);
-  const [newExpItem, setNewExpItem] = useState();
+  const [exp, setExp] = useState();
 
   function createData(id, date, name) {
     return { id, date, name };
@@ -34,27 +27,16 @@ const App = () => {
   return (
     <CommonContext.Provider
       value={{
-        homeCard,
-        setHomeCard,
-
         // Foods
         infoDialogOpen,
         setInfoDetailDialogOpen,
-        userDialogOpen,
-        setUserDetailDialogOpen,
         openForm,
         setOpenForm,
-        foodItem,
-        setFoodItem,
-        newFoodItem,
-        setNewFoodItem,
-        expItem,
-        setExpItem,
-        newExpItem,
-        setNewExpItem,
 
         rows,
         setRows,
+        exp,
+        setExp,
       }}
     >
       <BrowserRouter>

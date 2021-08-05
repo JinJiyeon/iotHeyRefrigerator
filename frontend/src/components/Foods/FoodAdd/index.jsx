@@ -18,13 +18,9 @@ import {
 } from '@material-ui/core';
 
 const FoodAdd = () => {
-  const {openForm, setOpenForm} = useContext(CommonContext);
+  const {openForm, setOpenForm, rows, setRows} = useContext(CommonContext);
   // 기존 Food, newFood Add
-  const {foodItem, setFoodItem} = useContext(CommonContext);
-  const {newFoodItem, setNewFoodItem} = useContext(CommonContext);
   // 날짜 추가
-  const {expItem, setExpItem} = useContext(CommonContext);
-  const {newExpItem, setNewExpItem} = useContext(CommonContext);
 
   // Dialog 닫기
   const onClose = () => {
@@ -36,17 +32,21 @@ const FoodAdd = () => {
   };
 
   const changeInputName = e => {
-    setNewFoodItem(e.target.value);
+    e.preventDefault();
+    console.log(e.target.value,'name')
   }
   const changeInputExp = e => {
-    setNewExpItem(e.target.value);
+    e.preventDefault();
+    console.log(e.target.value,'exp')
   }
   // addFood
   const addFood = () => {
     // foodItem 배열을 뜯고 newFood를 추가
-    setFoodItem([...foodItem, newFoodItem]);
-    setExpItem([...expItem, newExpItem]);
+    // setFoodItem([...foodItem, newFoodItem]);
+    // setExpItem([...expItem, newExpItem]);
     // 클릭과 동시에 Dialog가 닫히도록
+    console.log()
+    // setRows([...rows, setRows])
     setOpenForm(false);
   }
   return (
@@ -73,9 +73,9 @@ const FoodAdd = () => {
           // defaultValue="5"
         >          
         </TextField>
-      <Button onClick={addFood}>
-        등록
-      </Button>
+        <Button onClick={addFood}>
+          등록
+        </Button>
       </form>
     </Dialog>
   );
