@@ -167,7 +167,8 @@ router.post('/signup', util.isNotLogin, (req, res, next)=> {
   // 회원 정보 db에 저장(회원가입)
   // db.query => promise?
   const createUser = function(user_id, password, email){
-    db.query('INSERT INTO users (user_id, password, email) VALUES(?,?,?)', [user_id, password, email], function(err, rows){
+      db.query('INSERT INTO users (user_id, password, email) VALUES(?,?,?)', [user_id, password, email], function (err, rows) {
+          console.log(user_id, password, email, ' 가입 완료');
       if (err){ reject(err)}
       else {resolve(rows[0])}
     })
@@ -183,7 +184,7 @@ router.post('/signup', util.isNotLogin, (req, res, next)=> {
       return db_email_info(email) //email이 기존 db에 존재하나 체크
     })
     .then(function(){
-      return createUser // 회원가입(저장)
+        return createUser(user_id, password, email); // 회원가입(저장)
     })
     .then(function(){ // 자동 로그인
       accessToken = generateAccessToken(user_id)
@@ -203,7 +204,11 @@ router.post('/signup', util.isNotLogin, (req, res, next)=> {
 
 
 // 회원가입
-router.get('/signup', (req, res) => {
+/*
+ 2021 / 08 / 06 / 박민상
+ 미 로그인시에만 회원가입 페이지를 전송하도록 수정
+ */
+router.get('/signup', util.isNotLogin, (req, res) => {
   res.send(`
     <form action="/auth/signup" method="post">
         email : <input type="text" name="email" /> <br />
@@ -217,7 +222,11 @@ router.get('/signup', (req, res) => {
 
 
 // 로그인
-router.get('/login', (req, res) => {
+/*
+ 2021 / 08 / 06 / 박민상
+ 미 로그인시에만 로그인 페이지를 전송하도록 수정
+ */
+router.get('/login', util.isNotLogin, (req, res) => {
   res.send(`
     <form action="/auth/login" method="post">
         name : <input type="text" name="user_id" /> <br />

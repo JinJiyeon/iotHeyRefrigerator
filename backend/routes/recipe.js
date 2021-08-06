@@ -217,14 +217,31 @@ router.get('/:recipeId', (req, res) => {
         })
     })
 
+    const accessToken = req.cookies.accessToken;
+    const user_id = util.accessUserId(accessToken);
+    
+    let is_user_like = new Promise((resolve, reject) => {
+        db.query('select count(*) as isLiked from likes where user_id=? and recipe_info_id=?', [user_id, recipe_id], (err, rows) => {
+            if (err) reject(err);
+            else resolve(rows);
+        })
+    })
+
     info_promise.then((rows) => {
         recipe.info = rows;
         return ingredient_promise;
     }).then((rows) => {
         recipe.ingredients = rows;
         return step_promise;
-    }).then((rows) => {
+    }).then(async (rows) => {
         recipe.steps = rows;
+
+        if (user_id) {
+            const rows = await is_user_like;
+            const isLiked = rows[0].isLiked;
+            recipe.isLiked = isLiked;
+        }
+        
         res.send(recipe);
     }).catch((err)=>{
         next(err);
