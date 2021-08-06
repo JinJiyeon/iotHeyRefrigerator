@@ -1,6 +1,8 @@
 # 프로젝트 명
 
-## 목차
+---
+
+## :bulb: 목차
 
 - [프로젝트 소개](#프로젝트-소개)   
 - [텍스트 ... ](#프로젝트-소개)   
@@ -9,26 +11,58 @@
   - [개발 환경](#개발-환경)
   - [Design Resources](#design-resources)
   - [핵심 라이브러리](#핵심-라이브러리)
-    <br>
+  - [Ganttchart](#Gantt-Chart)
+  - [진행과정](#진행과정)
 
-## 프로젝트 소개
+<br>
 
-소개 입력:
+<br>
 
-- 주제: 2030 1인가구를 위한 냉장고 관리 서비스
-- 핵심 키워드: 2030 1인가구, IoT, 냉장고
+## :book: 프로젝트 소개
 
-- 활용 기술 스택
-  React, Node.js, Maria DB, 아두이노, 라즈베리파이, 스케치 툴, Python, Vanilla JS, vsCode, Chrome Browser, 
+#### 2030 1인가구를 위한 냉장고 관리 서비스
+
+- 팀명: 7링바이브
+- 트랙 : IoT
+
+### :soccer: 목표
+
+점점 늘어가는 2030 1인가구를 위한 냉장고 매니저이고, 2030 1인가구들의 입장에서 냉장고를 보다 효율적으로 활용할 수 있게 서비스를 제공하고자 함.
+<br>
+
+#### :boy: 우리의 페르소나
+
+![페르소나](README.assets/페르소나.png)
+
+- 요리에 관심이 있고 레시피 추천이 필요한 사람
+- 요리에 관심이 있지만 재료관리를 잘 못하는 사람
+- 요리에 크게 관심이 없어 냉동 식품을 쌓아두고 먹는 사람
+
+ 여러 케이스의 사람들을 모두 만족시켜주기 위한 기능들을 구현하고, 작성한 목업에 따라 웹페이지를 완성한 후, 이를 라즈베리파이의 터치스크린을 통하여 보여주는 흐름을 구상하였습니다.
+
+---
+
+#### :envelope_with_arrow: 활용기술스택
+
+![기술스택](README.assets/기술스택.jpg)
+
+React, Node.js, Django, DB(Mysql), 아두이노, 라즈베리파이, Whimsical, Python, Vanilla JS, vsCode, Chrome Browser, 센서 등 다양한 툴을 사용하고 있으며, 체계적인 프로젝트를 위해 Jira, Notion, GitLab등의 협업툴을 활용했습니다.
+
+#### :classical_building: ERD
+
+![ERD](README.assets/ERD.png)
 
 
-- 개요: 점점 늘어가는 2030 1인가구를 위한 냉장고 매니저이고, 2030 1인가구들의 입장에서 냉장고를 보다 효율적으로 활용할 수 있게 서비스를 제공하고자 함.
-  요리에 관심이 있고 레시피 추천이 필요한 사람, 요리에 관심이 있지만 재료관리를 잘 못하는 사람, 요리에 크게 관심이 없어 레토르트를 쌓아두고 먹는 사람 등 여러 케이스의 사람들을 모두 만족시켜주기 위한 기능들을 구현하고, 작성한 목업에 따라 웹페이지를 완성한 후, 이를 라즈베리파이의 터치스크린을 통하여 보여주는 흐름을 구상.
-  <br>
 
-## 프로젝트 명세
+### :triangular_ruler: 시퀀스 다이어그램
 
-### 배포 환경
+
+
+---
+
+## :notebook_with_decorative_cover: 프로젝트 명세
+
+### :airplane: 배포 환경
 
 - __URL__ : 
 - __배포 여부__ : O / X
@@ -37,41 +71,27 @@
 - __PORT__ : // 3rd Party에서 사용하는 포트가 있다면 기입해주세요. <- 기입 후 해당 주석 삭제
   <br>
 
-### 개발 환경
+### :house: 개발 환경
 
-#### Front-end / React
+#### Front-end [Link](https://lab.ssafy.com/s05-webmobile3-sub3/S05P13B107/-/blob/master/frontend/README.md)
 
 - __Framework__ : React  (Ver : 4.0.3)
 - __지원 환경__ : Web / IoT(라즈베리 파이)
 - __담당자__ : 차성민, 엄재식
   <br>
 
-#### Back-end
+#### Back-end [Link](https://lab.ssafy.com/s05-webmobile3-sub3/S05P13B107/-/tree/master/backend)
 
-- __Framework__ : Node.js / Flask(예정)
-- __Database__ : MariaDB
+- __Framework__ : Node.js, Express / Django
+- __Database__ : Mysql
 - __담당자__ : 박민상, 윤소영, 진지연
   <br>
 
 #### Design
 
-- __Framework 사용__ : X
-  - [Vuetify](https://vuetifyjs.com/)
-  - [Element Plus](https://element-plus.org/)
-- __Design Tool 사용__ : Adobe XD, Photoshop, Blender, Zeplin 등 (없을 경우 빈칸)
-- __담당자__ : 팀원 A, 팀원 B,
+- Material-UI 및 Bootstrap 활용
+- __담당자__ : 차성민, 엄재식
   <br>
-
-### Design Resources
-
-__외부 템플릿 또는 에셋__ (이미지 또는 링크 첨부)
-
-- 무료 이미지, 아이콘, 폰트 등은 제외
-- [Vue Argon Design System](https://www.creative-tim.com/product/vue-argon-design-system?affiliate_id=116187) (무료)
-  - __사용 기능__ : 디자인 전반 적용
-- [Vue Black Dashboard Pro](https://www.creative-tim.com/product/vue-black-dashboard-pro?affiliate_id=116187) (유료)
-  - __사용 기능__ : 캘린더 컴포넌트 사용
-    <br>
 
 __자체 제작 산출물__ (필요시 이미지 또는 설명 첨부)
 
@@ -81,21 +101,26 @@ __자체 제작 산출물__ (필요시 이미지 또는 설명 첨부)
 - Calendar
   <br>
 
-### 핵심 라이브러리
+### :orange_book: 핵심 라이브러리
 
 기본 제공하는 라이브러리 외 핵심 기능 구현에 사용한 라이브러리가 있다면 작성해주세요.   
 예시 ) VR/AR 라이브러리, 애니메이션 라이브러리, 텍스트/사진/동영상 지원, 편집 라이브러리 등
 
-- __AR CORE__
+- __Material - UI __
   - __링크__ : https://developers.google.com/ar
-  - __소개__ : 구글에서 제공하는 AR 지원 라이브러리
-  - __사용 기능__ : 이미지 인식, 이미지 위 영상 표시
-  - __담당자__ : 팀원 A, 
+  - __소개__ : 
+  - __사용 기능__ : 디자인 컴포넌트 제공
+  - __담당자__ : 차성민, 엄재식
+- __Bootstrap __
+  - __링크__ : https://developers.google.com/ar
+  - __소개__ : 
+  - __사용 기능__ : 디자인 컴포넌트 제공
+  - __담당자__ : 차성민, 엄재식
 
 
 
 
-## Gantt Chart 
+## :chart_with_upwards_trend: Gantt Chart 
 
 ```mermaid
 gantt
@@ -152,9 +177,7 @@ gantt
     %%발표준비 :11-26, 2d
 ```
 
-### 진행과정
-
-
+## :package: 진행과정
 
 ### B107팀 2주차 정리
 
@@ -187,7 +210,8 @@ gantt
 
 기타)
 
-- 자체 친목도모 시간 가짐
+- 자체 친목도모 시간 가짐 [Skribbl](https://skribbl.io/)
 - Jira 환경 설정 및 틀잡기
 - 개별 Jira 요구 스토리 포인트 모두 충족
 - 전체적인 현황 파악을 위해 주 2회 테크리더와 팀장간 회의 진행
+

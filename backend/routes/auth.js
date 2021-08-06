@@ -149,7 +149,6 @@ router.post('/signup', util.isNotLogin, (req, res, next)=> {
   const password = req.body.password
   const password2 = req.body.password2
   const email = req.body.email
-
   //암호화 - db 이슈 해결되면 추가됨 
   // let salt = Math.round((new Date().valueOf()*Math.random())) +""
   // var hashpassword = crypto.createHash("sha512").update(password).digest("hex")
@@ -165,11 +164,12 @@ router.post('/signup', util.isNotLogin, (req, res, next)=> {
     })
   }
   // 회원 정보 db에 저장(회원가입)
-  // db.query => promise?
   const createUser = function(user_id, password, email){
-    db.query('INSERT INTO users (user_id, password, email) VALUES(?,?,?)', [user_id, password, email], function(err, rows){
-      if (err){ reject(err)}
-      else {resolve(rows[0])}
+    return new Promise((resolve, reject)=>{
+      db.query('INSERT INTO users (user_id, password, email) VALUES(?,?,?)', [user_id, password, email], function(err, rows){
+        if (err){ reject(err)}
+        else resolve (rows[0])
+      })
     })
   }
   isEmpty(user_id, password, password2, email)
@@ -183,7 +183,7 @@ router.post('/signup', util.isNotLogin, (req, res, next)=> {
       return db_email_info(email) //email이 기존 db에 존재하나 체크
     })
     .then(function(){
-      return createUser // 회원가입(저장)
+      return createUser(user_id, password, email) // 회원가입(저장)
     })
     .then(function(){ // 자동 로그인
       accessToken = generateAccessToken(user_id)
