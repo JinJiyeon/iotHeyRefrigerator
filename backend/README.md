@@ -73,14 +73,14 @@ IoT 기기 연결 및 편의 기능 구현
 
 - 추천 알고리즘
 
-  ![image-20210805173656207](C:\Users\soyoung\AppData\Roaming\Typora\typora-user-images\image-20210805173656207.png)
+  ![image-20210805173656207](E:\SSAFY_2\PJT1\SUB3_3\S05P13B107\backend\README.assets\image-20210805173656207.png)
 
-  ![image-20210805173724431](C:\Users\soyoung\AppData\Roaming\Typora\typora-user-images\image-20210805173724431.png)
+  ![image-20210805173724431](E:\SSAFY_2\PJT1\SUB3_3\S05P13B107\backend\README.assets\image-20210805173724431.png)
 
-  ![image-20210805173800560](C:\Users\soyoung\AppData\Roaming\Typora\typora-user-images\image-20210805173800560.png)
+  ![image-20210805173800560](E:\SSAFY_2\PJT1\SUB3_3\S05P13B107\backend\README.assets\image-20210805173800560.png)
 
-  ![image-20210805173816840](C:\Users\soyoung\AppData\Roaming\Typora\typora-user-images\image-20210805173816840.png)
+  ![image-20210805173816840](E:\SSAFY_2\PJT1\SUB3_3\S05P13B107\backend\README.assets\image-20210805173816840.png)
 
 - 연관어 검색
 
-![image-20210805173621564](C:\Users\soyoung\AppData\Roaming\Typora\typora-user-images\image-20210805173621564.png)
+![image-20210805173621564](E:\SSAFY_2\PJT1\SUB3_3\S05P13B107\backend\README.assets\image-20210805173621564.png)
