@@ -18,34 +18,33 @@ router.use(cors({
 router.use(express.json());
 router.use(express.urlencoded({ extended: true }));
 
-
-router.get('/node_to_django', util.isLogin, (req, res, next) => {
-    console.log(req.cookies)
-    const url = django_origin + '/node_to_django'
-    res.send({'msg':'this is from node'})
-})
-
-router.get('/axios_from_node', (req, res, next) => {
-    
-    const url = process.env.DJANGO_ORIGIN + '/axios_from_node'
-    pass_to_django = req.cookies.accessToken
-    axios.get(url+'', {
+router.get('/giveme', util.isLogin, (req,res,next) => {
+    const url = process.env.DJANGO_ORIGIN + '/calculate'
+    axios.get(url, {
         headers: {
+            // Cookie: `from_node=from_node`,
             Cookie: `accessToken=${req.cookies.accessToken}`
         },
         withCredentials: true })
-    .then(response => {
-        // res.cookies.tst_cookie = response.headers['set-cookie']
-
-        res.cookie('tst_Token', response.headers['set-cookie'] )
-        res.send({'title입니다':response.headers})
-        
-        // res.send({'title입니다':response.headers['set-cookie']})
-        // req.cookies.accessToken = response.cookies
-        console.log(res.cookies)
+    .then((response) => {
+        res.send(response.headers)
     })
-    .catch(error => { next(error) }) 
+    .catch((error) => {
+        next(error)
+    })
 })
+
+router.get('/send/retaining', util.isLogin, (req,res,next) => {
+    // console.log(req.cookies)
+    console.log('---------------------send/retaining s accessToken', req.cookies.accessToken)
+    res.cookie('accessToken', req.cookies.accessToken)
+    // res.cookie('accessToken', req.cookies.accessToken)
+    res.send({'msg':'content is here'})
+})
+
+
+
+/////////
 
 router.get('/myingredients/important/:user_id', (req, res, next) => {
     console.log('user_id is this', req.params.user_id)
@@ -58,14 +57,15 @@ router.get('/myingredients/important/:user_id', (req, res, next) => {
 
 // 로그인 되어 있을 경우에만
 // 얼마 남지 않은 유통기한 + 이미 지난 유통기한
-router.get('/myingredients/expired', (req, res, next) => {
-    const user_id = 'expire'
+router.get('/myingredients/expired', util.isLogin, (req, res, next) => {
+    console.log('visited myingredients/expired', req.user_id)
     db.query(`SELECT * FROM users_and_ingredients 
-            WHERE user_id='${user_id}' 
+            WHERE user_id='${req.user_id}' 
             AND DATEDIFF(expiration_date, CURDATE()) < 3`,  
             (err, rows) => {
     if (err) next (err)
     res.send(rows)
+    console.log('--------------------------------------------------')
     })
 })
 

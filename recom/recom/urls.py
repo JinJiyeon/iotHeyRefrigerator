@@ -21,6 +21,6 @@ urlpatterns = [
     path('recipe/recom/important/<user_id>/', views.recommend_from_retaining_ingredient),
     path('recipe/recom/expired/', views.recommend_from_urgent_expiration_date),
     path('admin/', admin.site.urls),
-    path('node_to_django/', views.node_to_django),
-    path('axios_from_node/', views.axios_from_node),
+    #####
+    path('calculate/', views.calculate),
 ]
