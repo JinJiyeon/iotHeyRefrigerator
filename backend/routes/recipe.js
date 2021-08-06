@@ -4,14 +4,20 @@ const router = express.Router();
 const db = require('../lib/db');
 const axios = require('axios');
 const util = require('../utils/util')
+const cors = require('cors');
 
+router.use(cors({
+    origin: process.env.DJANGO_ORIGIN,
+    credentials: true
+  }))  
 router.use(express.json());
 router.use(express.urlencoded({ extended: true }));
+
 
 // 추천로직
 router.get('/recom/important', util.isLogin, (req, res, next) => {
 
-    const url = django_origin + '/recipe/recom/important'
+    const url = process.env.DJANGO_ORIGIN + '/recipe/recom/important'
     
     axios.get(url+`/user_id?=${req.user_id}`)
     .then(response => { 
@@ -28,15 +34,24 @@ router.get('/recom/important', util.isLogin, (req, res, next) => {
 
 // 추천로직
 router.get('/recom/expired', util.isLogin, (req, res, next) => {
-    const url = django_origin + '/recipe/recom/expired/'
-    axios.get(url+'')
+    const url = process.env.DJANGO_ORIGIN + '/recipe/recom/expired/'
+    axios.get(url, {
+        headers: {
+            // Cookie: `from_node=from_node`,
+            Cookie: `accessToken=${req.cookies.accessToken}`
+            },
+        withCredentials: true 
+    })
     .then(response => { 
         console.log(response.data.similar_recipe_id)
         return response.data.similar_recipe_id
     })
     .then(response => {
+        if (response.length === 0) {res.send([])} 
+        
         db.query(`SELECT * FROM recipe_infos WHERE recipe_info_id IN (${response[0]}, ${response[1]}, ${response[2]})`, (err, rows, fields) => {
             if (err) next (err)
+            
             res.send(rows)
         })
     })
