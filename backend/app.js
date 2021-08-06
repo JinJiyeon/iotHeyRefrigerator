@@ -4,23 +4,21 @@ const express = require('express');
 const morgan = require('morgan');
 const cookieParser = require('cookie-parser');
 const session = require('express-session');
-// const FileStore = require('session-file-store')(session);
 const path = require('path');
-const cors = require('cors');     // Django 서버와 통신하기 위함
-const { passport } = require('./utils/auth');
+const cors = require('cors');
+
 // dotenv
 dotenv.config({
   path:path.join(__dirname, '.env')
 });
 
 
-
 // 앱 실행
-const testRouter = require('./routes/test');
-// const userRouter = require('./routes/user');
+
+const userRouter = require('./routes/user');
 const recipeRouter = require('./routes/recipe');
-const searchRouter = require('./routes/search');
-const app = express()
+const authRouter = require('./routes/auth');
+const app = express();
 app.set('port', process.env.PORT || 3000);
 
 
@@ -34,12 +32,17 @@ app.use(cors({
 	credentials: true,
 }));                                // Django 서버와 통신하기 위함
 
+// // 배포할 때 dotenv 수정해주기!
+// app.use((req, res, next) => {
+//   global.django_origin = process.env.DJANGO_ORIGIN||'http://localhost:8000'
+//   console.log(django_origin)
+//   next()
+// })
 
 // 라우터
-app.use('/test', testRouter);
-// app.use('/user', userRouter);
+app.use('/user', userRouter);
 app.use('/recipe', recipeRouter);
-app.use('/search', searchRouter);
+app.use('/auth', authRouter);
 
 app.get('/', (req, res) => {
   res.send('hello node')
