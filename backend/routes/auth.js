@@ -203,7 +203,11 @@ router.post('/signup', util.isNotLogin, (req, res, next)=> {
 
 
 // 회원가입
-router.get('/signup', (req, res) => {
+/*
+ 2021 / 08 / 06 / 박민상
+ 미 로그인시에만 회원가입 페이지를 전송하도록 수정
+ */
+router.get('/signup', util.isNotLogin, (req, res) => {
   res.send(`
     <form action="/auth/signup" method="post">
         email : <input type="text" name="email" /> <br />
@@ -217,7 +221,11 @@ router.get('/signup', (req, res) => {
 
 
 // 로그인
-router.get('/login', (req, res) => {
+/*
+ 2021 / 08 / 06 / 박민상
+ 미 로그인시에만 로그인 페이지를 전송하도록 수정
+ */
+router.get('/login', util.isNotLogin, (req, res) => {
   res.send(`
     <form action="/auth/login" method="post">
         name : <input type="text" name="user_id" /> <br />
