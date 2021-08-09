@@ -138,6 +138,27 @@ router.get('/myingredients/associated/:searchWord', (req, res, next) => {
     })
 })
 
+// 좋아요 버튼 on off
+router.get('/likes/:recipeId', util.isLogin, (req, res, next) => {
+    const user_id = req.user_id;
+    const recipe_info_id = req.params.recipeId;
+    
+    db.query('select count(*) as isLiked from likes where user_id=? and recipe_info_id=?', [user_id, recipe_info_id], (err, rows) => {
+        const isLiked = rows[0].isLiked;
+        if (err) next(err);
+        if (isLiked == 0) { // 좋아요 추가
+            db.query('insert into likes(user_id, recipe_info_id) values(?,?)', [user_id, recipe_info_id], (err, rows) => {
+                if (err) next(err);
+                return res.send(`좋아요 등록 완료 : ${recipe_info_id}`);
+            })
+        } else { // 좋아요 취소
+            db.query('delete from likes where user_id=? and recipe_info_id=?', [user_id, recipe_info_id], (err, rows) => {
+                if (err) next(err);
+                return res.send(`좋아요 삭제 완료 : ${recipe_info_id}`);
+            })
+        }
+    })
+})
 
 router.get('/mypage', util.isLogin, (req, res, next) => {
   const user_id = req.user_id;
