@@ -218,7 +218,10 @@ router.get('/:recipeId', (req, res) => {
     })
 
     const accessToken = req.cookies.accessToken;
-    const user_id = util.accessUserId(accessToken);
+    let user_id = null;
+    if (accessToken) {
+        user_id = util.accessUserId(accessToken);
+    }
     
     let is_user_like = new Promise((resolve, reject) => {
         db.query('select count(*) as isLiked from likes where user_id=? and recipe_info_id=?', [user_id, recipe_id], (err, rows) => {
@@ -240,6 +243,8 @@ router.get('/:recipeId', (req, res) => {
             const rows = await is_user_like;
             const isLiked = rows[0].isLiked;
             recipe.isLiked = isLiked;
+        } else {
+            recipe.isLiked = 0;
         }
         
         res.send(recipe);
