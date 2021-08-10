@@ -34,7 +34,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function MyPageBack() {
+const MyPageBack = () => {
   const classes = useStyles();
   // const { post } = props;
 
@@ -63,3 +63,5 @@ export default function MyPageBack() {
     </Paper>
   );
 }
+
+export default MyPageBack;

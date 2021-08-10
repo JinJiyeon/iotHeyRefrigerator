@@ -12,7 +12,6 @@ const Mypage = () => {
   }
   return (
     <div>
-      <h1>My Page</h1>
       {/* <Divider />
 
       <Grid container spacing={3}>

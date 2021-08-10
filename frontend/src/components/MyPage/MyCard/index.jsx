@@ -22,7 +22,7 @@ const useStyles = makeStyles({
 });
 const cards = [1,2,3,4,5,6,7,8,9]
 
-export default function MyPageCard() {
+const MyPageCard = () => {
   const classes = useStyles();
   // const { post } = props;
   return (
@@ -60,3 +60,5 @@ export default function MyPageCard() {
     </Grid>
   );
 }
+
+export default MyPageCard;

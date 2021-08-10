@@ -1,14 +1,14 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import { makeStyles } from '@material-ui/core/styles';
-import Grid from '@material-ui/core/Grid';
-import Paper from '@material-ui/core/Paper';
-import Typography from '@material-ui/core/Typography';
-import Link from '@material-ui/core/Link';
-
-import AppBar from '@material-ui/core/AppBar';
-import ToolBar from '@material-ui/core/ToolBar';
-
+import React, {useEffect} from 'react';
+// import PropTypes from 'prop-types';
+import {
+  Button,
+  makeStyles,
+  Grid,
+  Paper,
+  Typography,
+  AppBar,
+} from '@material-ui/core';
+import axios from 'axios';
 
 const useStyles = makeStyles((theme) => ({
   sidebarAboutBox: {
@@ -27,10 +27,25 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function MyBar(props) {
+const MyBar = () => {
   const classes = useStyles();
-  const { archives, description, social, title } = props;
+  
+  useEffect(()=>{
+    axios.get('http://localhost:3000/recipe/420777')
+      .then(res=>{
+        console.log(res,'res')
+      })
+    console.log('useEffect')
+  },[])
 
+
+  const test = () => {
+    // callApi = async () => {
+    //   const res = awiat fetch('/recipe/420777');
+    //   const body = await res.json();
+    // }
+    console.log('hi')
+  }
   return (
     
     <Grid item xs={12} md={4}>
@@ -41,9 +56,14 @@ export default function MyBar(props) {
               재료 Sticky Box
             </Typography>
             <Typography>감자</Typography>
+            <Button onClick={test}> 
+              Axios테스트용
+            </Button>
           </Paper>
         {/* </ToolBar> */}
       </AppBar>
     </Grid>
   );
 }
+
+export default MyBar;
