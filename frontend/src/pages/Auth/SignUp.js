@@ -1,4 +1,5 @@
-import React from 'react';
+import React, {useState} from 'react';
+import { useHistory } from 'react-router';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -9,6 +10,7 @@ import Grid from '@material-ui/core/Grid';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
+import axios from 'axios';
 
 function Copyright() {
   return (
@@ -53,8 +55,15 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function SignInSide() {
+export default function SignUp() {
+  let history = useHistory();
+
   const classes = useStyles();
+
+  const [user_id, setUser_id] = useState('')
+  const [password, setPassword] = useState('')
+  const [password2, setPassword2] = useState('')
+  const [email, setEmail] = useState('')
 
   return (
     <Grid container component="main" className={classes.root}>
@@ -68,8 +77,25 @@ export default function SignInSide() {
           <Typography component="h1" variant="h5">
             Sign Up
           </Typography>
-          <form className={classes.form} noValidate>
+          <form className={classes.form} noValidate
+            onSubmit={e =>{
+              e.preventDefault();
+              let data = {
+                user_id: user_id,
+                password: password,
+                password2: password2,
+                email: email,
+              }
+              console.log(data)
+              axios.post('/auth/signup', data)
+                .then(res => {
+                  console.log(res)
+                  history.push('/SignIn')
+                })
+            }}  
+          >
             <TextField
+              onChange={(e)=>{setEmail(e.target.value)}}
               variant="outlined"
               margin="normal"
               required
@@ -81,6 +107,7 @@ export default function SignInSide() {
               autoComplete="email"
             />
             <TextField
+              onChange={(e)=>{setUser_id(e.target.value)}}
               variant="outlined"
               margin="normal"
               required
@@ -92,6 +119,7 @@ export default function SignInSide() {
               autoFocus
             />
             <TextField
+              onChange={(e)=>{setPassword(e.target.value)}}
               variant="outlined"
               margin="normal"
               required
@@ -103,6 +131,7 @@ export default function SignInSide() {
               autoComplete="password1"
             />
             <TextField
+              onChange={(e)=>{setPassword2(e.target.value)}}
               variant="outlined"
               margin="normal"
               required

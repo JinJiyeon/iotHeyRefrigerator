@@ -53,7 +53,7 @@ app.get('/', (req, res) => {
 //404
 app.use(function (req, res, next) {
   console.log(`${req.method} ${req.url} 라우터가 없습니다.`);
-  res.status(404).redirect('/');
+  // res.status(404).redirect('/');
 })
 
 //err middleware

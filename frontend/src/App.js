@@ -2,7 +2,8 @@ import React, {useState} from 'react';
 import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom';
 import { CommonContext } from './context/CommonContext';
 
-// import Auth from './pages/Auth/';
+import SignUp from './pages/Auth/SignUp';
+import SignIn from './pages/Auth/SignIn';
 import Home from './pages/Home/';
 import MyPage from './pages/MyPage/';
 import Foods from './pages/Foods/';
@@ -47,7 +48,8 @@ const App = () => {
       <BrowserRouter>
           <Switch>
             <Route exact path="/" component={Home} />
-            {/* <Route exact path="/Auth" component={Auth} /> */}
+            <Route exact path="/SignUp" component={SignUp} />
+            <Route exact path="/SignIn" component={SignIn} />
             <Route exact path="/Home" component={Home} />
             <Route exact path="/MyPage" component={MyPage} />
             <Route exact path="/Foods" component={Foods} />

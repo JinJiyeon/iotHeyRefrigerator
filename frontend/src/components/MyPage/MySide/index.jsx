@@ -30,20 +30,20 @@ const useStyles = makeStyles((theme) => ({
 const MyBar = () => {
   const classes = useStyles();
   
-  useEffect(()=>{
-    axios.get('http://localhost:3000/recipe/420777')
-      .then(res=>{
-        console.log(res,'res')
-      })
-    console.log('useEffect')
-  },[])
+  // useEffect(()=>{
+  //   axios.get('/recipe/420777')
+  //     .then(res=>{
+  //       console.log(res,'res')
+  //     })
+  //   console.log('useEffect')
+  // },[])
 
 
   const test = () => {
-    // callApi = async () => {
-    //   const res = awiat fetch('/recipe/420777');
-    //   const body = await res.json();
-    // }
+    axios.get('/recipe/420777')
+    .then(res=>{
+      console.log(res.data,'res')
+    })
     console.log('hi')
   }
   return (
