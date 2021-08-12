@@ -91,7 +91,7 @@ export default function SignIn() {
               console.log(data)
               axios.post('/auth/login', data)
                 .then(res => {
-                  console.log(res.config)
+                  console.log(res)
                   history.push('/')
                 })
             }}
@@ -135,7 +135,7 @@ export default function SignIn() {
             </Button>
             <Grid container>
               <Grid item>                 
-                <Link href="#" variant="Signup">     {/* Sign up 으로 보내주는거 추가 */}
+                <Link href="/SignUp" variant="Signup">     {/* Sign up 으로 보내주는거 추가 */}
                   {"회원이 아니신가요?"}
                 </Link>
               </Grid>

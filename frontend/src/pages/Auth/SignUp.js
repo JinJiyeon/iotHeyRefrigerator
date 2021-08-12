@@ -90,7 +90,6 @@ export default function SignUp() {
               axios.post('/auth/signup', data)
                 .then(res => {
                   console.log(res)
-                  history.push('/SignIn')
                 })
             }}  
           >

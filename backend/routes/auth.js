@@ -192,10 +192,8 @@ router.post('/signup', util.isNotLogin, (req, res, next)=> {
       res.cookie('refreshToken', refreshToken)
       res.cookie('user_id', user_id) // 로그인 시 쿠키에 아이디 저장
       console.log(res)
-      res.redirect('/')
-      res.send(
-
-      )
+      // res.redirect('/')
+      res.send()
       
     })
     .catch((err)=>{

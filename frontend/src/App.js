@@ -7,7 +7,7 @@ import SignIn from './pages/Auth/SignIn';
 import Home from './pages/Home/';
 import MyPage from './pages/MyPage/';
 import Foods from './pages/Foods/';
-// import Recipes from './pages/Recipes/';
+import Recipe_Main from './pages/Recipes/Recipe_Main';
 import NotFound from './pages/NotFound/';
 
 const App = () => {
@@ -24,6 +24,8 @@ const App = () => {
     {id:0, date:-1, name:'당근'},
     {id:2, date:10, name:'수박'},
   ]);
+  // Recipe
+  const [cards, setCards] = useState([]);
   return (
     <CommonContext.Provider
       value={{
@@ -32,17 +34,18 @@ const App = () => {
         setInfoDetailDialogOpen,
         openFoodAddForm,
         setopenFoodAddForm,
-
         rows,
         setRows,
         exp,
         setExp,
-
         // FoodAdd
         newFood,
         setNewFood,
         newExp,
         setNewExp,
+        // Recipe
+        cards,
+        setCards,
       }}
     >
       <BrowserRouter>
@@ -53,7 +56,7 @@ const App = () => {
             <Route exact path="/Home" component={Home} />
             <Route exact path="/MyPage" component={MyPage} />
             <Route exact path="/Foods" component={Foods} />
-            {/* <Route exact path="/Recipes" component={Recipes} /> */}
+            <Route exact path="/Recipes" component={Recipe_Main} />
             <Route exact path="/NotFound" component={NotFound} />
             {/* route외의 주소는 NotFound로 빠지도록 */}
             {/* <Redirect to="/NotFound" /> */}

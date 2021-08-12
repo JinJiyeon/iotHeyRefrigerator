@@ -45,6 +45,11 @@ app.use('/recipe', recipeRouter);
 app.use('/auth', authRouter);
 
 app.get('/', (req, res) => {
+  console.log(req)
+  console.log('--------------------------------------------------------------')
+  console.log(req)
+  console.log('--------------------------------------------------------------')
+  console.log('hello node')
   res.send('hello node')
 })
 
