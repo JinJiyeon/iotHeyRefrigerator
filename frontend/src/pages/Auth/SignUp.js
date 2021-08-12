@@ -11,6 +11,7 @@ import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import axios from 'axios';
+import Cookies from 'js-cookie';
 
 function Copyright() {
   return (
@@ -86,10 +87,16 @@ export default function SignUp() {
                 password2: password2,
                 email: email,
               }
-              console.log(body)
+              console.log(body, 'body')
               axios.post('/auth/signup', body)
                 .then(res => {
                   console.log(res)
+                  localStorage.setItem('jwt', Cookies.get('accessToken'))
+                  history.push('/')
+                })
+                .catch(err => {
+                  alert(err.response.data)
+                  console.log(err.response.data)
                 })
             }}  
           >

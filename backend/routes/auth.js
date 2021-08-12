@@ -104,7 +104,7 @@ router.post('/login', util.isNotLogin, (req, res, next)=>{
   const login_info = new Promise((resolve, reject)=> {
     db.query('SELECT * FROM users WHERE user_id=?', [user_id], (err, rows) => {
       if (err) reject(err)
-      if (rows.length === 0) reject('아이디가 없습니다.')
+      if (rows.length === 0) reject('login failed')
       else resolve(rows[0])
     })
   })
@@ -114,7 +114,7 @@ router.post('/login', util.isNotLogin, (req, res, next)=>{
       if (password === db_password){
         resolve('비밀번호가 같습니다')
       }else{
-        reject('비밀번호를 확인해주세요')
+        reject('login failed')
       }
     })
   }
@@ -134,8 +134,11 @@ router.post('/login', util.isNotLogin, (req, res, next)=>{
       
     })
     .catch((err)=>{
-      console.log(err)
-      res.redirect('login') 
+      console.log(err);
+      res.status(401).send(err);
+
+      // res.send(new Error('아이디가 없습니다.'));
+      // res.status(500).send('')
     })
 })
 
@@ -198,7 +201,8 @@ router.post('/signup', util.isNotLogin, (req, res, next)=> {
     })
     .catch((err)=>{
       console.log(err)
-      res.redirect('signup')
+      res.status(400).send(err);
+      // res.redirect('signup')
     })
     
 })
