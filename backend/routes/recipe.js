@@ -73,7 +73,7 @@ router.post('/search/title/:searchWord', (req, res, next) => {
         title_promise = new Promise((resolve, reject) => {
             db.query(`select * 
                 from recipe_infos
-                where match(title) against('${searchWord}*' in boolean mode)
+                where title like '%${searchWord}%'
                 order by view desc, recipe_info_id desc
                 limit ${limit}`, (err, rows) => {
                 if (err) {
@@ -90,7 +90,7 @@ router.post('/search/title/:searchWord', (req, res, next) => {
             db.query(`select * from
                 (select *
                 from recipe_infos
-                where match(title) against ('${searchWord}*' in boolean mode)
+                where where title like '%${searchWord}%'
                     and
                     (
                         (view = ${beforeView} and recipe_info_id<${beforeId})
@@ -135,7 +135,7 @@ router.post('/search/ingredient/:searchWord', (req, res, next) => {
                 where recipe_info_id in
                     (select recipe_info_id
                     from ingredients_and_recipe_infos
-                    where match(ingredient_name) against('${searchWord}*' in boolean mode)
+                    where ingredient_name like '%${searchWord}%'
                     group by recipe_info_id)
                 order by view desc, recipe_info_id desc
                 limit ${limit}`, (err, rows) => {
@@ -158,7 +158,7 @@ router.post('/search/ingredient/:searchWord', (req, res, next) => {
                 (
                     select recipe_info_id
                     from ingredients_and_recipe_infos
-                    where match(ingredient_name) against('${searchWord}*' in boolean mode)
+                    where ingredient_name like '%${searchWord}%'
                     group by recipe_info_id
                 )
                 and ((view=${beforeView} and recipe_info_id != ${beforeId}) or (view<${beforeView}))
@@ -218,7 +218,10 @@ router.get('/:recipeId', (req, res) => {
     })
 
     const accessToken = req.cookies.accessToken;
-    const user_id = util.accessUserId(accessToken);
+    let user_id = null;
+    if (accessToken) {
+        user_id = util.accessUserId(accessToken);
+    }
     
     let is_user_like = new Promise((resolve, reject) => {
         db.query('select count(*) as isLiked from likes where user_id=? and recipe_info_id=?', [user_id, recipe_id], (err, rows) => {
@@ -240,6 +243,8 @@ router.get('/:recipeId', (req, res) => {
             const rows = await is_user_like;
             const isLiked = rows[0].isLiked;
             recipe.isLiked = isLiked;
+        } else {
+            recipe.isLiked = 0;
         }
         
         res.send(recipe);
