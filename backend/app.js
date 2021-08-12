@@ -52,6 +52,11 @@ app.use('/recipe', recipeRouter);
 app.use('/auth', authRouter);
 
 app.get('/', (req, res) => {
+  console.log(req)
+  console.log('--------------------------------------------------------------')
+  console.log(req)
+  console.log('--------------------------------------------------------------')
+  console.log('hello node')
   res.send('hello node')
 })
 
@@ -60,7 +65,7 @@ app.get('/', (req, res) => {
 //404
 app.use(function (req, res, next) {
   console.log(`${req.method} ${req.url} 라우터가 없습니다.`);
-  res.status(404).redirect('/');
+  // res.status(404).redirect('/');
 })
 
 //err middleware

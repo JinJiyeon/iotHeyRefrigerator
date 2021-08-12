@@ -140,33 +140,55 @@ gantt
     백단과 폴더 트리구조 동기화  :crit, active, 07-24, 2d
     프로토타입 페이지 제작 및 서버와의 연결 테스트 :active, 07-27, 3d
     자체 컴포넌트 구상 및 구현: crit, active, 07-27, 7d
-    페이지 구현	 :crit, active, front1, 07-28, 14d
+    페이지 구현	 :crit, active, front1, 07-28, 18d
     - Main : 07-28, 2d
     - Auth : 07-30, 2d
     - Recipes : 08-01, 10d
     - Ingredients : 08-01, 10d
     - Mypage : 08-11, 1d
     - Not found : 08-12, 1d
+    기능 구현	 :crit, active, front1, 08-08, 7d
+    - Client, Server 연동 : 08-08, 1d
+    - 페이지 틀 제작 마무리 및 디자인 : 08-09, 2d
+    - 회원가입 중복처리 : 08-11, 1d
+    - 패스워드 확인 : 08-11, 1d
+    - 인피니티  스크롤 : 08-12, 1d
+    - 검색어 처리 : 08-12, 1d
+    - 토글로 레시피 검색 및 추천항목 변경 : 08-13, 1d
+    - 레시피 좋아요 기능 : 08-13, 1d
+    - 가상 키보드 추가 : 08-14, 1d
+    - 타이머 기능 추가 : 08-14, 1d
     디자인작업 및 최종 마무리 : 08-08, 7d
+
     
     section Backend
     사전 공부 및 예제 실습 : done, 07-07, 13d
-    DB 모델링 및 데이터 수집 : done, 07-19, 8d
-    1순위 기능개발 : active, 07-25, 10d
-    2순위 기능개발: 08-04 , 7d
-    3순위 기능개발: 08-11, 5d
-    배포: 08-16, 3d
-    
+    DB 모델링 및 데이터 수집 : done, 07-19, 7d
+    데이터 전처리 : done, 07-26, 3d
+    연관어 검색 : done, 07-29, 2d
+    Django 추천 : done, 07-29, 7d
+    추천 개선 : 08-11, 4d
+
+    jwt 로그인 : done,07-23, 10d
+    레시피 조회 : done, 07-26, 2d
+    재료CRD : done, 08-02, 2d
+    mypage: done, 08-04 , 1d
+    좋아요 : done, 08-05, 2d
+
+    배포: active, 08-09, 11d
+
     section IoT
     장비 확인 :done, 07-19, 3d
-    IoT 센서활용 공부 및 환경설정 : active, 08-04, 7d 
-    터치 패널에 출력 :crit, active, smtp, 08-06, 4d
-    IoT 기능 개발 :after smtp, 08-11, 5d
-    마무리 : 08-16, 3d
+    IoT 학습 : active, 08-03, 4d
+    IoT 환경셋팅 : active, 08-07, 5d
+    터치 패널에 출력 :crit, active, smtp, 08-10, 2d
+    Node 연동 : 08-11, 2d
+    시간 알림벨 : 08-13, 3d
+    유통기한 알림벨 : 08-13, 3d
 
     section Ucc제작 및 발표준비
-    발표 자료 제작      :crit, active, rtc1, 08-10, 5d
-    Ucc 제작 및 영상 편집 :crit, active,08-10, 10d
+    발표 자료 :crit, active, rtc1, 08-16, 4d
+    Ucc 제작 :crit, active,08-16, 4d
    
 
     section QA 및 

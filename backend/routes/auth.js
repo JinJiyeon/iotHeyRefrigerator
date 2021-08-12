@@ -103,8 +103,8 @@ router.post('/login', util.isNotLogin, (req, res, next) => {
   // db에서 user_id를 기준으로 있는 id인지 확인 (있어야 통과)
   const login_info = new Promise((resolve, reject)=> {
     db.query('SELECT * FROM users WHERE user_id=?', [user_id], (err, rows) => {
-      if (err) reject('database search error')
-      if (rows.length === 0) reject('아이디가 없습니다.')
+      if (err) reject(err)
+      if (rows.length === 0) reject('login failed')
       else resolve(rows[0])
     })
   })
@@ -115,7 +115,7 @@ router.post('/login', util.isNotLogin, (req, res, next) => {
       if (hashpassword === db_password){
         resolve('비밀번호가 같습니다')
       }else{
-        reject('비밀번호를 확인해주세요')
+        reject('login failed')
       }
     })
   }
@@ -136,9 +136,11 @@ router.post('/login', util.isNotLogin, (req, res, next) => {
       
     })
     .catch((err)=>{
-      console.log(err)
-      // res.send(new Erorr('아이디가 없습니다'));
-      res.redirect('login') 
+      console.log(err);
+      res.status(401).send(err);
+
+      // res.send(new Error('아이디가 없습니다.'));
+      // res.status(500).send('')
     })
 })
 
@@ -191,12 +193,15 @@ router.post('/signup', util.isNotLogin, (req, res, next) => {
       res.cookie('accessToken', accessToken )
       res.cookie('refreshToken', refreshToken)
       res.cookie('user_id', user_id) // 로그인 시 쿠키에 아이디 저장
-      res.redirect('/')
+      console.log(res)
+      // res.redirect('/')
+      res.send()
       
     })
     .catch((err)=>{
       console.log(err)
-      res.redirect('signup')
+      res.status(400).send(err);
+      // res.redirect('signup')
     })
     
 })
