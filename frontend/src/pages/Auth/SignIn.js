@@ -14,6 +14,7 @@ import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import axios from 'axios';
+import Cookies from 'js-cookie';
 
 function Copyright() {
   return (
@@ -68,7 +69,7 @@ export default function SignIn() {
   //   .catch(err=> {console.log(err)})
   const [user_id, setUser_id] = useState('')
   const [password, setPassword] = useState('')
-
+  
   return (
     <Grid container component="main" className={classes.root}>
       <CssBaseline />
@@ -84,14 +85,21 @@ export default function SignIn() {
           <form className={classes.form} noValidate
             onSubmit={(e) => {
               e.preventDefault();
-              let data = {
+              let body = {
                 user_id: user_id,
                 password: password,
               }
-              console.log(data)
-              axios.post('/auth/login', data)
+              console.log(body)
+              axios.post('/auth/login', body)
                 .then(res => {
-                  console.log(res)
+                  console.log(res, 'res')
+                  // console.log(res.data.token, 'token')
+                  console.log(res.headers['set-cookie'], 'cookie')
+                  // localStorage.setItem('jwt', res.data.token)
+                  let tmp = {
+                    username: Cookies.get('refreshToken')
+                  }
+                  console.log(tmp, 'tmp')
                   history.push('/')
                 })
             }}

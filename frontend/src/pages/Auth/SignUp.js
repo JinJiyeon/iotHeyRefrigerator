@@ -80,14 +80,14 @@ export default function SignUp() {
           <form className={classes.form} noValidate
             onSubmit={e =>{
               e.preventDefault();
-              let data = {
+              let body = {
                 user_id: user_id,
                 password: password,
                 password2: password2,
                 email: email,
               }
-              console.log(data)
-              axios.post('/auth/signup', data)
+              console.log(body)
+              axios.post('/auth/signup', body)
                 .then(res => {
                   console.log(res)
                 })
