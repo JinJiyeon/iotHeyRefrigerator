@@ -93,14 +93,25 @@ export default function SignIn() {
               axios.post('/auth/login', body)
                 .then(res => {
                   console.log(res, 'res')
-                  // console.log(res.data.token, 'token')
-                  console.log(res.headers['set-cookie'], 'cookie')
-                  // localStorage.setItem('jwt', res.data.token)
-                  let tmp = {
-                    username: Cookies.get('refreshToken')
-                  }
-                  console.log(tmp, 'tmp')
+                  // 토큰 이렇게 가져오면 됩니다 (js-cookie 라이브러리 사용)
+                  // const token = {
+                  //   accessToken: Cookies.get('accessToken'),
+                  //   refreshToken: Cookies.get('refreshToken'),
+                  // }
+                  // console.log(token, 'token')
+
+                  localStorage.setItem('jwt', Cookies.get('accessToken'))
                   history.push('/')
+                })
+                .catch(err => {
+                  if (err.response.data == 'login failed') {
+                    alert('아이디나 비밀번호를 확인해주세요.')
+                    // 아이디 없을 때,
+                    // 아이디나 비밀번호가 틀렸을 때,
+                  } else {
+                    alert('알 수 없는 오류로 다시 시도해주세요.')
+                  }
+                  console.log(err.response.data)
                 })
             }}
           >
