@@ -131,7 +131,7 @@ router.get('/myingredients/associated/:searchWord', (req, res, next) => {
 
     db.query(`select ingredient_name
         from ingredients_preprocessing
-        where match(original) against('${searchWord}*' in boolean mode)
+        where original like '%${searchWord}%'
         group by ingredient_name`, (err, rows) => {
         if (err) next(err);
         res.send(rows);
