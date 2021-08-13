@@ -1,3 +1,4 @@
+// eslint-disable-next-line
 import React, {useState} from 'react';
 import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom';
 import { CommonContext } from './context/CommonContext';
@@ -61,7 +62,7 @@ const App = () => {
             <Route exact path="/MyPage" component={MyPage} />
             <Route exact path="/Foods" component={Foods} />
             <Route exact path="/Recipes" component={Recipe_Main} />
-            <Route exact path="/:recipeId" component={Recipe_Detail} />
+            <Route exact path="/Recipes/:recipeId" component={Recipe_Detail} />
             <Route exact path="/NotFound" component={NotFound} />
             {/* route외의 주소는 NotFound로 빠지도록 */}
             {/* <Redirect to="/NotFound" /> */}

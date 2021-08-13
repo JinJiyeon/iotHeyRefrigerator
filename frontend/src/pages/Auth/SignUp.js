@@ -96,8 +96,9 @@ export default function SignUp() {
                   history.push('/')
                 })
                 .catch(err => {
-                  alert(err.response.data)
-                  console.log(err.response.data)
+                  alert(err.response)
+                  console.log(err.response)
+                  // console.log(err.response.data)
                 })
             }}  
           >

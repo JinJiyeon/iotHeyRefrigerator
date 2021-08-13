@@ -78,6 +78,7 @@ const RecipeCard = () => {
   // 추천 유통기한 menu
   const expApi = () => {
     setCards([{title:'hi', recipe_info_image:'https://source.unsplash.com/random' },{title:'hi', recipe_info_image:'https://source.unsplash.com/random' },{title:'hi', recipe_info_image:'https://source.unsplash.com/random' }])
+    // 추천 메뉴가 똑같아서 임시적으로 랜덤이미지를 보여줍니다
     // axios.get('/recipe/recom/expired')
     // .then(res => {
     //     console.log(res.data)
@@ -166,16 +167,16 @@ const RecipeCard = () => {
             </div>
             </Container>
     <Container className={classes.cardGrid} maxWidth="md">
-    {/* {menu === '좋아요 추천' && {likeApi}}
-    {menu === '유통기한 추천' && {expApi}} */}
     <Grid container spacing={4}>
       {cards.map((card) => (
         <Grid item key={card} xs={12} sm={6} md={4}>
           <Card className={classes.card}
             onClick={()=>{
               console.log(card.recipe_info_id);
-              setRecipeId(card.recipe_info_id);
-              history.push(`/${card.recipe_info_id}`);
+              console.log(card)
+              console.log(recipeId)
+              setRecipeId(card);
+              history.push(`/Recipes/${card.recipe_info_id}`);
             }}
           >
             <CardMedia

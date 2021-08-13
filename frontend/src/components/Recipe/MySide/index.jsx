@@ -1,10 +1,12 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import {
   makeStyles,
   Grid,
 } from '@material-ui/core';
 import RecipeTimer from '../Timer';
 import LikeButton from '../Like';
+import { CommonContext } from '../../../context/CommonContext';
+
 
 
 const useStyles = makeStyles((theme) => ({
@@ -20,12 +22,13 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const RecipeBar = () => {
+  const { recipeId } = useContext(CommonContext);
   const classes = useStyles();
   
   return (
-    
     <Grid item xs={12} md={6}>
-      <span><img className={classes.sidebarAboutBox} style={{ display: '' }} src="https://source.unsplash.com/random" alt='' xsDown /></span>      
+      <button onClick={()=>{console.log(recipeId)}}>레시피아이디</button>
+      <span><img className={classes.sidebarAboutBox} style={{ display: '' }} src={recipeId.recipe_info_image} alt='' xsDown /></span>      
       <LikeButton />
       <div><RecipeTimer /></div>
     </Grid>
