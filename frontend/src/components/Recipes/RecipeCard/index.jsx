@@ -52,14 +52,15 @@ const RecipeCard = () => {
   // 페이지가 렌더링됐을때 마운트시킬 레시피
   useEffect(() => {
     setRecomMenu('기본 추천')
-    axios.get('/recipe/recom/important')
-    .then(res => {
-      setCards(res.data)
-      // console.log(cards, 'useEffectcards')
-    })
-    .catch(err => {
-      console.log(err)
-    })
+    setCards([{title:'hi', recipe_info_image:'https://source.unsplash.com/random' },{title:'hi', recipe_info_image:'https://source.unsplash.com/random' },{title:'hi', recipe_info_image:'https://source.unsplash.com/random' }])
+    // axios.get('/recipe/recom/important')
+    // .then(res => {
+    //   setCards(res.data)
+    //   // console.log(cards, 'useEffectcards')
+    // })
+    // .catch(err => {
+    //   console.log(err)
+    // })
   }, [])
 
   // 추천 좋아요 menu
@@ -167,32 +168,32 @@ const RecipeCard = () => {
             </div>
             </Container>
     <Container className={classes.cardGrid} maxWidth="md">
-    <Grid container spacing={4}>
-      {cards.map((card) => (
-        <Grid item key={card} xs={12} sm={6} md={4}>
-          <Card className={classes.card}
-            onClick={()=>{
-              console.log(card.recipe_info_id);
-              console.log(card)
-              console.log(recipeId)
-              setRecipeId(card);
-              history.push(`/Recipes/${card.recipe_info_id}`);
-            }}
-          >
-            <CardMedia
-              className={classes.cardMedia}
-              image={card.recipe_info_image}
-              title={card.title}
-              />
-            <CardContent className={classes.cardContent}>
-              <Typography gutterBottom variant="h4" component="h2">
-                {card.title}
-              </Typography>
-            </CardContent>
-          </Card>
-        </Grid>
-      ))}
-    </Grid>
+      { 
+        cards &&
+          <Grid container spacing={4}>
+            {cards.map((card) => (
+              <Grid item key={card} xs={12} sm={6} md={4}>
+                <Card className={classes.card}
+                  onClick={()=>{
+                    setRecipeId(card);
+                    history.push(`/Recipes/${card.recipe_info_id}`);
+                  }}
+                >
+                  <CardMedia
+                    className={classes.cardMedia}
+                    image={card.recipe_info_image}
+                    title={card.title}
+                    />
+                  <CardContent className={classes.cardContent}>
+                    <Typography gutterBottom variant="h4" component="h2">
+                      {card.title}
+                    </Typography>
+                  </CardContent>
+                </Card>
+              </Grid>
+            ))}
+          </Grid>
+      }
   </Container>
       </div>
   );

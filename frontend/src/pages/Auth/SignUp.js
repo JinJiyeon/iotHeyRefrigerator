@@ -96,7 +96,7 @@ export default function SignUp() {
                   history.push('/')
                 })
                 .catch(err => {
-                  alert(err.response)
+                  alert(err.response.data)
                   console.log(err.response)
                   // console.log(err.response.data)
                 })

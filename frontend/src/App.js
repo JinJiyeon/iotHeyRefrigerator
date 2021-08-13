@@ -13,6 +13,15 @@ import Recipe_Detail from './pages/Recipe/Recipe_Detail';
 import NotFound from './pages/NotFound/';
 
 const App = () => {
+  const [user, setUser] = useState(
+    {
+      user_id: '',
+      user_pwd: '',
+      status: '',
+      token: '',
+    },
+    'user',
+  );
   // Foods
   const [infoDialogOpen, setInfoDetailDialogOpen] = useState(false);
   const [openFoodAddForm, setopenFoodAddForm] = useState(false);
@@ -32,6 +41,8 @@ const App = () => {
   return (
     <CommonContext.Provider
       value={{
+        user,
+        setUser,
         // Foods
         infoDialogOpen,
         setInfoDetailDialogOpen,

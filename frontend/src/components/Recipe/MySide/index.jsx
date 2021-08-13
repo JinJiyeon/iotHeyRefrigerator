@@ -27,7 +27,6 @@ const RecipeBar = () => {
   
   return (
     <Grid item xs={12} md={6}>
-      <button onClick={()=>{console.log(recipeId)}}>레시피아이디</button>
       <span><img className={classes.sidebarAboutBox} style={{ display: '' }} src={recipeId.recipe_info_image} alt='' xsDown /></span>      
       <LikeButton />
       <div><RecipeTimer /></div>
