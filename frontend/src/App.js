@@ -1,3 +1,4 @@
+// eslint-disable-next-line
 import React, {useState} from 'react';
 import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom';
 import { CommonContext } from './context/CommonContext';
@@ -8,9 +9,19 @@ import Home from './pages/Home/';
 import MyPage from './pages/MyPage/';
 import Foods from './pages/Foods/';
 import Recipe_Main from './pages/Recipes/Recipe_Main';
+import Recipe_Detail from './pages/Recipe/Recipe_Detail';
 import NotFound from './pages/NotFound/';
 
 const App = () => {
+  const [user, setUser] = useState(
+    {
+      user_id: '',
+      user_pwd: '',
+      status: '',
+      token: '',
+    },
+    'user',
+  );
   // Foods
   const [infoDialogOpen, setInfoDetailDialogOpen] = useState(false);
   const [openFoodAddForm, setopenFoodAddForm] = useState(false);
@@ -26,9 +37,12 @@ const App = () => {
   ]);
   // Recipe
   const [cards, setCards] = useState([]);
+  const [recipeId, setRecipeId] = useState([]);
   return (
     <CommonContext.Provider
       value={{
+        user,
+        setUser,
         // Foods
         infoDialogOpen,
         setInfoDetailDialogOpen,
@@ -46,6 +60,8 @@ const App = () => {
         // Recipe
         cards,
         setCards,
+        recipeId,
+        setRecipeId,
       }}
     >
       <BrowserRouter>
@@ -57,6 +73,7 @@ const App = () => {
             <Route exact path="/MyPage" component={MyPage} />
             <Route exact path="/Foods" component={Foods} />
             <Route exact path="/Recipes" component={Recipe_Main} />
+            <Route exact path="/Recipes/:recipeId" component={Recipe_Detail} />
             <Route exact path="/NotFound" component={NotFound} />
             {/* route외의 주소는 NotFound로 빠지도록 */}
             {/* <Redirect to="/NotFound" /> */}

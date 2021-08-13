@@ -22,7 +22,6 @@ const app = express();
 app.set('port', process.env.PORT || 3000);
 
 
-
 // 미들웨어
 app.use(morgan('dev'));
 app.use(express.urlencoded({ extended: false }));
@@ -45,10 +44,6 @@ app.use('/recipe', recipeRouter);
 app.use('/auth', authRouter);
 
 app.get('/', (req, res) => {
-  console.log(req)
-  console.log('--------------------------------------------------------------')
-  console.log(req)
-  console.log('--------------------------------------------------------------')
   console.log('hello node')
   res.send('hello node')
 })
