@@ -125,7 +125,7 @@ export default function SignUp() {
               fullWidth
               name="password1"
               label="password를 입력해주세요"
-              type="password1"
+              type="password"
               id="password1"
               autoComplete="password1"
             />
@@ -137,7 +137,7 @@ export default function SignUp() {
               fullWidth
               name="password2"
               label="동일한 password를 다시 입력해주세요"
-              type="password2"
+              type="password"
               id="password2"
               autoComplete="password2"
             />
