@@ -56,14 +56,22 @@ const db_email_info = (email) => {
     })
   })
 }
+// 회원가입 시 빈칸 유무 판단
+const emptyCheck = (user_id, password, password2, email) => {
+  return new Promise((resolve, reject) => {
+    
+  })
+}
 
-// 회원가입 시 비밀번호 일치 확인
+
+// 회원가입 시 입력된 두 비밀번호 일치 확인
 const passwordCheck = (password, password2) => {
   return new Promise((resolve, reject)=> {
     if (password !== password2) { reject('비밀번호를 확인해주세요')}
     else resolve('비밀번호가 일치합니다')
   })
 }
+
 
 
 // 사용자 존재 확인
@@ -159,9 +167,13 @@ router.post('/signup', util.isNotLogin, (req, res, next)=> {
   // 회원가입 공백 체크
   const isEmpty = function(user_id, password, password2, email){
     return new Promise((resolve, reject) => {
-      if (user_id === "" || password ==="" || password2 === "", email === ""){
+      if (user_id === "" || password === "" || password2 === "", email === "") {
         reject('공란을 확인해주세요')
       } else {
+        console.log("user_id : ", user_id, " user_id.length : ", user_id.length);
+        console.log("password : ", password, " password.length : ", password.length);
+        console.log("password2 : ", password2, " password2.length : ", password2.length);
+        console.log("email : ", email, " eamil.length : ", email.length);
         resolve()
       }
     })
@@ -194,10 +206,7 @@ router.post('/signup', util.isNotLogin, (req, res, next)=> {
       res.cookie('accessToken', accessToken )
       res.cookie('refreshToken', refreshToken)
       res.cookie('user_id', user_id) // 로그인 시 쿠키에 아이디 저장
-      console.log(res)
-      // res.redirect('/')
-      res.send()
-      
+      res.send();
     })
     .catch((err)=>{
       console.log(err)
