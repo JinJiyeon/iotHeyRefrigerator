@@ -56,10 +56,16 @@ const db_email_info = (email) => {
     })
   })
 }
-// 회원가입 시 빈칸 유무 판단
-const emptyCheck = (user_id, password, password2, email) => {
-  return new Promise((resolve, reject) => {
-    
+// email 양식 확인
+const email_form_Check = (email) => {
+  return new Promise((resolve, reject)=>{
+    const regExp = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
+
+    if (email.match(regExp) != null) {
+      resolve();
+    } else {
+      reject('이메일 양식이 맞지 않습니다');
+    }
   })
 }
 
@@ -166,13 +172,9 @@ router.post('/signup', util.isNotLogin, (req, res, next) => {
   // 회원가입 공백 체크
   const isEmpty = function(user_id, password, password2, email){
     return new Promise((resolve, reject) => {
-      if (user_id === "" || password === "" || password2 === "", email === "") {
+      if (user_id.length === 0 || password.length === 0 || password2.length === 0 || email.length === 0) {
         reject('공란을 확인해주세요')
       } else {
-        console.log("user_id : ", user_id, " user_id.length : ", user_id.length);
-        console.log("password : ", password, " password.length : ", password.length);
-        console.log("password2 : ", password2, " password2.length : ", password2.length);
-        console.log("email : ", email, " eamil.length : ", email.length);
         resolve()
       }
     })
@@ -195,6 +197,9 @@ router.post('/signup', util.isNotLogin, (req, res, next) => {
     })
     .then(function(){
       return db_email_info(email) //email이 기존 db에 존재하나 체크
+    })
+    .then(function () {
+      return email_form_Check(email);
     })
     .then(function(){
       return createUser(user_id, password, email) // 회원가입(저장)
