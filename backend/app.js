@@ -6,7 +6,6 @@ const cookieParser = require('cookie-parser');
 const session = require('express-session');
 const path = require('path');
 const cors = require('cors');
-const { sequelize } = require('./models');
 
 // dotenv
 dotenv.config({
@@ -21,13 +20,6 @@ const recipeRouter = require('./routes/recipe');
 const authRouter = require('./routes/auth');
 const app = express();
 app.set('port', process.env.PORT || 3000);
-// sequelize.sync({ force: false })
-//   .then(() => {
-//     console.log('sequelize db connect!');
-//   })
-//   .catch((err) => {
-//     console.error(err);
-//   })
 
 
 // 미들웨어
@@ -52,10 +44,6 @@ app.use('/recipe', recipeRouter);
 app.use('/auth', authRouter);
 
 app.get('/', (req, res) => {
-  console.log(req)
-  console.log('--------------------------------------------------------------')
-  console.log(req)
-  console.log('--------------------------------------------------------------')
   console.log('hello node')
   res.send('hello node')
 })
