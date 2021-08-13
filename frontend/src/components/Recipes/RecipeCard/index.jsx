@@ -1,4 +1,5 @@
 import React, {useState, useContext, useEffect, useRef,} from 'react';
+import { useHistory } from 'react-router';
 import {
   Popper,
   Grow,
@@ -41,13 +42,13 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const RecipeCard = () => {
-  const { cards, setCards } = useContext(CommonContext);
+  const { cards, setCards, recipeId, setRecipeId } = useContext(CommonContext);
   const classes = useStyles();
   const [open, setOpen] = useState(false);
   const anchorRef = React.useRef(null);
   // 메뉴 이름
   const [recomMenu, setRecomMenu] = useState('기본 추천');
-
+  let history = useHistory();
   // 페이지가 렌더링됐을때 마운트시킬 레시피
   useEffect(() => {
     setRecomMenu('기본 추천')
@@ -65,6 +66,7 @@ const RecipeCard = () => {
   const likeApi = () => {
     axios.get('/recipe/recom/important')
     .then(res => {
+        console.log(res.data, 'recipe data')
         setCards(res.data)
         console.log(cards, 'like cards')
       })
@@ -169,7 +171,13 @@ const RecipeCard = () => {
     <Grid container spacing={4}>
       {cards.map((card) => (
         <Grid item key={card} xs={12} sm={6} md={4}>
-          <Card className={classes.card}>
+          <Card className={classes.card}
+            onClick={()=>{
+              console.log(card.recipe_info_id);
+              setRecipeId(card.recipe_info_id);
+              history.push(`/${card.recipe_info_id}`);
+            }}
+          >
             <CardMedia
               className={classes.cardMedia}
               image={card.recipe_info_image}

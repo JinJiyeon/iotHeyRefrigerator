@@ -109,8 +109,7 @@ export default function SignIn() {
                     // 아이디 없을 때,
                     // 아이디나 비밀번호가 틀렸을 때,
                   } else {
-                    alert('알 수 없는 오류로 다음에 접속해주세요.')
-                    history.push('/')
+                    alert('알 수 없는 오류로 다시 시도해주세요.')
                   }
                   console.log(err.response.data)
                 })
