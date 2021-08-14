@@ -5,7 +5,7 @@ import { CommonContext } from './context/CommonContext';
 
 import SignUp from './pages/Auth/SignUp';
 import SignIn from './pages/Auth/SignIn';
-import Home from './pages/Home/';
+import Home from './pages/Home';
 import MyPage from './pages/MyPage/';
 import Foods from './pages/Foods/';
 import Recipe_Main from './pages/Recipes/Recipe_Main';
