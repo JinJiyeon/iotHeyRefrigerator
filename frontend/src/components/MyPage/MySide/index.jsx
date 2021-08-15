@@ -40,9 +40,11 @@ const MyBar = () => {
 
 
   const test = () => {
-    axios.get('/recipe/420777')
+    axios.get('/user/myingredients')
     .then(res=>{
       console.log(res.data,'res')
+      const date = res.data[0].expiration_date;
+      console.log(date,'date')
     })
     console.log('hi')
   }
