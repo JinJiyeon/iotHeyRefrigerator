@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {useState, useEffect, useContext} from 'react';
 // import PropTypes from 'prop-types';
 import {
   Button,
@@ -8,6 +8,7 @@ import {
   Typography,
   AppBar,
 } from '@material-ui/core';
+import { CommonContext } from '../../../context/CommonContext';
 import axios from 'axios';
 
 const useStyles = makeStyles((theme) => ({
@@ -29,7 +30,8 @@ const useStyles = makeStyles((theme) => ({
 
 const MyBar = () => {
   const classes = useStyles();
-  
+  const {ingredients, setIngredients} = useContext(CommonContext);
+  const [editBtn, setEditBtn] = useState('편집');
   // useEffect(()=>{
   //   axios.get('/recipe/420777')
   //     .then(res=>{
@@ -37,14 +39,17 @@ const MyBar = () => {
   //     })
   //   console.log('useEffect')
   // },[])
-
+  const ingredientsEditBtn =()=>{
+    setEditBtn('추가')
+  };
 
   const test = () => {
     axios.get('/user/myingredients')
     .then(res=>{
       console.log(res.data,'res')
-      const date = res.data[0].expiration_date;
-      console.log(date,'date')
+      setIngredients(res.data);
+      // const date = res.data[0].expiration_date;
+      // console.log(date,'date')
     })
     console.log('hi')
   }
@@ -57,7 +62,34 @@ const MyBar = () => {
             <Typography variant="h6" gutterBottom>
               재료 Sticky Box
             </Typography>
-            <Typography>감자</Typography>
+            {editBtn === '추가' ?
+              <div>
+                <Button onClick={ingredientsEditBtn}>
+                  {editBtn}
+                </Button>
+                {ingredients.map((ingredient)=>(
+                  <Typography>
+                    {ingredient.ingredient_name} | {ingredient.expiration_date} | 삭제
+                  </Typography>
+                ))}
+                <Button 
+                  onClick={()=>{setEditBtn('편집')}}
+                >
+                  완료
+                </Button>
+              </div>
+            :
+              <div>
+                <Button onClick={ingredientsEditBtn}>
+                  {editBtn}
+                </Button>
+                {ingredients.map((ingredient)=>(
+                  <Typography>
+                    {ingredient.ingredient_name} | {ingredient.expiration_date}
+                  </Typography>
+                ))}
+              </div>
+            }
             <Button onClick={test}> 
               Axios테스트용
             </Button>

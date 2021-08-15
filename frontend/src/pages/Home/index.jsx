@@ -13,6 +13,7 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import HomeCard from '../../components/Home';
+import Cookies from 'js-cookie';
 
 const useStyles = makeStyles((theme) => ({
   NavContent: {
@@ -79,13 +80,29 @@ export default function Home() {
       {/* Nav-Bar */}
       <AppBar position="relative">
         <Toolbar className={classes.toolbar}>
-          <Paper>            
-              <Button onClick={onClickBtn}>
-                MyPage
+          <Paper>
+            {Cookies.get('user_id') ?
+              <div>
+                <Button onClick={onClickBtn}>
+                  MyPage
+                </Button>
+                <Button onClick={()=>{
+                  // state상태로 담아서 렌더링 바로 되도록? 해주면 더 좋을듯
+                  Cookies.remove('user_id')
+                  Cookies.remove('refreshToken')
+                  Cookies.remove('accessToken')
+                  history.push('/SignIn')
+                }}>
+                  SignOut
+                </Button>                                        
+              </div>
+            :
+              <Button onClick={()=>{
+                history.push('/SignIn')
+              }}>
+                SignIn
               </Button>
-              <Button>
-                LogOut
-              </Button>                                        
+            }
           {/* {visible === '로그인했음' && <Home /> }
           {visible === '로그인안했음' && <Button>LogIn</Button>}   */}
           </Paper>        

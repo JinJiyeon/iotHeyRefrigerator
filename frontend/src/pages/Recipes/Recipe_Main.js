@@ -3,7 +3,7 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 import Typography from '@material-ui/core/Typography';
 // 추가
 import SearchBar from '../../components/Recipes/Recipe_Main/SearchBar';
-import RecipeCard from '../../components/Recipes/RecipeCard';
+import RecipeCard from '../../components/Recipes/Recipe_Main/RecipeCard';
 
 
 function Copyright() {

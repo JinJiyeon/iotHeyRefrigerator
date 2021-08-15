@@ -18,7 +18,8 @@ import {
   makeStyles,
 } from '@material-ui/core'
 import axios from 'axios';
-import { CommonContext } from '../../../context/CommonContext';
+import { CommonContext } from '../../../../context/CommonContext';
+import Cookies from 'js-cookie';
 const useStyles = makeStyles((theme) => ({
   cardGrid: {
     paddingTop: theme.spacing(8),
@@ -145,9 +146,13 @@ const RecipeCard = () => {
                         <ClickAwayListener onClickAway={handleClose}>
                           <MenuList autoFocusItem={open} id="menu-list-grow" onKeyDown={handleListKeyDown}>
                             <MenuItem onClick={() => {
-                              setOpen(false);
-                              likeApi();
-                              setRecomMenu('좋아요 추천');
+                              if (Cookies.get('user_id')) {
+                                setOpen(false);
+                                likeApi();
+                                setRecomMenu('좋아요 추천');
+                              } else {
+                                alert('로그인 유저만 이용가능한 서비스입니다.')
+                              }
                             }}>
                               좋아요 우선 추천
                             </MenuItem>
