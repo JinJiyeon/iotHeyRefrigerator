@@ -6,7 +6,7 @@ import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 
-import { CommonContext } from '../../../context/CommonContext';
+import { CommonContext } from '../../../../context/CommonContext';
 
 const useStyles = makeStyles((theme) => ({
   mainFeaturedPost: {

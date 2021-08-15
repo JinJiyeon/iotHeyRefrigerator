@@ -12,7 +12,7 @@ import CardContent from '@material-ui/core/CardContent';
 import {
   Divider,
 } from '@material-ui/core'
-import { CommonContext } from '../../../context/CommonContext';
+import { CommonContext } from '../../../../context/CommonContext';
 import axios from 'axios';
 
 const useStyles = makeStyles({

@@ -1,4 +1,5 @@
 import React, {useState}  from 'react';
+import { useHistory } from 'react-router-dom';
 import AppBar from '@material-ui/core/AppBar';
 import Button from '@material-ui/core/Button';
 import Card from '@material-ui/core/Card';
@@ -11,36 +12,33 @@ import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
-import { useHistory } from 'react-router-dom';
+import HomeCard from '../../components/Home';
 
 const useStyles = makeStyles((theme) => ({
-  icon: {
-    marginRight: theme.spacing(2),
-  },
   NavContent: {
     backgroundColor: theme.palette.background.paper,
     padding: theme.spacing(8, 0, 6),
   },
-  cardGrid: {
-    paddingTop: theme.spacing(8),
-    paddingBottom: theme.spacing(8),
-  },
-  card: {
-    height: '170%',
-    display: 'flex',
-    flexDirection: 'column',
-    width: '80%',
-  },
-  cardMedia: {
-    paddingTop: '56.25%', // 16:9
-    height: '170%'
-  },
-  cardContent: {
-    flexGrow: 1,
-  },
   toolbar: {
     paddingLeft: '80%',
-  }
+  },
+  // cardGrid: {
+  //   paddingTop: theme.spacing(8),
+  //   paddingBottom: theme.spacing(8),
+  // },
+  // card: {
+  //   height: '170%',
+  //   display: 'flex',
+  //   flexDirection: 'column',
+  //   width: '80%',
+  // },
+  // cardMedia: {
+  //   paddingTop: '56.25%', // 16:9
+  //   height: '170%'
+  // },
+  // cardContent: {
+  //   flexGrow: 1,
+  // },
 }));
 
 const cards = [1, 2];
@@ -78,6 +76,7 @@ export default function Home() {
   
     <React.Fragment>
       <CssBaseline />
+      {/* Nav-Bar */}
       <AppBar position="relative">
         <Toolbar className={classes.toolbar}>
           <Paper>            
@@ -100,7 +99,7 @@ export default function Home() {
             </Typography>                      
           </Container>
         </div>
-        <Container className={classes.cardGrid} maxWidth="md">
+        {/* <Container className={classes.cardGrid} maxWidth="md">
           <Grid container spacing={6}>
             {cards.map((card) => (
               <Grid item key={card} xs={12} sm={6}>
@@ -119,7 +118,8 @@ export default function Home() {
               </Grid>
             ))}
           </Grid>          
-        </Container>
+        </Container> */}
+        <HomeCard />
       </main>      
     </React.Fragment>    
   );

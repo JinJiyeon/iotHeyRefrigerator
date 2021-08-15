@@ -5,7 +5,7 @@ import {
 } from '@material-ui/core';
 import RecipeTimer from '../Timer';
 import LikeButton from '../Like';
-import { CommonContext } from '../../../context/CommonContext';
+import { CommonContext } from '../../../../context/CommonContext';
 
 
 

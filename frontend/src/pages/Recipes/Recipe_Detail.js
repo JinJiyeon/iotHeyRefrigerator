@@ -1,8 +1,8 @@
 import React, {useContext} from 'react';
 import {Grid} from '@material-ui/core';
-import RecipeBack from '../../components/Recipe/MyBack';
-import RecipeCard from '../../components/Recipe/MyCard';
-import RecipeBar from '../../components/Recipe/MySide';
+import RecipeBack from '../../components/Recipes/Recipe_Detail/MyBack';
+import RecipeCard from '../../components/Recipes/Recipe_Detail/MyCard';
+import RecipeBar from '../../components/Recipes/Recipe_Detail/MySide';
 import { CommonContext } from '../../context/CommonContext';
 const Recipe = () => {
 

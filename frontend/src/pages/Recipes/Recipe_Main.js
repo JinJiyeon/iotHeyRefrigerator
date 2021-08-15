@@ -2,7 +2,7 @@ import React, {useState, useEffect, useRef, useContext} from 'react';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Typography from '@material-ui/core/Typography';
 // 추가
-import SearchBar from '../../components/Recipes/SearchBar';
+import SearchBar from '../../components/Recipes/Recipe_Main/SearchBar';
 import RecipeCard from '../../components/Recipes/RecipeCard';
 
 

@@ -9,7 +9,7 @@ import Home from './pages/Home';
 import MyPage from './pages/MyPage/';
 import Foods from './pages/Foods/';
 import Recipe_Main from './pages/Recipes/Recipe_Main';
-import Recipe_Detail from './pages/Recipe/Recipe_Detail';
+import Recipe_Detail from './pages/Recipes/Recipe_Detail';
 import NotFound from './pages/NotFound/';
 
 const App = () => {
@@ -20,7 +20,7 @@ const App = () => {
       status: '',
       token: '',
     },
-    'user',
+    // 'user',
   );
   // Foods
   const [infoDialogOpen, setInfoDetailDialogOpen] = useState(false);
@@ -67,16 +67,16 @@ const App = () => {
       <BrowserRouter>
           <Switch>
             <Route exact path="/" component={Home} />
-            <Route exact path="/SignUp" component={SignUp} />
-            <Route exact path="/SignIn" component={SignIn} />
-            <Route exact path="/Home" component={Home} />
-            <Route exact path="/MyPage" component={MyPage} />
-            <Route exact path="/Foods" component={Foods} />
-            <Route exact path="/Recipes" component={Recipe_Main} />
-            <Route exact path="/Recipes/:recipeId" component={Recipe_Detail} />
-            <Route exact path="/NotFound" component={NotFound} />
+            <Route exact path="/signup" component={SignUp} />
+            <Route exact path="/signin" component={SignIn} />
+            <Route exact path="/home" component={Home} />
+            <Route exact path="/mypage" component={MyPage} />
+            <Route exact path="/foods" component={Foods} />
+            <Route exact path="/recipes" component={Recipe_Main} />
+            <Route exact path="/recipes/:recipeId" component={Recipe_Detail} />
+            <Route exact path="/notFound" component={NotFound} />
             {/* route외의 주소는 NotFound로 빠지도록 */}
-            {/* <Redirect to="/NotFound" /> */}
+            {/* <Redirect to="/notFound" /> */}
           </Switch>
         </BrowserRouter>
     </CommonContext.Provider>
