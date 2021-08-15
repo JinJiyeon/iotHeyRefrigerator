@@ -253,6 +253,48 @@ router.get('/:recipeId', (req, res) => {
     })
 })
 
+router.get('/inmybag/:recipe_id', util.isLogin, (req, res) => {
+    const user_id = req.user_id;
+    const recipe_id = req.params.recipe_id;
+
+    const inmyref = new Promise((resolve, reject) => {
+        db.query(`select users_and_ingredients.ingredient_name as ingredient_name, ingredients_and_recipe_infos.ingredient_amount as ingredient_amount
+                    from users_and_ingredients inner join ingredients_and_recipe_infos
+                    on users_and_ingredients.ingredient_name = ingredients_and_recipe_infos.ingredient_name
+                    where recipe_info_id = ${recipe_id} and user_id = '${user_id}'`, (err, rows) => {
+            if (err) reject(err);
+            else resolve(rows);
+            })
+    })
+
+    const notinmyref = new Promise((resolve, reject) => {
+        db.query(`select ingredient_name, ingredient_amount
+        from ingredients_and_recipe_infos
+        where ingredient_name not in (
+            select users_and_ingredients.ingredient_name
+            from users_and_ingredients inner join ingredients_and_recipe_infos
+            on users_and_ingredients.ingredient_name = ingredients_and_recipe_infos.ingredient_name
+            where recipe_info_id = ${recipe_id} and user_id = '${user_id}')
+        and recipe_info_id = ${recipe_id};`, (err, rows) => {
+            if (err) reject(err);
+            else resolve(rows);
+        })
+    })
+
+    let ingredients = {};
+    inmyref
+        .then((rows) => {
+            ingredients.inmyref = rows;
+            return notinmybag;
+        })
+        .then((rows) => {
+            ingredients.notinmyref = rows;
+            res.send(ingredients);
+        })
+        .catch((err) => {
+            res.status(500).send('server error');
+        })
+})
 
 //404 middleware
 
