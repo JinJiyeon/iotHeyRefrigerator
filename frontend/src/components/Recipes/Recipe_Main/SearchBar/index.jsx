@@ -70,7 +70,7 @@ const SearchBar = () => {
     setSort(event.target.value);
   };
   return (
-    <Box bgcolor="text.disabled">
+    <Box bgcolor="secondary">
       <div className={classes.heroContent}>
           <Container maxWidth="sm" align="center">
             <FormControl className={classes.search} >

@@ -29,27 +29,27 @@ const useStyles = makeStyles((theme) => ({
     paddingTop: theme.spacing(8),
     paddingBottom: theme.spacing(8),
   },
-  // card: {
-  //   height: '170%',
-  //   display: 'flex',
-  //   flexDirection: 'column',
-  //   width: '80%',
-  // },
+  card: {
+    height: '170%',
+    display: 'flex',
+    flexDirection: 'column',
+    width: '80%',
+  },
   cardMedia: {
     paddingTop: '56.25%', // 16:9
     height: '170%'
   },
-  // cardContent: {
-  //   flexGrow: 1,
-  // },
+  cardContent: {
+    flexGrow: 1,
+  },
 }));
 
 
 const HomeCard = () => {
 
   const dummy = [
-    { id:1, title:'🥗 레시피 🥘', path:'/Recipes'},
-    { id:2, title:'🥦 재료 🥩', path:'/Foods'},
+    { id:1, title:'레시피', path:'/Recipes', img:"https://image.flaticon.com/icons/png/512/291/291990.png"},
+    { id:2, title:'재료', path:'/Foods', img:"https://as1.ftcdn.net/v2/jpg/01/66/42/76/1000_F_166427637_p7cgjDJ4nSI8OMSmMOy6o2P1an4NETOu.jpg"},
   ];
   const history = useHistory();
   const classes = useStyles();
@@ -62,12 +62,19 @@ const HomeCard = () => {
         <Grid item xs={6} key={index}>
           <Card 
             className={classes.card}
+            // style={cardStyle}
             onClick = {() => {
               history.push(`${dummy.path}`)
             }}
           >
+            <CardMedia
+              className={classes.cardMedia}
+              // style = {imgStyle}
+              image={dummy.img}
+              title={dummy.title}
+            />
             <CardContent className={classes.cardContent}>
-              <Typography variant="h2" component="h2" align="center" color="warning">
+              <Typography gutterBottom variant="h3" component="h2" align="center" color="warning">
                 {dummy.title}
               </Typography>                    
             </CardContent>
