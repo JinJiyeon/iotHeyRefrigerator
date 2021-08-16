@@ -177,12 +177,25 @@ router.get('/mypage', util.isLogin, (req, res, next) => {
       })
   })
 
-  const user_likes = new Promise((resolve, reject) => {
-      db.query('select * from likes where user_id=?', [user_id], (err, rows) => {
-          if (err) reject(err);
-          else resolve(rows);
-      })
+  const user_likes_recipe_info = new Promise((resolve, reject) => {
+    db.query(`select recipe_info_id, title, recipe_info_image
+            from recipe_infos inner join likes
+            using(recipe_info_id)
+            where user_id = ?`, [user_id], (err, rows) => {
+        if (err) reject(err);
+        else resolve(rows);
+    })
   })
+    
+  const get_ingredients = function (recipe_id) {
+      return new Promise((resolve, reject) => {
+          console.log('recipe_id', recipe_id);
+        db.query(`select ingredient_name, ingredient_amount from ingredients_and_recipe_infos where recipe_info_id = ${recipe_id}`, (err, rows) => {
+            if (err) reject(err);
+            else resolve(rows);
+        })
+    })
+  }
 
   user_info
       .then((rows) => {
@@ -191,10 +204,24 @@ router.get('/mypage', util.isLogin, (req, res, next) => {
       })
       .then((rows) => {
           mydata.ingredients = rows;
-          return user_likes;
+          return user_likes_recipe_info;
       })
-      .then((rows) => {
-          mydata.likes = rows;
+      .then(async (rows) => {
+          mydata.likes = [];
+          
+          for (row of rows) {
+              const one_recipe = {recipe_info_id:null, title:null, img:null, ingredients:null};
+              one_recipe.recipe_info_id = row.recipe_info_id;
+              one_recipe.title = row.title;
+              one_recipe.img = row.recipe_info_image;
+              
+              one_recipe.ingredients = await get_ingredients(one_recipe.recipe_info_id);
+              console.log(one_recipe);
+
+              mydata.likes.push(one_recipe);
+          }
+      })
+      .then(() => {
           res.send(mydata);
       })
       .catch((err) => {
