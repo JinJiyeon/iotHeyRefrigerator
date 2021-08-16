@@ -97,7 +97,7 @@ export default function SignUp() {
                 .then(res => {
                   console.log(res)
                   // accessToken, 로그인 저장 후 메인페이지로 이동
-                  localStorage.setItem('jwt', Cookies.get('accessToken'))
+                  // localStorage.setItem('jwt', Cookies.get('accessToken'))
                   history.push('/')
                 })
                 .catch(err => {

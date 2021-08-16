@@ -47,9 +47,18 @@ const MyPageCard = () => {
         setRecipe(res.data, 'axios');
       })
       .catch(err => {
-        console.log(err.response)
+        console.log(err.response);
       })
-  }
+  };
+  const checkMyBag =()=>{
+    axios.get(`/recipe/inmybag/${recipeId.recipe_info_id}`)
+      .then(res=>{
+        console.log(res.data, 'MyBag');
+      })
+      .catch(err=>{
+        console.log(err.response);
+      })
+  };
   return (
     <Grid item xs={12} md={6}>
         <Grid>
@@ -57,6 +66,9 @@ const MyPageCard = () => {
         <Card className={classes.card}>
           <div className={classes.cardDetails}>
             <CardContent>
+              <button onClick={checkMyBag}>
+                재료확인버튼
+              </button>
                 <Typography component="h2" variant="h3">
                   재료: 
                 </Typography>
@@ -64,11 +76,20 @@ const MyPageCard = () => {
                 {
                   recipe.ingredients && 
                     <div>
-                      {recipe.ingredients.map((data)=>(
-                          <Typography key={data} component="h2" variant="h5">
-                            {data.ingredient_name}
+                      {recipe.ingredients.inmyref &&
+                      <div>
+                        {recipe.ingredients.inmyref.map((data)=>(
+                          <Typography key={data} component="h2" variant="h5" color='primary'>
+                            {data.ingredient_name} | {data.ingredient_amount}
                           </Typography>
                         ))}
+                      </div>
+                      }
+                      {recipe.ingredients.notinmyref.map((data)=>(
+                        <Typography key={data} component="h2" variant="h5" color='secondary'>
+                          {data.ingredient_name} | {data.ingredient_amount}
+                        </Typography>
+                      ))}
                     </div>
                 }
                 <Divider />

@@ -16,10 +16,13 @@ import {
   Dialog,
   DialogTitle,
 } from '@material-ui/core';
+import axios from 'axios';
 
 const FoodAdd = () => {
   const {openFoodAddForm, setopenFoodAddForm, rows, setRows} = useContext(CommonContext);
   const {newFood, setNewFood, newExp, setNewExp} = useContext(CommonContext);
+  const {setOpenFoodAdd} = useContext(CommonContext);
+
   // 기존 Food, newFood Add
   // 날짜 추가
 
@@ -42,9 +45,22 @@ const FoodAdd = () => {
     rows.push(createData(rows.length, newFood, newExp))
     console.log(rows, 'addFood')
     setopenFoodAddForm(false);
+    // new (mypage)
+    setOpenFoodAdd(false);
+    let body = {
+      ingredient_name : newFood,
+      expiration_date : newExp,
+    }
+    axios.post('user/myingredients/add', body)
+      .then(res=>{
+        console.log(res.data, 'FoodAdd-res');
+      })
+      .catch(err=>{
+        console.log(err.response,'FoodAdd-err')
+      })
   }
   return (
-    <Dialog open={openFoodAddForm} onClose={ onClose }>
+    <Container open={openFoodAddForm} onClose={ onClose }>
       <DialogTitle>
         Add Food
       </DialogTitle>
@@ -61,7 +77,8 @@ const FoodAdd = () => {
           style={form}
           onChange={e => {setNewExp(e.target.value)}}
           id="outlined-basic"
-          label="exp"
+          type="date"
+          // label="exp"
           variant="outlined"
           // **기본값을 5로 주고, onChange가 아니더라도 ExpItem이 입력이 되도록
           // defaultValue="5"
@@ -70,8 +87,11 @@ const FoodAdd = () => {
         <Button type='submit'>
           등록
         </Button>
+        <Button onClick={()=>{setOpenFoodAdd(false);}}>
+          취소
+        </Button>
       </form>
-    </Dialog>
+    </Container>
   );
 };
 

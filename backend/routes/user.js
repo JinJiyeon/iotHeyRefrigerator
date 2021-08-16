@@ -100,7 +100,7 @@ router.post('/myingredients/delete', util.isLogin, (req, res, next) => {
   const ingredient_name = req.body.ingredient_name;
   const expiration_date = req.body.expiration_date;
 
-  db.query('delete from users_and_ingredients where user_id=? and ingredient_name=? and expiration_date=?', [userid, ingredient_name, expiration_date], (err, rows) => {
+  db.query('delete from users_and_ingredients where user_id=? and ingredient_name=? and expiration_date=?', [user_id, ingredient_name, expiration_date], (err, rows) => {
       if (err) next(err);
       // 수정 필요 : 삭제 후 보여야 할 페이지 send
       res.send(rows);
