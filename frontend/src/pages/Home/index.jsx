@@ -85,7 +85,7 @@ export default function Home() {
           <Paper>
             {Cookies.get('user_id') ?
               <div>
-                <Button onClick={onClickBtn} variant="contained" color="warning.main">
+                <Button onClick={onClickBtn} variant="contained" color="primary">
                   MyPage
                 </Button>
                 <Button onClick={()=>{
