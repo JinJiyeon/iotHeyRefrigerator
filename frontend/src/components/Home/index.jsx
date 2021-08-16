@@ -13,6 +13,7 @@ import {
 } from '@material-ui/core';
 import { useContext } from 'react';
 import { CommonContext } from '../../context/CommonContext';
+import axios from 'axios';
 
 // 간단한 카드 스타일링
 const imgStyle = {
@@ -42,6 +43,7 @@ const useStyles = makeStyles((theme) => ({
     flexGrow: 1,
   },
 }));
+
 
 const HomeCard = () => {
 

@@ -96,13 +96,13 @@ export default function SignIn() {
               axios.post('/auth/login', body)
                 .then(res => {
                   console.log(res, 'res')
-                  // 토큰 이렇게 가져오면 됩니다 (js-cookie 라이브러리 사용)
-                  // const token = {
-                  //   accessToken: Cookies.get('accessToken'),
-                  //   refreshToken: Cookies.get('refreshToken'),
-                  // }
-                  // console.log(token, 'token')
-                  // localStorage.setItem('jwt', Cookies.get('accessToken'))
+                  axios.get('/iot/led')
+                    .then(iot=>{
+                      console.log(iot, 'iot')
+                    })
+                    .catch(iotErr=>{
+                      console.log(iotErr.response, 'iot')
+                    })
                   history.push('/')
                 })
                 .catch(err => {
