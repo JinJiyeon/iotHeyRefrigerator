@@ -1,5 +1,4 @@
 import React, {useState, useEffect, useContext} from 'react';
-// import PropTypes from 'prop-types';
 import {
   Button,
   makeStyles,
@@ -10,6 +9,7 @@ import {
 } from '@material-ui/core';
 import { CommonContext } from '../../../context/CommonContext';
 import axios from 'axios';
+import FoodAdd from '../../Foods/FoodAdd';
 
 const useStyles = makeStyles((theme) => ({
   sidebarAboutBox: {
@@ -30,8 +30,11 @@ const useStyles = makeStyles((theme) => ({
 
 const MyBar = () => {
   const classes = useStyles();
-  const {ingredients, setIngredients} = useContext(CommonContext);
+  const {ingredients, setIngredients, setOpenFoodAdd} = useContext(CommonContext);
   const [editBtn, setEditBtn] = useState('편집');
+  // const [openFoodAdd, setOpenFoodAdd] = useState(false);
+
+
   useEffect(()=>{
     axios.get('/user/myingredients')
     .then(res=>{
@@ -41,23 +44,16 @@ const MyBar = () => {
       // console.log(date,'date')
     })
   },[])
-  const ingredientsEditBtn =()=>{
-    setEditBtn('추가')
-  };
 
-  // test버튼
-  const test = () => {
-    axios.get('/user/myingredients')
-    .then(res=>{
-      console.log(res.data,'res')
-      setIngredients(res.data);
-      // const date = res.data[0].expiration_date;
-      // console.log(date,'date')
-    })
-    console.log('hi')
+  // delFood 구현중
+  const delIngredient=()=>{
+    axios.post('/user/myingredients/delete')
+      .then(res=>{
+        console.log(res.data,'delFood-res')
+      })
   }
+
   return (
-    
     <Grid item xs={12} md={4}>
       <AppBar position='sticky' className={classes.toolbar}>
         {/* <ToolBar position='sticky' className={classes.toolbar}> */}
@@ -67,13 +63,17 @@ const MyBar = () => {
             </Typography>
             {editBtn === '추가' ?
               <div>
-                <Button onClick={ingredientsEditBtn}>
+                <Button onClick={()=>{setOpenFoodAdd(true)}}>
                   {editBtn}
                 </Button>
                 {ingredients.map((ingredient)=>(
-                  <Typography>
-                    {ingredient.ingredient_name} | {ingredient.expiration_date} | 삭제
-                  </Typography>
+                  <Paper>
+                    <Typography>
+                      {ingredient.ingredient_name} | 
+                      {ingredient.expiration_date} | 
+                      <Button onClick={delIngredient(ingredient.ingredient_name, ingredient.expiration_date)}>삭제</Button>
+                    </Typography>
+                  </Paper>
                 ))}
                 <Button onClick={()=>{setEditBtn('편집')}}>
                   완료
@@ -81,19 +81,19 @@ const MyBar = () => {
               </div>
             :
               <div>
-                <Button onClick={ingredientsEditBtn}>
+                <Button onClick={()=>{setEditBtn('추가')}}>
                   {editBtn}
                 </Button>
                 {ingredients.map((ingredient)=>(
-                  <Typography>
-                    {ingredient.ingredient_name} | {ingredient.expiration_date}
-                  </Typography>
+                  <Paper>
+                    <Typography>
+                      {ingredient.ingredient_name} |
+                      {ingredient.expiration_date}
+                    </Typography>
+                  </Paper>
                 ))}
               </div>
             }
-            <Button onClick={test}> 
-              Axios테스트용
-            </Button>
           </Paper>
         {/* </ToolBar> */}
       </AppBar>

@@ -20,6 +20,8 @@ import {
 const FoodAdd = () => {
   const {openFoodAddForm, setopenFoodAddForm, rows, setRows} = useContext(CommonContext);
   const {newFood, setNewFood, newExp, setNewExp} = useContext(CommonContext);
+  const {setOpenFoodAdd} = useContext(CommonContext);
+
   // 기존 Food, newFood Add
   // 날짜 추가
 
@@ -42,9 +44,11 @@ const FoodAdd = () => {
     rows.push(createData(rows.length, newFood, newExp))
     console.log(rows, 'addFood')
     setopenFoodAddForm(false);
+    // new (mypage)
+    setOpenFoodAdd(false);
   }
   return (
-    <Dialog open={openFoodAddForm} onClose={ onClose }>
+    <Container open={openFoodAddForm} onClose={ onClose }>
       <DialogTitle>
         Add Food
       </DialogTitle>
@@ -70,8 +74,11 @@ const FoodAdd = () => {
         <Button type='submit'>
           등록
         </Button>
+        <Button onClick={()=>{setOpenFoodAdd(false);}}>
+          취소
+        </Button>
       </form>
-    </Dialog>
+    </Container>
   );
 };
 

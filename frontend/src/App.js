@@ -41,6 +41,7 @@ const App = () => {
   const [recipeId, setRecipeId] = useState([]);
   // mypage foods
   const [ingredients, setIngredients] = useState([]);
+  const [openFoodAdd, setOpenFoodAdd] = useState(false);
   return (
     <CommonContext.Provider
       value={{
@@ -68,6 +69,8 @@ const App = () => {
         // mypage
         ingredients,
         setIngredients,
+        openFoodAdd,
+        setOpenFoodAdd,
       }}
     >
       <BrowserRouter>

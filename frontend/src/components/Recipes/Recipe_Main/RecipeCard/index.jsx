@@ -55,15 +55,15 @@ const RecipeCard = () => {
   // 페이지가 렌더링됐을때 마운트시킬 레시피
   useEffect(() => {
     setRecomMenu('기본 추천')
-    setCards([{title:'hi', recipe_info_image:'https://source.unsplash.com/random' },{title:'hi', recipe_info_image:'https://source.unsplash.com/random' },{title:'hi', recipe_info_image:'https://source.unsplash.com/random' }])
-    // axios.get('/recipe/recom/important')
-    // .then(res => {
-    //   setCards(res.data)
-    //   // console.log(cards, 'useEffectcards')
-    // })
-    // .catch(err => {
-    //   console.log(err)
-    // })
+    // setCards([{title:'hi', recipe_info_image:'https://source.unsplash.com/random' },{title:'hi', recipe_info_image:'https://source.unsplash.com/random' },{title:'hi', recipe_info_image:'https://source.unsplash.com/random' }])
+    axios.get('/recipe/recom/main')
+    .then(res => {
+      setCards(res.data)
+      console.log(res.data, 'useEffectcards')
+    })
+    .catch(err => {
+      console.log(err)
+    })
   }, [])
 
   // 추천 좋아요 menu

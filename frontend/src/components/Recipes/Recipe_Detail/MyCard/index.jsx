@@ -76,8 +76,17 @@ const MyPageCard = () => {
                 {
                   recipe.ingredients && 
                     <div>
-                      {recipe.ingredients.map((data)=>(
-                        <Typography key={data} component="h2" variant="h5">
+                      {recipe.ingredients.inmyref &&
+                      <div>
+                        {recipe.ingredients.inmyref.map((data)=>(
+                          <Typography key={data} component="h2" variant="h5" color='primary'>
+                            {data.ingredient_name} | {data.ingredient_amount}
+                          </Typography>
+                        ))}
+                      </div>
+                      }
+                      {recipe.ingredients.notinmyref.map((data)=>(
+                        <Typography key={data} component="h2" variant="h5" color='secondary'>
                           {data.ingredient_name} | {data.ingredient_amount}
                         </Typography>
                       ))}
