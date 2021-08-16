@@ -333,7 +333,6 @@ router.get('/:recipe_id', async (req, res) => {
             } else {
                 recipe.isLiked = 0;
             }
-            
             res.send(recipe);
         })
         .catch((err) => {

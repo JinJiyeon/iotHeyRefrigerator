@@ -17,6 +17,7 @@ const userRouter = require('./routes/user');
 const recipeRouter = require('./routes/recipe');
 const authRouter = require('./routes/auth');
 const app = express();
+const iotRouter = require('./routes/iot');
 app.set('port', process.env.PORT || 3000);
 
 
@@ -36,6 +37,8 @@ app.use(cors({
 app.use('/user', userRouter);
 app.use('/recipe', recipeRouter);
 app.use('/auth', authRouter);
+// backend app.js 에서 추가하는 라우터 코드
+app.use('/iot', iotRouter);
 
 app.get('/', (req, res) => {
   console.log('hello node')
