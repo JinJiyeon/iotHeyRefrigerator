@@ -100,9 +100,12 @@ const MyPageCard = () => {
                   recipe.steps && 
                     <div>
                       {recipe.steps.map((data)=>(
+                        <div>
                           <Typography key={data} component="h2" variant="h5">
                             {data.step_order} | {data.step_comment}
                           </Typography>
+                          <img src={data.image_source} alt="" />
+                        </div>
                         ))}
                     </div>
                 }
