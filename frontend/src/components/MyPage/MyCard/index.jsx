@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
@@ -7,6 +7,8 @@ import CardActionArea from '@material-ui/core/CardActionArea';
 import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import Hidden from '@material-ui/core/Hidden';
+import axios from 'axios';
+
 
 const useStyles = makeStyles({
   card: {
@@ -24,11 +26,48 @@ const cards = [1,2,3,4,5,6,7,8,9]
 
 const MyPageCard = () => {
   const classes = useStyles();
-  // const { post } = props;
+  // mypage liked recipe info
+  const [mypage, setMypage] = useState();
+  // each liked recipe detail info
+  const [likedRecipe, setLikedRecipe] = useState([]);
+
+  // mypage데이터 마운트
+  useEffect(()=>{
+    axios.get('/user/mypage')
+    .then(res=>{
+      console.log(res.data.likes);
+      setMypage(res.data.likes);
+    })
+    .then(()=>{
+      recipeApi();
+      console.log(likedRecipe,'axios-liked')
+    })
+    .catch(err=>{
+      console.log(err.response);
+    })
+  }, [])
+
+  const recipeApi = () => {
+    // console.log('here')
+    console.log(mypage,'mypage')
+    for (let i=0; i<mypage.length; i++) {
+      axios.get(`/recipe/${mypage[i].recipe_info_id}`)
+      .then(res => {
+        console.log(res.data, 'axios');
+        console.log(likedRecipe,'likedRecipe')
+        setLikedRecipe([...likedRecipe, res.data]);
+      })
+      .catch(err => {
+        console.log(err.response);
+      })
+    }
+  };
   return (
     <Grid item xs={12} md={6}>
-      {cards.map((recipe) => (
-        <Grid key={recipe}>
+      <button onClick={recipeApi}>recipeAPI</button>
+      <button onClick={()=>{console.log(likedRecipe)}}>콘솔</button>
+      {cards.map((card) => (
+        <Grid key={card}>
         <CardActionArea component="a" href="#">
         <Card className={classes.card}>
           <div className={classes.cardDetails}>

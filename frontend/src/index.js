@@ -4,9 +4,32 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 
+import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
+// 지연 : font, color 통일하기 위함. primary는 회색, secondary는 노란색입니다.
+// 기본 폰트는 주아체, h4(설명)은 온글숲으로 했습니다. 이거는 나중에 바꿔도 됨!
+const theme = createMuiTheme({
+  typography: {
+    fontFamily: "fontPrimary",
+    h4: {
+      fontFamily: "fontSecondary"
+    }
+  },
+  // palette: {
+  //   primary: {
+  //     main : '#acacac'
+  //   },
+  //   secondary: {
+  //     main: '#e2c547'
+  //   },
+  // },
+  // backgroundColor: '#acacac'
+});
+
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <MuiThemeProvider theme={theme}>
+      <App />
+    </MuiThemeProvider>
   </React.StrictMode>,
   document.getElementById('root')
 );

@@ -92,6 +92,7 @@ export default function SignIn() {
                 password: password,
               }
               console.log(body)
+              console.log(Cookies.get('user_id'),'Cookies')
               axios.post('/auth/login', body)
                 .then(res => {
                   console.log(res, 'res')
@@ -101,8 +102,7 @@ export default function SignIn() {
                   //   refreshToken: Cookies.get('refreshToken'),
                   // }
                   // console.log(token, 'token')
-
-                  localStorage.setItem('jwt', Cookies.get('accessToken'))
+                  // localStorage.setItem('jwt', Cookies.get('accessToken'))
                   history.push('/')
                 })
                 .catch(err => {

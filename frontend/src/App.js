@@ -11,6 +11,7 @@ import Foods from './pages/Foods/';
 import Recipe_Main from './pages/Recipes/Recipe_Main';
 import Recipe_Detail from './pages/Recipes/Recipe_Detail';
 import NotFound from './pages/NotFound/';
+import Cookies from 'js-cookie';
 
 const App = () => {
   const [user, setUser] = useState(
@@ -38,6 +39,9 @@ const App = () => {
   // Recipe
   const [cards, setCards] = useState([]);
   const [recipeId, setRecipeId] = useState([]);
+  // mypage foods
+  const [ingredients, setIngredients] = useState([]);
+  const [openFoodAdd, setOpenFoodAdd] = useState(false);
   return (
     <CommonContext.Provider
       value={{
@@ -62,6 +66,11 @@ const App = () => {
         setCards,
         recipeId,
         setRecipeId,
+        // mypage
+        ingredients,
+        setIngredients,
+        openFoodAdd,
+        setOpenFoodAdd,
       }}
     >
       <BrowserRouter>
@@ -70,13 +79,18 @@ const App = () => {
             <Route exact path="/signup" component={SignUp} />
             <Route exact path="/signin" component={SignIn} />
             <Route exact path="/home" component={Home} />
-            <Route exact path="/mypage" component={MyPage} />
+            {/* {
+            Cookies.get('user_id') ?  */}
+              <Route exact path="/mypage" component={MyPage} />
+            {/* :
+              alert('로그인 후 이용해주세요.')
+            } */}
             <Route exact path="/foods" component={Foods} />
             <Route exact path="/recipes" component={Recipe_Main} />
             <Route exact path="/recipes/:recipeId" component={Recipe_Detail} />
-            <Route exact path="/notFound" component={NotFound} />
+            <Route exact path="/notfound" component={NotFound} />
             {/* route외의 주소는 NotFound로 빠지도록 */}
-            {/* <Redirect to="/notFound" /> */}
+            {/* <Redirect to="/notfound" /> */}
           </Switch>
         </BrowserRouter>
     </CommonContext.Provider>

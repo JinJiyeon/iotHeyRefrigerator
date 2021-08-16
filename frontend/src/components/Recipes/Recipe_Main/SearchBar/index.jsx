@@ -8,7 +8,7 @@ import {
   makeStyles,
   withStyles,
   InputBase,
-
+  Box
 } from '@material-ui/core';
 
 const BootstrapInput = withStyles((theme) => ({
@@ -70,7 +70,7 @@ const SearchBar = () => {
     setSort(event.target.value);
   };
   return (
-    <div>
+    <Box bgcolor="text.disabled">
       <div className={classes.heroContent}>
           <Container maxWidth="sm" align="center">
             <FormControl className={classes.search} >
@@ -92,7 +92,7 @@ const SearchBar = () => {
             </FormControl>    
           </Container>
         </div>
-    </div>
+    </Box>
   );
 };
 

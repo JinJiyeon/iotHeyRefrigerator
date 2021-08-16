@@ -11,3 +11,16 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+@font-face { 
+  font-family: 'fontPrimary'; 
+  src: url(./fonts/BMJUA_otf.otf) format('truetype'); 
+}
+@font-face {
+  font-family: 'fontSecondary'; 
+  src: url(./fonts/BMHANNAAir_otf.otf) format('truetype'); 
+}
+@font-face {
+  font-family: 'fontclock';
+  src: url(./fonts/LAB.ttf) format('truetype');
+}
