@@ -72,7 +72,7 @@ const HomeCard = () => {
               title={dummy.title}
             />
             <CardContent className={classes.cardContent}>
-              <Typography gutterBottom variant="h4" component="h2" align="center">
+              <Typography gutterBottom variant="h3" component="h2" align="center" color="warning">
                 {dummy.title}
               </Typography>                    
             </CardContent>

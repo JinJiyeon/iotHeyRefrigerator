@@ -1,7 +1,15 @@
 //주의 : 이 컴포넌트는 App.js기준으로 작성되어있음.
 
 import React, { Component } from 'react';
-
+import {
+  Container,
+  Grid,
+  Typography,
+  Button,
+  Divider,
+  makeStyles,
+  Box
+} from '@material-ui/core';
 
 class RecipeTimer extends Component {
   constructor() {
@@ -78,23 +86,55 @@ class RecipeTimer extends Component {
     const { hours, minutes, seconds } = this.state;
 
     return (
-      <div className="Timer">
-         <h1 className="title"> 7링바이브 Timer </h1>
-         <div className="inputGroup">
-            <h3>시간</h3>
-            <input ref={this.hoursInput} type="number" placeholder={0}  name="hours"  onChange={this.inputHandler} />
-            <h3>분</h3>
-            <input  ref={this.minutesInput} type="number"  placeholder={0}   name="minutes"  onChange={this.inputHandler} />
-            <h3>초</h3>
-            <input   ref={this.secondsInput} type="number"  placeholder={0}  name="seconds"  onChange={this.inputHandler} />
-         </div>
-         <div>
-            <button onClick={this.startTimer} className="start">start</button>
-            <button onClick={this.stopTimer}  className="stop">stop</button>
-            <button onClick={this.resetTimer}  className="reset">reset</button>
-         </div>
-         <h1> 남은시간 {hours}: {minutes} : {seconds} </h1>
-      </div>
+      
+        <Box bgcolor="error.light" p={2}>
+          <Container>
+          <Typography variant="h2" align="center">Timer</Typography>
+          <hr></hr>
+          <Typography variant="h5" align="center">시간 설정하기</Typography>
+          <Grid container >
+            <Grid item xs={4} p={1}>
+              <input ref={this.hoursInput} type="number" placeholder={'HH'}  name="hours"  onChange={this.inputHandler}/>
+            </Grid>  
+            <Grid item xs={4}>
+              <input  ref={this.minutesInput} type="number"  placeholder={'MM'}   name="minutes"  onChange={this.inputHandler} />
+            </Grid>
+            <Grid item xs={4}>
+              <input   ref={this.secondsInput} type="number"  placeholder={'SS'}  name="seconds"  onChange={this.inputHandler} />
+            </Grid>
+          </Grid>
+          <hr></hr>
+          <Typography variant="h5" align="center">남은 시간</Typography>
+          <Grid container>
+            <Grid item xs={4} align="center">
+              {hours}
+            </Grid>  
+            <Grid item xs={4} align="center">
+              {minutes}
+            </Grid>
+            <Grid item xs={4} align="center">
+              {seconds}
+            </Grid>
+          </Grid>
+          <hr></hr>
+          <Grid container>
+            <Grid item xs={4} align="center">
+              <Button onClick={this.startTimer} className="start" variant="contained" color="error.main">START</Button>
+            </Grid>  
+            <Grid item xs={4} align="center">
+              <Button onClick={this.stopTimer}  className="stop" variant="contained">STOP</Button>
+            </Grid>
+            <Grid item xs={4} align="center">
+              <Button onClick={this.resetTimer}  className="reset" variant="contained">RESET</Button>
+            </Grid>
+          </Grid>
+          </Container>
+        </Box>
+      
+      
+        
+
+      
 
     );
   }

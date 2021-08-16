@@ -8,7 +8,7 @@ import {
   MenuList,
   MenuItem,
   Button,
-
+  Box,
   Container,
   Grid,
   Card,
@@ -122,58 +122,58 @@ const RecipeCard = () => {
     prevOpen.current = open;
   }, [open]);
   return (
-    <div>
-            <Container maxWidth="lg">
-            <Typography component="h2" variant="h5" align="left" color="textPrimary" gutterBottom>
-              오늘의 추천 레시피
-            </Typography>
-            <div className={classes.root}>
-              <div>
-                <Button
-                  ref={anchorRef}
-                  aria-controls={open ? 'me  nu-list-grow' : undefined}
-                  aria-haspopup="true"
-                  onClick={handleToggle}    
-                  align = "right"          
-                  >
-                  {recomMenu}
-                </Button>
-                <Popper open={open} anchorEl={anchorRef.current} role={undefined} transition disablePortal>
-                  {({ TransitionProps, placement }) => (
-                    <Grow
-                    {...TransitionProps}
-                    style={{ transformOrigin: placement === 'bottom' ? 'center top' : 'center bottom' }}
-                    >
-                      <Paper>
-                        <ClickAwayListener onClickAway={handleClose}>
-                          <MenuList autoFocusItem={open} id="menu-list-grow" onKeyDown={handleListKeyDown}>
-                            <MenuItem onClick={() => {
-                              if (Cookies.get('user_id')) {
-                                setOpen(false);
-                                likeApi();
-                                setRecomMenu('좋아요 추천');
-                              } else {
-                                alert('로그인 유저만 이용가능한 서비스입니다.')
-                              }
-                            }}>
-                              좋아요 우선 추천
-                            </MenuItem>
-                            <MenuItem onClick={() => {
-                              setOpen(false);
-                              expApi();
-                              setRecomMenu('유통기한 추천');
-                            }}>
-                              유통기한 우선 추천
-                            </MenuItem>
-                          </MenuList>
-                        </ClickAwayListener>
-                      </Paper>
-                    </Grow>
-                  )}
-                </Popper>
-              </div>
-            </div>
-            </Container>
+    <Box bgcolor="warning.light" p={2}>
+      <Container maxWidth="lg">
+      <Typography variant="h5" align="left" color="textPrimary" gutterBottom>
+        오늘의 추천 레시피
+      </Typography>
+      <div className={classes.root}>
+        <div>
+          <Button
+            ref={anchorRef}
+            aria-controls={open ? 'me  nu-list-grow' : undefined}
+            aria-haspopup="true"
+            onClick={handleToggle}    
+            align = "right"          
+            >
+            {recomMenu}
+          </Button>
+          <Popper open={open} anchorEl={anchorRef.current} role={undefined} transition disablePortal>
+            {({ TransitionProps, placement }) => (
+              <Grow
+              {...TransitionProps}
+              style={{ transformOrigin: placement === 'bottom' ? 'center top' : 'center bottom' }}
+              >
+                <Paper>
+                  <ClickAwayListener onClickAway={handleClose}>
+                    <MenuList autoFocusItem={open} id="menu-list-grow" onKeyDown={handleListKeyDown}>
+                      <MenuItem onClick={() => {
+                        if (Cookies.get('user_id')) {
+                          setOpen(false);
+                          likeApi();
+                          setRecomMenu('좋아요 추천');
+                        } else {
+                          alert('로그인 유저만 이용가능한 서비스입니다.')
+                        }
+                      }}>
+                        좋아요 우선 추천
+                      </MenuItem>
+                      <MenuItem onClick={() => {
+                        setOpen(false);
+                        expApi();
+                        setRecomMenu('유통기한 추천');
+                      }}>
+                        유통기한 우선 추천
+                      </MenuItem>
+                    </MenuList>
+                  </ClickAwayListener>
+                </Paper>
+              </Grow>
+            )}
+          </Popper>
+        </div>
+      </div>
+      </Container>
     <Container className={classes.cardGrid} maxWidth="md">
       { 
         cards &&
@@ -202,7 +202,7 @@ const RecipeCard = () => {
           </Grid>
       }
   </Container>
-      </div>
+  </Box>
   );
 };
 

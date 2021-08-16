@@ -14,12 +14,13 @@ import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import HomeCard from '../../components/Home';
 import Cookies from 'js-cookie';
+import { palette } from '@material-ui/system';
 
 const useStyles = makeStyles((theme) => ({
-  NavContent: {
-    backgroundColor: theme.palette.background.paper,
-    padding: theme.spacing(8, 0, 6),
-  },
+  // NavContent: {
+  //   backgroundColor: theme.palette.background.paper,
+  //   padding: theme.spacing(8, 0, 6),
+  // },
   toolbar: {
     paddingLeft: '80%',
   },
@@ -78,12 +79,13 @@ export default function Home() {
     <React.Fragment>
       <CssBaseline />
       {/* Nav-Bar */}
-      <AppBar position="relative">
+      {/* 지연 : appbar (navbar) 투명하게 만듦. */}
+      <AppBar position="relative" style={{ background: 'transparent', boxShadow: 'none'}}>
         <Toolbar className={classes.toolbar}>
           <Paper>
             {Cookies.get('user_id') ?
               <div>
-                <Button onClick={onClickBtn}>
+                <Button onClick={onClickBtn} variant="contained" color="warning.main">
                   MyPage
                 </Button>
                 <Button onClick={()=>{
@@ -92,14 +94,18 @@ export default function Home() {
                   Cookies.remove('refreshToken')
                   Cookies.remove('accessToken')
                   history.push('/SignIn')
-                }}>
+                }}
+                  variant="contained" color="warning.main"
+                >
                   SignOut
                 </Button>                                        
               </div>
             :
               <Button onClick={()=>{
                 history.push('/SignIn')
-              }}>
+              }}
+                variant="contained" color="warning.main"
+              >
                 SignIn
               </Button>
             }
@@ -111,9 +117,9 @@ export default function Home() {
       <main>
         <div className={classes.NavContent}>
           <Container maxWidth="sm">
-            <Typography component="h1" variant="h2" align="center" color="textPrimary" gutterBottom>
-              7링 바이브
-            </Typography>                      
+            <Typography variant="h2" align="center" color="warning.main">
+              7링 바이브 Logo
+            </Typography>                   
           </Container>
         </div>
         {/* <Container className={classes.cardGrid} maxWidth="md">
