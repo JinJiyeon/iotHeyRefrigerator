@@ -46,10 +46,14 @@ const MyBar = () => {
   },[])
 
   // delFood 구현중
-  const delIngredient=()=>{
-    axios.post('/user/myingredients/delete')
+  const delIngredient=(params)=>{
+    console.log(params, 'del-food-data')
+    axios.post('/user/myingredients/delete',params)
       .then(res=>{
         console.log(res.data,'delFood-res')
+      })
+      .catch(err=>{
+        console.log(err.response, 'delFood-err')
       })
   }
 
@@ -71,7 +75,9 @@ const MyBar = () => {
                     <Typography>
                       {ingredient.ingredient_name} | 
                       {ingredient.expiration_date} | 
-                      <Button onClick={delIngredient(ingredient.ingredient_name, ingredient.expiration_date)}>삭제</Button>
+                      <Button onClick={()=>{delIngredient(ingredient)}}>
+                        삭제
+                      </Button>
                     </Typography>
                   </Paper>
                 ))}
