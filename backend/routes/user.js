@@ -99,7 +99,7 @@ router.post('/myingredients/delete', util.isLogin, (req, res, next) => {
 
   const ingredient_name = req.body.ingredient_name;
   const expiration_date = req.body.expiration_date;
-
+    console.log(ingredient_name, expiration_date, 'err')
   db.query('delete from users_and_ingredients where user_id=? and ingredient_name=? and expiration_date=?', [user_id, ingredient_name, expiration_date], (err, rows) => {
       if (err) next(err);
       // 수정 필요 : 삭제 후 보여야 할 페이지 send
@@ -210,10 +210,10 @@ router.get('/mypage', util.isLogin, (req, res, next) => {
           mydata.likes = [];
           
           for (row of rows) {
-              const one_recipe = {recipe_info_id:null, title:null, img:null, ingredients:null};
+              const one_recipe = {recipe_info_id:null, title:null, recipe_info_image:null, ingredients:null};
               one_recipe.recipe_info_id = row.recipe_info_id;
               one_recipe.title = row.title;
-              one_recipe.img = row.recipe_info_image;
+              one_recipe.recipe_info_image = row.recipe_info_image;
               
               one_recipe.ingredients = await get_ingredients(one_recipe.recipe_info_id);
               console.log(one_recipe);

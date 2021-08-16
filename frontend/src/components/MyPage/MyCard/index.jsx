@@ -1,4 +1,5 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useState, useContext} from 'react';
+import { useHistory } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
@@ -8,6 +9,7 @@ import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import Hidden from '@material-ui/core/Hidden';
 import axios from 'axios';
+import { CommonContext } from '../../../context/CommonContext';
 
 
 const useStyles = makeStyles({
@@ -25,9 +27,11 @@ const useStyles = makeStyles({
 const cards = [1,2,3,4,5,6,7,8,9]
 
 const MyPageCard = () => {
+  let history = useHistory();
   const classes = useStyles();
   // mypage liked recipe info
   const [mylikes, setMylikes] = useState([]);
+  const {setRecipeId} = useContext(CommonContext);
 
   // each liked recipe detail info
   // const [likedRecipe, setLikedRecipe] = useState([]);
@@ -68,7 +72,12 @@ const MyPageCard = () => {
     <Grid item xs={12} md={6}>
       {mylikes.map((like) => (
         <Grid key={like}>
-        <CardActionArea component="a" href="#">
+        <CardActionArea component="a"
+          onClick={()=>{
+            setRecipeId(like)
+            history.push(`/recipes/${like.recipe_info_id}`);
+          }}
+        >
         <Card className={classes.card}>
           <div className={classes.cardDetails}>
             <CardContent>
@@ -92,7 +101,7 @@ const MyPageCard = () => {
           </div>
           <Hidden xsDown>
             <CardMedia className={classes.cardMedia}
-            image={like.img}
+            image={like.recipe_info_image}
             title={like.title}
             />
           </Hidden>

@@ -9,7 +9,7 @@ import {
 } from '@material-ui/core';
 import { CommonContext } from '../../../context/CommonContext';
 import axios from 'axios';
-import FoodAdd from '../../Foods/FoodAdd';
+import { SSL_OP_SSLEAY_080_CLIENT_DH_BUG } from 'constants';
 
 const useStyles = makeStyles((theme) => ({
   sidebarAboutBox: {
@@ -38,7 +38,10 @@ const MyBar = () => {
   useEffect(()=>{
     axios.get('/user/myingredients')
     .then(res=>{
-      // console.log(res.data,'res')
+      console.log(res.data,'ingredi-get-res')
+      for (let i=0; i<res.data.length; i++){
+        res.data[i].expiration_date=res.data[i].expiration_date.substr(0, 10)
+      }
       setIngredients(res.data);
       // const date = res.data[0].expiration_date;
       // console.log(date,'date')
@@ -50,7 +53,7 @@ const MyBar = () => {
     console.log(params, 'del-food-data')
     axios.post('/user/myingredients/delete',params)
       .then(res=>{
-        console.log(res.data,'delFood-res')
+        console.log(res,'delFood-res')
       })
       .catch(err=>{
         console.log(err.response, 'delFood-err')
@@ -75,6 +78,7 @@ const MyBar = () => {
                     <Typography>
                       {ingredient.ingredient_name} | 
                       {ingredient.expiration_date} | 
+          
                       <Button onClick={()=>{delIngredient(ingredient)}}>
                         삭제
                       </Button>
