@@ -1,14 +1,22 @@
-import React from 'react';
-import Avatar from '@material-ui/core/Avatar';
-import Button from '@material-ui/core/Button';
-import CssBaseline from '@material-ui/core/CssBaseline';
-import TextField from '@material-ui/core/TextField';
-import Paper from '@material-ui/core/Paper';
-import Box from '@material-ui/core/Box';
-import Grid from '@material-ui/core/Grid';
+import React, {useState} from 'react';
+import { useHistory } from 'react-router';
+import {
+  Avatar,
+  Button,
+  CssBaseline,
+  TextField,
+  FormControlLabel,
+  Checkbox,
+  Link,
+  Paper,
+  Box,
+  Grid,
+  Typography,
+  makeStyles,
+} from '@material-ui/core/';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
-import Typography from '@material-ui/core/Typography';
-import { makeStyles } from '@material-ui/core/styles';
+import axios from 'axios';
+import Cookies from 'js-cookie';
 
 function Copyright() {
   return (
@@ -53,8 +61,15 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function SignInSide() {
+export default function SignUp() {
+  let history = useHistory();
+
   const classes = useStyles();
+
+  const [user_id, setUser_id] = useState('')
+  const [password, setPassword] = useState('')
+  const [password2, setPassword2] = useState('')
+  const [email, setEmail] = useState('')
 
   return (
     <Grid container component="main" className={classes.root}>
@@ -68,8 +83,31 @@ export default function SignInSide() {
           <Typography component="h1" variant="h5">
             Sign Up
           </Typography>
-          <form className={classes.form} noValidate>
+          <form className={classes.form} noValidate
+            onSubmit={e =>{
+              e.preventDefault();
+              let body = {
+                user_id: user_id,
+                password: password,
+                password2: password2,
+                email: email,
+              }
+              console.log(body, 'body')
+              axios.post('/auth/signup', body)
+                .then(res => {
+                  console.log(res)
+                  // accessToken, 로그인 저장 후 메인페이지로 이동
+                  // localStorage.setItem('jwt', Cookies.get('accessToken'))
+                  history.push('/')
+                })
+                .catch(err => {
+                  alert(err.response.data)
+                  console.log(err.response.data)
+                })
+            }}  
+          >
             <TextField
+              onChange={(e)=>{setEmail(e.target.value)}}
               variant="outlined"
               margin="normal"
               required
@@ -81,6 +119,7 @@ export default function SignInSide() {
               autoComplete="email"
             />
             <TextField
+              onChange={(e)=>{setUser_id(e.target.value)}}
               variant="outlined"
               margin="normal"
               required
@@ -92,24 +131,26 @@ export default function SignInSide() {
               autoFocus
             />
             <TextField
+              onChange={(e)=>{setPassword(e.target.value)}}
               variant="outlined"
               margin="normal"
               required
               fullWidth
               name="password1"
               label="password를 입력해주세요"
-              type="password1"
+              type="password"
               id="password1"
               autoComplete="password1"
             />
             <TextField
+              onChange={(e)=>{setPassword2(e.target.value)}}
               variant="outlined"
               margin="normal"
               required
               fullWidth
               name="password2"
               label="동일한 password를 다시 입력해주세요"
-              type="password2"
+              type="password"
               id="password2"
               autoComplete="password2"
             />

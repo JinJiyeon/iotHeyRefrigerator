@@ -2,24 +2,24 @@
 const dotenv = require('dotenv');
 const express = require('express');
 const router = express.Router();
-const db = require('../lib/db'); // mysql 연결
+const db = require('../lib/db');
 const cors = require('cors');
 const axios = require('axios');
+const util = require('../utils/util');
 
 dotenv.config();
 
-const util = require('../utils/util')
 
 // 미들웨어
 router.use(cors({
   origin: process.env.DJANGO_ORIGIN,
   credentials: true
-}))                                 /
+}))
 router.use(express.json());
 router.use(express.urlencoded({ extended: true }));
 
 router.get('/giveme', util.isLogin, (req,res,next) => {
-    const url = process.env.DJANGO_ORIGIN + '/calculate'
+    const url = process.env.DJANGO_ORIGIN + '/calculate';
     axios.get(url, {
         headers: {
             // Cookie: `from_node=from_node`,
@@ -27,13 +27,14 @@ router.get('/giveme', util.isLogin, (req,res,next) => {
         },
         withCredentials: true })
     .then((response) => {
-        res.send(response.headers)
+        res.send(response.headers);
     })
-    .catch((error) => {
-        next(error)
+    .catch((error) => { // 장고통신 에러미들웨어 필요
+        next(error);
     })
 })
 
+// ? 필요한 미들웨어 ?
 router.get('/send/retaining', util.isLogin, (req,res,next) => {
     // console.log(req.cookies)
     console.log('---------------------send/retaining s accessToken', req.cookies.accessToken)
@@ -43,8 +44,6 @@ router.get('/send/retaining', util.isLogin, (req,res,next) => {
 })
 
 
-
-/////////
 
 router.get('/myingredients/important/:user_id', (req, res, next) => {
     console.log('user_id is this', req.params.user_id)
@@ -131,13 +130,34 @@ router.get('/myingredients/associated/:searchWord', (req, res, next) => {
 
     db.query(`select ingredient_name
         from ingredients_preprocessing
-        where match(original) against('${searchWord}*' in boolean mode)
+        where original like '%${searchWord}%'
         group by ingredient_name`, (err, rows) => {
         if (err) next(err);
         res.send(rows);
     })
 })
 
+// 좋아요 버튼 on off
+router.get('/likes/:recipeId', util.isLogin, (req, res, next) => {
+    const user_id = req.user_id;
+    const recipe_info_id = req.params.recipeId;
+    
+    db.query('select count(*) as isLiked from likes where user_id=? and recipe_info_id=?', [user_id, recipe_info_id], (err, rows) => {
+        const isLiked = rows[0].isLiked;
+        if (err) next(err);
+        if (isLiked == 0) { // 좋아요 추가
+            db.query('insert into likes(user_id, recipe_info_id) values(?,?)', [user_id, recipe_info_id], (err, rows) => {
+                if (err) next(err);
+                return res.send(`좋아요 등록 완료 : ${recipe_info_id}`);
+            })
+        } else { // 좋아요 취소
+            db.query('delete from likes where user_id=? and recipe_info_id=?', [user_id, recipe_info_id], (err, rows) => {
+                if (err) next(err);
+                return res.send(`좋아요 삭제 완료 : ${recipe_info_id}`);
+            })
+        }
+    })
+})
 
 router.get('/mypage', util.isLogin, (req, res, next) => {
   const user_id = req.user_id;
