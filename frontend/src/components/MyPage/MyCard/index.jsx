@@ -27,69 +27,73 @@ const cards = [1,2,3,4,5,6,7,8,9]
 const MyPageCard = () => {
   const classes = useStyles();
   // mypage liked recipe info
-  const [mypage, setMypage] = useState();
+  const [mylikes, setMylikes] = useState([]);
+
   // each liked recipe detail info
-  const [likedRecipe, setLikedRecipe] = useState([]);
+  // const [likedRecipe, setLikedRecipe] = useState([]);
 
   // mypage데이터 마운트
   useEffect(()=>{
     axios.get('/user/mypage')
     .then(res=>{
       console.log(res.data.likes);
-      setMypage(res.data.likes);
+      setMylikes(res.data.likes);
     })
-    .then(()=>{
-      recipeApi();
-      console.log(likedRecipe,'axios-liked')
-    })
+    // .then(()=>{
+    //   recipeApi();
+    //   console.log(likedRecipe,'axios-liked')
+    // })
     .catch(err=>{
       console.log(err.response);
     })
   }, [])
 
-  const recipeApi = () => {
-    // console.log('here')
-    console.log(mypage,'mypage')
-    for (let i=0; i<mypage.length; i++) {
-      axios.get(`/recipe/${mypage[i].recipe_info_id}`)
-      .then(res => {
-        console.log(res.data, 'axios');
-        console.log(likedRecipe,'likedRecipe')
-        setLikedRecipe([...likedRecipe, res.data]);
-      })
-      .catch(err => {
-        console.log(err.response);
-      })
-    }
-  };
+  // const recipeApi = () => {
+  //   // console.log('here')
+  //   console.log(mypage,'mypage')
+  //   for (let i=0; i<mypage.length; i++) {
+  //     axios.get(`/recipe/${mypage[i].recipe_info_id}`)
+  //     .then(res => {
+  //       console.log(res.data, 'axios');
+  //       console.log(likedRecipe,'likedRecipe')
+  //       setLikedRecipe([...likedRecipe, res.data]);
+  //     })
+  //     .catch(err => {
+  //       console.log(err.response);
+  //     })
+  //   }
+  // };
   return (
+      // <button onClick={()=>{console.log(mylikes)}}>콘솔</button>
     <Grid item xs={12} md={6}>
-      <button onClick={recipeApi}>recipeAPI</button>
-      <button onClick={()=>{console.log(likedRecipe)}}>콘솔</button>
-      {cards.map((card) => (
-        <Grid key={card}>
+      {mylikes.map((like) => (
+        <Grid key={like}>
         <CardActionArea component="a" href="#">
         <Card className={classes.card}>
           <div className={classes.cardDetails}>
             <CardContent>
               <Typography component="h2" variant="h5">
-                레시피
+                {like.title}
               </Typography>
               <Typography variant="subtitle1" color="textSecondary">
-                날짜_20.08.08
+                필요한 재료
               </Typography>
               <Typography variant="subtitle1" paragraph>
-                Lorem ipsum dolor sit amet consectetur, adipisicing elit. Dolorum sit, provident reprehenderit eum amet possimus dolores, autem adipisci deleniti, ab repellendus omnis impedit ipsum nam illo iusto. Expedita, debitis unde.
+                {like.ingredients.map((ingredients)=>(
+                  <span>
+                    {ingredients.ingredient_name} ,
+                  </span>
+                      ))}
               </Typography>
               <Typography variant="subtitle1" color="primary">
-                Continue reading...
+                레시피로 이동
               </Typography>
             </CardContent>
           </div>
           <Hidden xsDown>
             <CardMedia className={classes.cardMedia}
-            image='https://source.unsplash.com/random'
-            title='random'
+            image={like.img}
+            title={like.title}
             />
           </Hidden>
         </Card>
