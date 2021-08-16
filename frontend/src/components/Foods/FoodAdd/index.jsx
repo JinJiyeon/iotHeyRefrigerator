@@ -16,6 +16,7 @@ import {
   Dialog,
   DialogTitle,
 } from '@material-ui/core';
+import axios from 'axios';
 
 const FoodAdd = () => {
   const {openFoodAddForm, setopenFoodAddForm, rows, setRows} = useContext(CommonContext);
@@ -46,6 +47,17 @@ const FoodAdd = () => {
     setopenFoodAddForm(false);
     // new (mypage)
     setOpenFoodAdd(false);
+    let body = {
+      ingredient_name : newFood,
+      expiration_date : newExp,
+    }
+    axios.post('user/myingredients/add', body)
+      .then(res=>{
+        console.log(res.data, 'FoodAdd-res');
+      })
+      .catch(err=>{
+        console.log(err.response,'FoodAdd-err')
+      })
   }
   return (
     <Container open={openFoodAddForm} onClose={ onClose }>
@@ -65,7 +77,8 @@ const FoodAdd = () => {
           style={form}
           onChange={e => {setNewExp(e.target.value)}}
           id="outlined-basic"
-          label="exp"
+          type="date"
+          // label="exp"
           variant="outlined"
           // **기본값을 5로 주고, onChange가 아니더라도 ExpItem이 입력이 되도록
           // defaultValue="5"

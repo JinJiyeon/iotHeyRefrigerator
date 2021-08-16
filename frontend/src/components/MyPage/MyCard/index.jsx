@@ -31,7 +31,6 @@ const MyPageCard = () => {
   // each liked recipe detail info
   const [likedRecipe, setLikedRecipe] = useState([]);
 
-
   // mypage데이터 마운트
   useEffect(()=>{
     axios.get('/user/mypage')
@@ -39,20 +38,24 @@ const MyPageCard = () => {
       console.log(res.data.likes);
       setMypage(res.data.likes);
     })
+    .then(()=>{
+      recipeApi();
+      console.log(likedRecipe,'axios-liked')
+    })
     .catch(err=>{
       console.log(err.response);
     })
-    // recipeApi();
   }, [])
 
   const recipeApi = () => {
-    console.log('here')
-    console.log(mypage)
+    // console.log('here')
+    console.log(mypage,'mypage')
     for (let i=0; i<mypage.length; i++) {
       axios.get(`/recipe/${mypage[i].recipe_info_id}`)
       .then(res => {
         console.log(res.data, 'axios');
-        // setRecipe(res.data, 'axios');
+        console.log(likedRecipe,'likedRecipe')
+        setLikedRecipe([...likedRecipe, res.data]);
       })
       .catch(err => {
         console.log(err.response);
@@ -62,6 +65,7 @@ const MyPageCard = () => {
   return (
     <Grid item xs={12} md={6}>
       <button onClick={recipeApi}>recipeAPI</button>
+      <button onClick={()=>{console.log(likedRecipe)}}>콘솔</button>
       {cards.map((card) => (
         <Grid key={card}>
         <CardActionArea component="a" href="#">
