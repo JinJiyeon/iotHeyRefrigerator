@@ -77,10 +77,10 @@ const MyPageCard = () => {
                   recipe.ingredients && 
                     <div>
                       {recipe.ingredients.map((data)=>(
-                          <Typography key={data} component="h2" variant="h5">
-                            {data.ingredient_name}
-                          </Typography>
-                        ))}
+                        <Typography key={data} component="h2" variant="h5">
+                          {data.ingredient_name} | {data.ingredient_amount}
+                        </Typography>
+                      ))}
                     </div>
                 }
                 <Divider />

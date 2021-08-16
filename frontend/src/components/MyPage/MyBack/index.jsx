@@ -4,6 +4,8 @@ import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
 import Link from '@material-ui/core/Link';
+import Cookies from 'js-cookie';
+
 
 const useStyles = makeStyles((theme) => ({
   mainFeaturedPost: {
@@ -52,10 +54,10 @@ const MyPageBack = () => {
               // gutterBottom : 마진주는 요소
               gutterBottom
             >
-              MyPage
+              {Cookies.get('user_id')}
             </Typography>
             <Typography variant="h5" color="inherit" paragraph>
-              여기에 뭘 넣을지 고민하고 있스므니다
+              나의 레시피 & 재료 관리
             </Typography>
           </div>
         </Grid>

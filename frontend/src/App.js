@@ -76,12 +76,12 @@ const App = () => {
             <Route exact path="/signup" component={SignUp} />
             <Route exact path="/signin" component={SignIn} />
             <Route exact path="/home" component={Home} />
-            {
-            Cookies.get('user_id') ? 
+            {/* {
+            Cookies.get('user_id') ?  */}
               <Route exact path="/mypage" component={MyPage} />
-            :
+            {/* :
               alert('로그인 후 이용해주세요.')
-            }
+            } */}
             <Route exact path="/foods" component={Foods} />
             <Route exact path="/recipes" component={Recipe_Main} />
             <Route exact path="/recipes/:recipeId" component={Recipe_Detail} />
