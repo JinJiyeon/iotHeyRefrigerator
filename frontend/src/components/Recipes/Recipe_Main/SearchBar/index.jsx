@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useContext} from 'react';
 import {
   Container,
   FormControl,
@@ -13,7 +13,8 @@ import {
   Button,
 } from '@material-ui/core';
 import axios from 'axios';
-
+import { CommonContext } from '../../../../context/CommonContext';
+import { useHistory } from 'react-router-dom';
 
 const BootstrapInput = withStyles((theme) => ({
   root: {
@@ -69,9 +70,14 @@ const useStyles = makeStyles((theme) => ({
 
 
 const SearchBar = () => {
+
+  let history = useHistory();
+
   const classes = useStyles();
   const [sort, setSort] = useState('');
   const [searchWord, setSearchWord] = useState([]);
+  const {searchCard, setSearchCard} = useContext(CommonContext)
+
   const handleChange = (event) => {
     setSort(event.target.value);
   };
@@ -81,7 +87,8 @@ const SearchBar = () => {
     console.log(searchWord, 'api-console')
     axios.post(`recipe/search/title/${searchWord}`, searchWord)
       .then(res=>{
-        console.log(res, 'search-res')
+        console.log(res.data, 'search-res')
+        setSearchCard(res.data)
       })
       .catch(err=>{
         console.log(err.response, 'search-err')
@@ -93,6 +100,7 @@ const SearchBar = () => {
     axios.post(`recipe/search/ingredient/${searchWord}`, searchWord)
       .then(res=>{
         console.log(res, 'search-res')
+        setSearchCard(res.data)
       })
       .catch(err=>{
         console.log(err.response, 'search-err')
@@ -112,7 +120,7 @@ const SearchBar = () => {
                 ingredientSearchApi();
                 console.log(sort);
               }
-              
+              history.push('/search')
             }}>
               <FormControl className={classes.search}>
                   <InputLabel htmlFor="demo-customized-textbox">검색</InputLabel>

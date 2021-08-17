@@ -1,18 +1,21 @@
-import React from 'react';
-import Card from '@material-ui/core/Card';
-import CardContent from '@material-ui/core/CardContent';
-import CardMedia from '@material-ui/core/CardMedia';
-import CssBaseline from '@material-ui/core/CssBaseline';
-import Grid from '@material-ui/core/Grid';
-import Typography from '@material-ui/core/Typography';
-import { makeStyles, withStyles } from '@material-ui/core/styles';
-import Container from '@material-ui/core/Container';
-import MenuItem from '@material-ui/core/MenuItem';
-import InputLabel from '@material-ui/core/InputLabel';
-import FormControl from '@material-ui/core/FormControl';
-import Select from '@material-ui/core/Select';
-import InputBase from '@material-ui/core/InputBase';
+import React, {useState, useContext} from 'react';
+
+import {
+  Box,
+  Card,
+  CardContent,
+  CardMedia,
+  CssBaseline,
+  Grid,
+  Typography,
+  makeStyles,
+  withStyles,
+  Container,
+  InputBase,
+} from '@material-ui/core';
 import SearchBar from '../../components/Recipes/Recipe_Main/SearchBar';
+import { CommonContext } from '../../context/CommonContext';
+import { useHistory } from 'react-router-dom';
 
 function Copyright() {
   return (
@@ -95,45 +98,51 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const cards = [1, 2, 3, 4, 5, 6];
 
 export default function Recipe_Search() {
+  let history = useHistory();
   const classes = useStyles();
   
-  const [name, setAge] = React.useState('');
-  const handleChange = (event) => {
-    setAge(event.target.value);
-  };
+  const {searchCard, setRecipeId} = useContext(CommonContext);
+
+  // const [name, setAge] = React.useState('');
+  // const handleChange = (event) => {
+  //   setAge(event.target.value);
+  // };
 
   return (
-    <React.Fragment>
-      <CssBaseline />
+    
       <main>
         <SearchBar />
-
-        <Container className={classes.cardGrid} maxWidth="md">
-          {/* End hero unit */}
-          <Grid container spacing={4}>
-            {cards.map((card) => (
-              <Grid item key={card} xs={12} sm={6} md={4}>
-                <Card className={classes.card}>
-                  <CardMedia
-                    className={classes.cardMedia}
-                    image="https://source.unsplash.com/random"
-                    title="Image title"
-                  />
-                  <CardContent className={classes.cardContent}>
-                    <Typography gutterBottom variant="h4" component="h2">
-                      Recipe Name 
-                    </Typography>
-                  </CardContent>
-                </Card>
-              </Grid>
-            ))}
-          </Grid>
-        </Container>
-      </main>
+        <Box bgcolor="warning.light" p={2}>
+          <Container className={classes.cardGrid} maxWidth="md">
+            {/* End hero unit */}
+            <Grid container spacing={4}>
+              {searchCard.map((card) => (
+                <Grid item key={card} xs={12} sm={6} md={4}>
+                  <Card className={classes.card}
+                    onClick={()=>{
+                      setRecipeId(card);
+                      history.push(`/Recipes/${card.recipe_info_id}`);
+                    }}
+                  >
+                    <CardMedia
+                      className={classes.cardMedia}
+                      image={card.recipe_info_image}
+                      title={card.title}
+                    />
+                    <CardContent className={classes.cardContent}>
+                      <Typography gutterBottom variant="h4" component="h2">
+                        {card.title}
+                      </Typography>
+                    </CardContent>
+                  </Card>
+                </Grid>
+              ))}
+            </Grid>
+          </Container>
+        </Box>
         <Copyright />
-    </React.Fragment>
+      </main>
   );
 }
