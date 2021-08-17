@@ -38,7 +38,7 @@ router.get('/recom/main', (req, res) => {
 // 추천로직
 router.get('/recom/important', util.isLogin, (req, res, next) => {
 
-    const url = process.env.DJANGO_ORIGIN + '/recipe/recom/important'
+    const url = process.env.DJANGO_ORIGIN + '/recipe/recom/important/'
     
     axios.get(url, {
         headers: {
