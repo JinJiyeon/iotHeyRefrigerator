@@ -1,5 +1,8 @@
 import React, {useState}  from 'react';
 import { useHistory } from 'react-router-dom';
+import {
+  Box
+} from '@material-ui/core/';
 import AppBar from '@material-ui/core/AppBar';
 import Button from '@material-ui/core/Button';
 import Card from '@material-ui/core/Card';
@@ -38,13 +41,13 @@ export default function Home() {
     <React.Fragment>
       <CssBaseline />
       {/* Nav-Bar */}
-      {/* 지연 : appbar (navbar) 투명하게 만듦. */}
       <AppBar position="relative" style={{ background: 'transparent', boxShadow: 'none'}}>
+      {/* <AppBar position="relative" color="secondary"> */}
         <Toolbar className={classes.toolbar}>
           <Paper>
             {Cookies.get('user_id') ?
               <div>
-                <Button onClick={onClickBtn} variant="contained" color="warning.main">
+                <Button onClick={onClickBtn} variant="contained" color="primary">
                   MyPage
                 </Button>
                 <Button onClick={()=>{
@@ -53,7 +56,7 @@ export default function Home() {
                   Cookies.remove('accessToken')
                   history.push('/SignIn')
                 }}
-                  variant="contained" color="warning.main"
+                  variant="contained" color="primary"
                 >
                   SignOut
                 </Button>                                        
@@ -62,7 +65,7 @@ export default function Home() {
               <Button onClick={()=>{
                 history.push('/SignIn')
               }}
-                variant="contained" color="warning.main"
+                variant="contained" color="primary"
               >
                 SignIn
               </Button>
@@ -70,16 +73,16 @@ export default function Home() {
           </Paper>        
         </Toolbar>
       </AppBar>
-      <main>
+      <Box bgcolor="warning.light" p={3}>
         <div className={classes.NavContent}>
           <Container maxWidth="sm">
-            <Typography variant="h2" align="center" color="warning.main">
-              7링 바이브 Logo
+            <Typography variant="h2" align="center" color="secondary">
+              냉장고를 부탁해
             </Typography>                   
           </Container>
         </div>
         <HomeCard />
-      </main>      
+      </Box>      
     </React.Fragment>    
   );
 }

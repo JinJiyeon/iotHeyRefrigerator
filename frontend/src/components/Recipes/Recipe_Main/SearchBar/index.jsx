@@ -100,7 +100,7 @@ const SearchBar = () => {
   };
 
   return (
-    <Box bgcolor="text.disabled">
+    <Box bgcolor="secondary">
       <div className={classes.heroContent}>
           <Container maxWidth="sm" align="center">
             <form onSubmit={(e)=>{
