@@ -1,5 +1,3 @@
-//주의 : 이 컴포넌트는 App.js기준으로 작성되어있음.
-
 import React, { Component } from 'react';
 import {
   Container,
@@ -10,6 +8,9 @@ import {
   makeStyles,
   Box
 } from '@material-ui/core';
+import axios from 'axios';
+
+
 
 class RecipeTimer extends Component {
   constructor() {
@@ -23,6 +24,7 @@ class RecipeTimer extends Component {
     this.minutesInput= React.createRef();
     this.secondsInput = React.createRef();
   }
+
 
   inputHandler = (e) => {
     this.setState({[e.target.name]: e.target.value});
@@ -39,6 +41,7 @@ class RecipeTimer extends Component {
   countDown = () => {
     const  { hours, minutes, seconds } = this.state;
     let c_seconds = this.convertToSeconds(hours, minutes, seconds);
+    
 
     if(c_seconds) {
 
@@ -46,7 +49,7 @@ class RecipeTimer extends Component {
       seconds ? this.setState({seconds: seconds-1}) : this.setState({seconds: 59});
 
       // minutes change
-      if(c_seconds % 60 === 0 && minutes) {
+      if(c_seconds % 60 === 0 && minutes) {        
         this.setState({minutes: minutes -1});
       }
 
@@ -58,13 +61,19 @@ class RecipeTimer extends Component {
       // hours change
       if(c_seconds % 3600 === 0 && hours) {
         this.setState({hours: hours-1});
-      }
+      }    
 
     } else {
+      axios.get('/iot/buzzer')
+          .then(iot => {
+            console.log(iot, 'iot')
+          })
+          .catch(iotErr =>{
+            console.log(iotErr.response, 'iot')
+          })
       clearInterval(this.timer);
     }
   }
-
 
   stopTimer = () => {
     clearInterval(this.timer);

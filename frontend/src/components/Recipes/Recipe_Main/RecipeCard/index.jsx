@@ -50,11 +50,11 @@ const RecipeCard = () => {
   const [open, setOpen] = useState(false);
   const anchorRef = React.useRef(null);
   // 메뉴 이름
-  const [recomMenu, setRecomMenu] = useState('기본 추천');
+  const [recomMenu, setRecomMenu] = useState('레시피 추천');
   let history = useHistory();
   // 페이지가 렌더링됐을때 마운트시킬 레시피
   useEffect(() => {
-    setRecomMenu('기본 추천')
+    setRecomMenu('레시피 추천')
     // setCards([{title:'hi', recipe_info_image:'https://source.unsplash.com/random' },{title:'hi', recipe_info_image:'https://source.unsplash.com/random' },{title:'hi', recipe_info_image:'https://source.unsplash.com/random' }])
     axios.get('/recipe/recom/main')
     .then(res => {
@@ -151,17 +151,21 @@ const RecipeCard = () => {
                         if (Cookies.get('user_id')) {
                           setOpen(false);
                           likeApi();
-                          setRecomMenu('좋아요 추천');
+                          setRecomMenu('기본 추천');
                         } else {
                           alert('로그인 유저만 이용가능한 서비스입니다.')
                         }
                       }}>
-                        좋아요 우선 추천
+                        기본 추천
                       </MenuItem>
                       <MenuItem onClick={() => {
-                        setOpen(false);
-                        expApi();
-                        setRecomMenu('유통기한 추천');
+                        if (Cookies.get('user_id')) {
+                          setOpen(false);
+                          expApi();
+                          setRecomMenu('유통기한 추천');
+                        } else {
+                          alert('로그인 유저만 이용가능한 서비스입니다.')
+                        }
                       }}>
                         유통기한 우선 추천
                       </MenuItem>

@@ -1,54 +1,48 @@
-import React, { useContext, useState } from 'react';
-import {HeartOutlined, HeartFilled} from '@ant-design/icons';
+import React, { useContext, useState, useEffect } from 'react';
+import {HeartOutlined, HeartFilled, ConsoleSqlOutlined} from '@ant-design/icons';
 import './style.css'
 import { CommonContext } from '../../../../context/CommonContext';
 import axios from 'axios';
 
 const LikeButton =()=> {
-    const {recipeId} = useContext(CommonContext);
-    const [heart, setHeart] = useState({
-        isChecked: false,
-        notice: ''
-    })
-    // state = {
-    //     isChecked: false,
-    //     notice: ' ',
-    // };
+    const {recipeId, recipe} = useContext(CommonContext);
+    const [isHeart, setIsHeart] = useState(false);
+    useEffect(()=>{
+        console.log('useEffect')
+        if (recipe.isLiked) {
+            setIsHeart(true)
+        }
+    }, [])
 
     const onClick = () => {
         {
-            heart.isChecked ?
-            setHeart({...heart, isChecked: false, notice:'좋아요 취소'})
+            isHeart ?
+            setIsHeart(false)
             :
-            setHeart({...heart, isChecked: true, notice:'좋아요'})
+            setIsHeart(true)
         }
         axios.get(`/user/likes/${recipeId.recipe_info_id}`)
             .then(res=>{
-                console.log(res.data, 'heart');
+                console.log(res.data, 'like-axios');
             })
             .catch(err=>{
                 console.log(err.response,'heart');
             })
-        console.log(heart)
-        // this.state.isChecked ?
-        // this.setState({
-        //     isChecked: false,            
-        //     notice: '좋아요',
-        // })
-        // :
-        // this.setState({
-        //     isChecked: true,
-        //     notice: '좋아요 취소',
-        // });
+        // console.log(heart)
     }
     return(
         <React.Fragment>
             <span className="icons-list">
-                {heart.isChecked ?  
+                {
+                isHeart ?  
                     <HeartFilled className="button red" onClick={onClick}/> :
                     <HeartOutlined className="button" onClick={onClick}/>
-                    }
-                <h3>{heart.notice}</h3>
+                }
+                <button onClick={()=>{
+                    console.log(recipe.isLiked)
+                }}>
+                    recipeId 콘솔
+                </button>
             </span>
         </React.Fragment> 
     )
