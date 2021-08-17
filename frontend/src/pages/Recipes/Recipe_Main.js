@@ -4,6 +4,7 @@ import Typography from '@material-ui/core/Typography';
 // 추가
 import SearchBar from '../../components/Recipes/Recipe_Main/SearchBar';
 import RecipeCard from '../../components/Recipes/Recipe_Main/RecipeCard';
+import RecipeTimer from '../../components/Recipes/Recipe_Detail/Timer';
 
 
 function Copyright() {
@@ -25,6 +26,7 @@ export default function Recipe_Main() {
       <main>
         <SearchBar /> 
         <RecipeCard />
+        {/* <RecipeTimer /> */}
       </main>
         <Copyright />
     </React.Fragment>

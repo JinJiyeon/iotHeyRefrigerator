@@ -52,12 +52,12 @@ const BootstrapInput = withStyles((theme) => ({
 }))(InputBase);
 
 const useStyles = makeStyles((theme) => ({
-  heroContent: {    
-    padding: theme.spacing(10, 0, 10),
-    margin: {
-      margin: theme.spacing(5),
-    },
-  },
+  // heroContent: {    
+  //   padding: theme.spacing(10, 0, 10),
+  //   margin: {
+  //     margin: theme.spacing(5),
+  //   },
+  // },
   search: {
     width: '80%',
     height: '80%',
@@ -108,7 +108,7 @@ const SearchBar = () => {
   };
 
   return (
-    <Box bgcolor="secondary">
+    <Box bgcolor="text.disabled" p={3}>
       <div className={classes.heroContent}>
           <Container maxWidth="sm" align="center">
             <form onSubmit={(e)=>{
@@ -120,8 +120,10 @@ const SearchBar = () => {
                 ingredientSearchApi();
                 console.log(sort);
               }
-              history.push('/search')
-            }}>
+              history.push('/search') 
+            }}
+            width='80%'
+            >
               <FormControl className={classes.search}>
                   <InputLabel htmlFor="demo-customized-textbox">검색</InputLabel>
                   {/* <TextField> */}

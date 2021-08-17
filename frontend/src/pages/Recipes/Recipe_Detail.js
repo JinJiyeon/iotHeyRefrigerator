@@ -1,20 +1,22 @@
-import React, {useContext} from 'react';
-import {Grid} from '@material-ui/core';
-import RecipeBack from '../../components/Recipes/Recipe_Detail/MyBack';
+import React from 'react';
+import {
+  Grid,
+  Container
+} from '@material-ui/core';
 import RecipeCard from '../../components/Recipes/Recipe_Detail/MyCard';
-import RecipeBar from '../../components/Recipes/Recipe_Detail/MySide';
-import { CommonContext } from '../../context/CommonContext';
-const Recipe = () => {
+import RecipeBottom from '../../components/Recipes/Recipe_Detail/MyBottom';
+import RecipeTimer from '../../components/Recipes/Recipe_Detail/Timer'
 
-  const { recipeId } = useContext(CommonContext);
+const Recipe = () => {
+  
   return (
     <div>
       <main>
-        <RecipeBack />
-        <Grid container spaicng={5}>
-          <RecipeCard />
-          <RecipeBar />
-        </Grid>
+        <Container>
+          <RecipeCard />     
+          <RecipeBottom />
+        </Container>
+        <RecipeTimer />
       </main>
     </div>
   );

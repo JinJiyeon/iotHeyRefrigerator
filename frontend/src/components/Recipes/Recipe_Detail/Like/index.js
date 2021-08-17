@@ -4,6 +4,8 @@ import './style.css'
 import { CommonContext } from '../../../../context/CommonContext';
 import axios from 'axios';
 
+
+
 const LikeButton =()=> {
     const {recipeId, recipe} = useContext(CommonContext);
     const [isHeart, setIsHeart] = useState(false);
@@ -38,11 +40,11 @@ const LikeButton =()=> {
                     <HeartFilled className="button red" onClick={onClick}/> :
                     <HeartOutlined className="button" onClick={onClick}/>
                 }
-                <button onClick={()=>{
+                {/* <button onClick={()=>{
                     console.log(recipe.isLiked)
                 }}>
                     recipeId 콘솔
-                </button>
+                </button> */}
             </span>
         </React.Fragment> 
     )
