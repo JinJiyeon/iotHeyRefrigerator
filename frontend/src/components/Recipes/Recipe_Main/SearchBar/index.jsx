@@ -8,8 +8,12 @@ import {
   makeStyles,
   withStyles,
   InputBase,
-  Box
+  Box,
+  TextField,
+  Button,
 } from '@material-ui/core';
+import axios from 'axios';
+
 
 const BootstrapInput = withStyles((theme) => ({
   root: {
@@ -63,20 +67,66 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+
 const SearchBar = () => {
   const classes = useStyles();
   const [sort, setSort] = useState('');
+  const [searchWord, setSearchWord] = useState([]);
   const handleChange = (event) => {
     setSort(event.target.value);
   };
+  
+  // 레시피검색 API
+  const recipeSearchApi =()=>{
+    console.log(searchWord, 'api-console')
+    axios.post(`recipe/search/title/${searchWord}`, searchWord)
+      .then(res=>{
+        console.log(res, 'search-res')
+      })
+      .catch(err=>{
+        console.log(err.response, 'search-err')
+      })
+  };
+  
+  // 재료검색 API
+  const ingredientSearchApi =()=>{
+    axios.post(`recipe/search/ingredient/${searchWord}`, searchWord)
+      .then(res=>{
+        console.log(res, 'search-res')
+      })
+      .catch(err=>{
+        console.log(err.response, 'search-err')
+      })
+  };
+
   return (
-    <Box bgcolor="text.disabled">
+    <Box bgcolor="secondary">
       <div className={classes.heroContent}>
           <Container maxWidth="sm" align="center">
-            <FormControl className={classes.search} >
-              <InputLabel htmlFor="demo-customized-textbox">검색</InputLabel>
-              <BootstrapInput id="demo-customized-textbox" />
-            </FormControl>
+            <form onSubmit={(e)=>{
+              e.preventDefault();
+              if (sort ===20 ){
+                recipeSearchApi();
+                console.log(sort);
+              } else {
+                ingredientSearchApi();
+                console.log(sort);
+              }
+              
+            }}>
+              <FormControl className={classes.search}>
+                  <InputLabel htmlFor="demo-customized-textbox">검색</InputLabel>
+                  {/* <TextField> */}
+                    <BootstrapInput 
+                      id="demo-customized-textbox"
+                      onChange={(e)=>{
+                        setSearchWord(e.target.value);
+                        // console.log(e.target.value);
+                      }}
+                    />
+                  {/* </TextField> */}
+              </FormControl>
+            </form>
             <FormControl className={classes.sort}>
               <InputLabel id="demo-customized-select-label">분류</InputLabel>
               <Select
@@ -85,9 +135,10 @@ const SearchBar = () => {
                 value={sort}
                 onChange={handleChange}
                 input={<BootstrapInput />}
+                defaultValue={{label:'재료명', value:10}}
               > 
-                <MenuItem value={10}>재료명</MenuItem>
-                <MenuItem value={20}>음식이름</MenuItem>
+              <MenuItem value={10}>재료명</MenuItem>
+              <MenuItem value={20}>음식이름</MenuItem>
               </Select>
             </FormControl>    
           </Container>

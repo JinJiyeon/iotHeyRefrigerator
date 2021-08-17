@@ -31,8 +31,8 @@ const useStyles = makeStyles({
 
 const MyPageCard = () => {
   const classes = useStyles();
-  const {recipeId} = useContext(CommonContext);
-  const [recipe, setRecipe] = useState([]);
+  const {recipeId, recipe, setRecipe} = useContext(CommonContext);
+  // const [recipe, setRecipe] = useState([]);
 
   useEffect(() => {
     recipeApi();
