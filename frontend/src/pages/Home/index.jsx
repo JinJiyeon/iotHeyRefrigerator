@@ -40,7 +40,8 @@ export default function Home() {
   return (    
 
     <React.Fragment>
-      {/* <Layout /> */}
+      <Layout>
+
 
       <CssBaseline />
       {/* Nav-Bar */}
@@ -86,6 +87,7 @@ export default function Home() {
         </div>
         <HomeCard />
       </Box>      
+      </Layout>
     </React.Fragment>    
   );
 }

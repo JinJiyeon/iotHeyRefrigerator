@@ -5,6 +5,7 @@ import MyPageCard from '../../components/MyPage/MyCard';
 import MyBar from '../../components/MyPage/MySide';
 import FoodAdd from '../../components/Foods/FoodAdd';
 import { CommonContext } from '../../context/CommonContext';
+import Layout from '../../layout';
 
 const Mypage = () => {
   const {openFoodAdd, setOpenFoodAdd} = useContext(CommonContext);
@@ -14,7 +15,7 @@ const Mypage = () => {
     width : 150
   }
   return (
-    <div>
+    <Layout>
       <main>
         { 
         openFoodAdd
@@ -30,7 +31,7 @@ const Mypage = () => {
         </div>
         }
       </main>
-    </div>
+    </Layout>
   );
 };
 
