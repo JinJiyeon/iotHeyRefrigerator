@@ -40,11 +40,18 @@ router.get('/recom/important', util.isLogin, (req, res, next) => {
 
     const url = process.env.DJANGO_ORIGIN + '/recipe/recom/important'
     
-    axios.get(url+`/user_id?=${req.user_id}`)
+    axios.get(url, {
+        headers: {
+            Cookie: `accessToken=${req.cookies.accessToken}`
+            },
+        withCredentials: true     
+    })
     .then(response => { 
         return response.data.similar_recipe_id
     })
-    .then(response => { 
+    .then(response => {
+        if (response.length === 0) {res.send([])} 
+        
         db.query(`SELECT * FROM recipe_infos WHERE recipe_info_id IN (${response[0]}, ${response[1]}, ${response[2]})`, (err, rows, fields) => {
             if (err) next (err)
             res.send(rows)
