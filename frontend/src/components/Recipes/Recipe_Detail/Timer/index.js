@@ -97,7 +97,7 @@ class RecipeTimer extends Component {
 
     return (
       
-        <Box bgcolor="error.light" p={2}>
+        <Box bgcolor="error.light" p={2} style={{width:300}}>
           <Container>
           <Typography variant="h2" align="center">Timer</Typography>
           <hr></hr>

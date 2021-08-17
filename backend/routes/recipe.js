@@ -252,7 +252,7 @@ router.get('/:recipe_id', async (req, res) => {
         db.query(`select title, view, recipe_info_image from recipe_infos where recipe_info_id=${recipe_id}`, (err, rows) => {
             if (err) {
                 console.log(err);
-                reject(err);
+                // reject(err);
             }
             resolve(rows);
         })
