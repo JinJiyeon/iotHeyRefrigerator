@@ -1,25 +1,30 @@
-import React, { useContext, useState,useEffect } from 'react';
-import { makeStyles } from '@material-ui/core/styles';
-import Typography from '@material-ui/core/Typography';
-import Grid from '@material-ui/core/Grid';
-import Card from '@material-ui/core/Card';
-import CardContent from '@material-ui/core/CardContent';
-import LikeButton from '../Like';
+import React from 'react';
+import { useContext, useState,useEffect } from 'react';
 import {
-  Divider,
+  Typography,
+  Grid,
+  Card,
+  Box,
+  CardContent,
+  CardMedia,
 } from '@material-ui/core'
+import { makeStyles } from '@material-ui/core/styles';
+
 import { CommonContext } from '../../../../context/CommonContext';
+import LikeButton from '../Like';
 import axios from 'axios';
+import { typography } from '@material-ui/system';
 
 const useStyles = makeStyles({
   card: {
     display: 'flex',
     padding: 15,
-    height: '100%'
-  },
-  cardDetails: {
+    height: '100%',
     flex: 1,
   },
+  // cardDetails: {
+  //   flex: 1,
+  // },
   cardMedia: {
     width: '100%',
     height: '100%',
@@ -52,60 +57,60 @@ const MyPageCard = () => {
   };
 
   return (
-    <div>
-    <Grid container spacing={5}>
-      <Grid item lg={6}>
-        <Card className={classes.card}>
-          <div className={classes.cardDetails}>
-            <CardContent>
-                <Divider />
-                <span><img className={classes.sidebarAboutBox} style={{ display: '' }} src={recipeId.recipe_info_image} alt='' xsDown /></span>      
-            </CardContent>
-            <Typography component="h1" variant="h3" color="inherit"
-                gutterBottom>
+    <Box bgcolor="warning.light" p={3}>
+      <Grid container spacing={2}>
+        <Grid item lg={6}>
+          <Card className={classes.card} p={5}>
+            <CardMedia 
+              className={classes.cardMedia}
+              image={recipeId.recipe_info_image}
+            >
+            </CardMedia>
+            {/* <img className={classes.sidebarAboutBox} style={{ display: '' }} src={recipeId.recipe_info_image} alt='' xsDown />     */}
+          </Card>    
+        </Grid>
+
+        <Grid item lg={6}>
+          <Card className={classes.card}>
+            <div className={classes.cardDetails}>
+              <Typography variant="h2" gutterBottom>
                 {recipeId.title}
               </Typography>
               <LikeButton />
-          </div>       
-        </Card>    
-      </Grid>
-
-      <Grid item lg={6}>
-      <Card className={classes.card}>
-          <div className={classes.cardDetails}>
-            <CardContent>            
-                <Typography component="h2" variant="h3">
-                  재료: 
-                </Typography>
+              
+              <CardContent>            
                 {/* 재료가 값이 잇을때 보여주세요. 이걸안하면 map함수 자꾸 비어있다고 안돌아감 */}
                 {
                   recipe.ingredients && 
                     <div>
                       {recipe.ingredients.inmyref &&
                       <div>
+                        <Typography variant="h4" component="h2" align="left">
+                          갖고 있어요 😋
+                        </Typography>
                         {recipe.ingredients.inmyref.map((data)=>(
-                          <Typography key={data} component="h2" variant="h5" color='primary'>
-                            {data.ingredient_name} | {data.ingredient_amount}
+                          <Typography key={data} variant="h5" display="inline" color="primary">
+                            {data.ingredient_name}({data.ingredient_amount}),
                           </Typography>
                         ))}
                       </div>
                       }
+                      <Typography variant="h4" component="h2" align="left">
+                        부족해요 🧐
+                      </Typography>
                       {recipe.ingredients.notinmyref.map((data)=>(
-                        <Typography key={data} component="h2" variant="h5" color='secondary'>
-                          {data.ingredient_name} | {data.ingredient_amount}
+                        <Typography key={data} variant="h5" algin="left" display="inline">
+                          {data.ingredient_name}({data.ingredient_amount}), 
                         </Typography>
                       ))}
                     </div>
                 }
-              </CardContent>
-          </div>
-        </Card>      
-      </Grid>            
-          
-      {/* <div><RecipeTimer /></div> */}
-    </Grid>
-
-    </div>
+                </CardContent>
+            </div>
+          </Card>      
+        </Grid>            
+      </Grid>
+    </Box>
   );
 }
 

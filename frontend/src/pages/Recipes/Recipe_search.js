@@ -1,17 +1,19 @@
 import React from 'react';
-import Card from '@material-ui/core/Card';
-import CardContent from '@material-ui/core/CardContent';
-import CardMedia from '@material-ui/core/CardMedia';
-import CssBaseline from '@material-ui/core/CssBaseline';
-import Grid from '@material-ui/core/Grid';
-import Typography from '@material-ui/core/Typography';
+import {
+  Card,
+  CardContent,
+  CardMedia,
+  Typography,
+  Container,
+  MenuItem,
+  InputLabel,
+  FormControl,
+  Select,
+  InputBase,
+  CssBaseline,
+  Grid,
+} from '@material-ui/core'
 import { makeStyles, withStyles } from '@material-ui/core/styles';
-import Container from '@material-ui/core/Container';
-import MenuItem from '@material-ui/core/MenuItem';
-import InputLabel from '@material-ui/core/InputLabel';
-import FormControl from '@material-ui/core/FormControl';
-import Select from '@material-ui/core/Select';
-import InputBase from '@material-ui/core/InputBase';
 import SearchBar from '../../components/Recipes/Recipe_Main/SearchBar';
 
 function Copyright() {

@@ -1,28 +1,30 @@
 import React, { useContext, useState,useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
+import Typography from '@material-ui/core/Typography';
+import Grid from '@material-ui/core/Grid';
+import Card from '@material-ui/core/Card';
+import CardActionArea from '@material-ui/core/CardActionArea';
+import CardContent from '@material-ui/core/CardContent';
+
 import {
   Divider,
-  Box,
-  Grid,
-  Card,
-  CardContent,
-  Typography,
-  Paper,
-  Container,
-  CardMedia
 } from '@material-ui/core'
 import { CommonContext } from '../../../../context/CommonContext';
 import axios from 'axios';
 
 const useStyles = makeStyles({
-  card: {
-    display: 'flex',
-    padding: 15,
-  },
+  // card: {
+  //   display: 'flex',
+  //   padding: 15,
+  // },
   cardDetails: {
     flex: 1,
   },
   cardMedia: {
+    width: 300,
+    height: 300,
+  },
+  sidebarAboutBox: {    
     width: 300,
     height: 300,
   },
@@ -50,37 +52,32 @@ const MyPageBottom = () => {
   };
 
   return (
-    <Box bgcolor="warning.light" p={3}>
+    <Grid item>
       <Card className={classes.card}>
         <div className={classes.cardDetails}>
-        {
-          recipe.steps && 
-            <div>
-              {recipe.steps.map((data)=>(
-                <Card>
-                  <Grid container>
-                    <Grid item xs={8}>
-                      <Typography key={data} variant="h5">
-                        {data.step_order} | {data.step_comment}
-                      </Typography>
-                    </Grid>
-                    <Grid item xs={4} align="right">
-                      <CardMedia 
-                        className={classes.cardMedia}
-                        image={data.image_source}
-                      >
-                      </CardMedia>
+          <CardContent p={2}>
+            {
+              recipe.steps && 
+                <Box>
+                  {recipe.steps.map((data)=>(
+                    <Grid container>
                       
+                      <Grid item xs={9}>
+                        <Typography key={data} variant="h5" algin="left">
+                          {data.step_order} | {data.step_comment}
+                        </Typography>
+                      </Grid>
+                      <Grid item xs={3} p={2}>
+                        <img src={data.image_source} alt="" />
+                      </Grid>
                     </Grid>
-                  </Grid>
-                </Card>
-              ))}
-            </div>
-        }
+                  ))}
+                </Box>
+            }
+          </CardContent>
         </div>
       </Card>
-    </Box>
-
+    </Grid>
   );
 }
 

@@ -20,8 +20,7 @@ router.use(express.urlencoded({ extended: true }));
 
 
 router.get('/myingredients/important', util.isLogin, (req, res, next) => {
-    console.log('user_id is this', req.params.user_id)
-    
+    console.log('important 유저 아이디', req.user_id)
     db.query(`SELECT * FROM users_and_ingredients WHERE user_id='${req.user_id}'`, (err, rows) => {
         if (err) next (err)
         res.send(rows)
@@ -31,7 +30,7 @@ router.get('/myingredients/important', util.isLogin, (req, res, next) => {
 // 로그인 되어 있을 경우에만
 // 얼마 남지 않은 유통기한 + 이미 지난 유통기한
 router.get('/myingredients/expired', util.isLogin, (req, res, next) => {
-    console.log('visited myingredients/expired', req.user_id)
+    console.log('expired 유저 아이디', req.user_id)
     db.query(`SELECT * FROM users_and_ingredients 
                 WHERE user_id='${req.user_id}' 
                 AND DATEDIFF(expiration_date, CURDATE()) < 3`,  (err, rows) => {

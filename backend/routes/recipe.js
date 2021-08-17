@@ -50,6 +50,7 @@ router.get('/recom/important', util.isLogin, (req, res, next) => {
         return response.data.similar_recipe_id
     })
     .then(response => {
+        console.log('important 추천 결과', response)
         if (response.length === 0) {res.send([])} 
         
         db.query(`SELECT * FROM recipe_infos WHERE recipe_info_id IN (${response[0]}, ${response[1]}, ${response[2]})`, (err, rows, fields) => {
@@ -71,10 +72,10 @@ router.get('/recom/expired', util.isLogin, (req, res, next) => {
         withCredentials: true 
     })
     .then(response => { 
-        console.log(response.data.similar_recipe_id)
         return response.data.similar_recipe_id
     })
     .then(response => {
+        console.log('expired 추천 결과', response)
         if (response.length === 0) {res.send([])} 
         
         db.query(`SELECT * FROM recipe_infos WHERE recipe_info_id IN (${response[0]}, ${response[1]}, ${response[2]})`, (err, rows, fields) => {

@@ -1,18 +1,22 @@
 import React from 'react';
-import {Grid} from '@material-ui/core';
+import {
+  Grid,
+  Container
+} from '@material-ui/core';
 import RecipeCard from '../../components/Recipes/Recipe_Detail/MyCard';
 import RecipeBottom from '../../components/Recipes/Recipe_Detail/MyBottom';
+import RecipeTimer from '../../components/Recipes/Recipe_Detail/Timer'
 
 const Recipe = () => {
   
   return (
     <div>
       <main>
-        <Grid container spaicng={8} style={{paddingLeft:150}}>
+        <Container>
           <RecipeCard />     
-          <RecipeBottom />     
-        </Grid>
-        
+          <RecipeBottom />
+        </Container>
+        <RecipeTimer />
       </main>
     </div>
   );
