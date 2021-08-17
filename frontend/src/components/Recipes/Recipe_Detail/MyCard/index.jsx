@@ -1,14 +1,10 @@
-// 음식 재료 표시, 유무에 따른 색상 변화, 단계 표시 
-// 이미지 레시피 사진으로, 좋아요 버튼 연결
-
 import React, { useContext, useState,useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
 import Card from '@material-ui/core/Card';
-import CardActionArea from '@material-ui/core/CardActionArea';
 import CardContent from '@material-ui/core/CardContent';
-
+import LikeButton from '../Like';
 import {
   Divider,
 } from '@material-ui/core'
@@ -19,20 +15,24 @@ const useStyles = makeStyles({
   card: {
     display: 'flex',
     padding: 15,
+    height: '100%'
   },
   cardDetails: {
     flex: 1,
   },
   cardMedia: {
-    width: 300,
-    height: 300,
+    width: '100%',
+    height: '100%',
+  },
+  sidebarAboutBox: {    
+    width: '100%',
+    height: '100%',
   },
 });
 
 const MyPageCard = () => {
   const classes = useStyles();
   const {recipeId, recipe, setRecipe} = useContext(CommonContext);
-  // const [recipe, setRecipe] = useState([]);
 
   useEffect(() => {
     recipeApi();
@@ -50,25 +50,30 @@ const MyPageCard = () => {
         console.log(err.response);
       })
   };
-  const checkMyBag =()=>{
-    axios.get(`/recipe/inmybag/${recipeId.recipe_info_id}`)
-      .then(res=>{
-        console.log(res.data, 'MyBag');
-      })
-      .catch(err=>{
-        console.log(err.response);
-      })
-  };
+
   return (
-    <Grid item xs={12} md={6}>
-        <Grid>
-        <CardActionArea component="a" href="#">
+    <div>
+    <Grid container spacing={5}>
+      <Grid item lg={6}>
         <Card className={classes.card}>
           <div className={classes.cardDetails}>
             <CardContent>
-              <button onClick={checkMyBag}>
-                재료확인버튼
-              </button>
+                <Divider />
+                <span><img className={classes.sidebarAboutBox} style={{ display: '' }} src={recipeId.recipe_info_image} alt='' xsDown /></span>      
+            </CardContent>
+            <Typography component="h1" variant="h3" color="inherit"
+                gutterBottom>
+                {recipeId.title}
+              </Typography>
+              <LikeButton />
+          </div>       
+        </Card>    
+      </Grid>
+
+      <Grid item lg={6}>
+      <Card className={classes.card}>
+          <div className={classes.cardDetails}>
+            <CardContent>            
                 <Typography component="h2" variant="h3">
                   재료: 
                 </Typography>
@@ -92,29 +97,15 @@ const MyPageCard = () => {
                       ))}
                     </div>
                 }
-                <Divider />
-                <Typography variant="h3" paragraph>
-                  단계: 
-                </Typography>
-                {
-                  recipe.steps && 
-                    <div>
-                      {recipe.steps.map((data)=>(
-                        <div>
-                          <Typography key={data} component="h2" variant="h5">
-                            {data.step_order} | {data.step_comment}
-                          </Typography>
-                          <img src={data.image_source} alt="" />
-                        </div>
-                        ))}
-                    </div>
-                }
-            </CardContent>
+              </CardContent>
           </div>
-        </Card>
-        </CardActionArea>
-        </Grid>
+        </Card>      
+      </Grid>            
+          
+      {/* <div><RecipeTimer /></div> */}
     </Grid>
+
+    </div>
   );
 }
 
