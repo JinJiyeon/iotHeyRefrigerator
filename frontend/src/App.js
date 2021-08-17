@@ -39,6 +39,7 @@ const App = () => {
   ]);
   // Recipe
   const [cards, setCards] = useState([]);
+  const [searchCard, setSearchCard] = useState([]);
   // main
   const [recipeId, setRecipeId] = useState([]);
   // detail
@@ -68,6 +69,8 @@ const App = () => {
         // Recipe
         cards,
         setCards,
+        searchCard,
+        setSearchCard,
         recipeId,
         setRecipeId,
         recipe,

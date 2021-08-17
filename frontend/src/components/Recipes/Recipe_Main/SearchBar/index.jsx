@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useContext} from 'react';
 import {
   Container,
   FormControl,
@@ -13,7 +13,8 @@ import {
   Button,
 } from '@material-ui/core';
 import axios from 'axios';
-
+import { CommonContext } from '../../../../context/CommonContext';
+import { useHistory } from 'react-router-dom';
 
 const BootstrapInput = withStyles((theme) => ({
   root: {
@@ -51,12 +52,12 @@ const BootstrapInput = withStyles((theme) => ({
 }))(InputBase);
 
 const useStyles = makeStyles((theme) => ({
-  heroContent: {    
-    padding: theme.spacing(10, 0, 10),
-    margin: {
-      margin: theme.spacing(5),
-    },
-  },
+  // heroContent: {    
+  //   padding: theme.spacing(10, 0, 10),
+  //   margin: {
+  //     margin: theme.spacing(5),
+  //   },
+  // },
   search: {
     width: '80%',
     height: '80%',
@@ -69,9 +70,14 @@ const useStyles = makeStyles((theme) => ({
 
 
 const SearchBar = () => {
+
+  let history = useHistory();
+
   const classes = useStyles();
   const [sort, setSort] = useState('');
   const [searchWord, setSearchWord] = useState([]);
+  const {searchCard, setSearchCard} = useContext(CommonContext)
+
   const handleChange = (event) => {
     setSort(event.target.value);
   };
@@ -81,7 +87,8 @@ const SearchBar = () => {
     console.log(searchWord, 'api-console')
     axios.post(`recipe/search/title/${searchWord}`, searchWord)
       .then(res=>{
-        console.log(res, 'search-res')
+        console.log(res.data, 'search-res')
+        setSearchCard(res.data)
       })
       .catch(err=>{
         console.log(err.response, 'search-err')
@@ -93,6 +100,7 @@ const SearchBar = () => {
     axios.post(`recipe/search/ingredient/${searchWord}`, searchWord)
       .then(res=>{
         console.log(res, 'search-res')
+        setSearchCard(res.data)
       })
       .catch(err=>{
         console.log(err.response, 'search-err')
@@ -100,7 +108,7 @@ const SearchBar = () => {
   };
 
   return (
-    <Box bgcolor="secondary">
+    <Box bgcolor="text.disabled" p={3}>
       <div className={classes.heroContent}>
           <Container maxWidth="sm" align="center">
             <form onSubmit={(e)=>{
@@ -112,8 +120,10 @@ const SearchBar = () => {
                 ingredientSearchApi();
                 console.log(sort);
               }
-              
-            }}>
+              history.push('/search') 
+            }}
+            width='80%'
+            >
               <FormControl className={classes.search}>
                   <InputLabel htmlFor="demo-customized-textbox">검색</InputLabel>
                   {/* <TextField> */}

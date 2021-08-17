@@ -16,6 +16,7 @@ const useStyles = makeStyles({
   card: {
     display: 'flex',
     padding: 15,
+    margin: 15,
   },
   cardDetails: {
     flex: 1,
@@ -94,9 +95,9 @@ const MyPageCard = () => {
                   </span>
                       ))}
               </Typography>
-              <Typography variant="subtitle1" color="primary">
+              {/* <Typography variant="subtitle1" color="primary">
                 레시피로 이동
-              </Typography>
+              </Typography> */}
             </CardContent>
           </div>
           <Hidden xsDown>

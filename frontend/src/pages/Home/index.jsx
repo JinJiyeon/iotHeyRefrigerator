@@ -1,23 +1,24 @@
 import React, {useState}  from 'react';
 import { useHistory } from 'react-router-dom';
 import {
-  Box
+  Box,
+  AppBar,
+  Button,
+  Card,
+  CardContent,
+  CardMedia,
+  CssBaseline,
+  Grid,
+  Paper,
+  Toolbar,
+  Typography,
+  makeStyles,
+  Container,
 } from '@material-ui/core/';
-import AppBar from '@material-ui/core/AppBar';
-import Button from '@material-ui/core/Button';
-import Card from '@material-ui/core/Card';
-import CardContent from '@material-ui/core/CardContent';
-import CardMedia from '@material-ui/core/CardMedia';
-import CssBaseline from '@material-ui/core/CssBaseline';
-import Grid from '@material-ui/core/Grid';
-import Paper  from '@material-ui/core/Paper';
-import Toolbar from '@material-ui/core/Toolbar';
-import Typography from '@material-ui/core/Typography';
-import { makeStyles } from '@material-ui/core/styles';
-import Container from '@material-ui/core/Container';
 import HomeCard from '../../components/Home';
 import Cookies from 'js-cookie';
 import { palette } from '@material-ui/system';
+import Layout from '../../layout';
 
 const useStyles = makeStyles((theme) => ({
   toolbar: {
@@ -33,12 +34,14 @@ export default function Home() {
   let history = useHistory();
 
     const onClickBtn = () => {
-      history.push('/MyPage');
+      history.push('/mypage');
   };
 
   return (    
 
     <React.Fragment>
+      {/* <Layout /> */}
+
       <CssBaseline />
       {/* Nav-Bar */}
       <AppBar position="relative" style={{ background: 'transparent', boxShadow: 'none'}}>
@@ -47,26 +50,26 @@ export default function Home() {
           <Paper>
             {Cookies.get('user_id') ?
               <div>
-                <Button onClick={onClickBtn} variant="contained" color="primary">
+                {/* <Button onClick={onClickBtn} variant="contained" color="primary">
                   MyPage
-                </Button>
+                </Button> */}
                 <Button onClick={()=>{
                   Cookies.remove('user_id')
                   Cookies.remove('refreshToken')
                   Cookies.remove('accessToken')
                   history.push('/SignIn')
                 }}
-                  variant="contained" color="primary"
+                variant="contained" color="primary"
                 >
                   SignOut
                 </Button>                                        
               </div>
             :
-              <Button onClick={()=>{
-                history.push('/SignIn')
-              }}
-                variant="contained" color="primary"
-              >
+            <Button onClick={()=>{
+              history.push('/SignIn')
+            }}
+            variant="contained" color="primary"
+            >
                 SignIn
               </Button>
             }
