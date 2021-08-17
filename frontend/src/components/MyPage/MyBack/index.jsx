@@ -6,14 +6,14 @@ import Grid from '@material-ui/core/Grid';
 import Link from '@material-ui/core/Link';
 import Cookies from 'js-cookie';
 
-
 const useStyles = makeStyles((theme) => ({
   mainFeaturedPost: {
     position: 'relative',
-    backgroundColor: theme.palette.grey[800],
+    // backgroundColor: theme.palette.grey[800],
+    backgroundColor: theme.palette.primary.main,
     color: theme.palette.common.white,
     marginBottom: theme.spacing(4),
-    backgroundImage: 'url(https://source.unsplash.com/random)',
+    // backgroundImage: 'url(https://source.unsplash.com/random)',
     backgroundSize: 'cover',
     backgroundRepeat: 'no-repeat',
     backgroundPosition: 'center',
@@ -24,11 +24,13 @@ const useStyles = makeStyles((theme) => ({
     bottom: 0,
     right: 0,
     left: 0,
-    backgroundColor: 'rgba(0,0,0,.3)',
+    backgroundColor: 'rgba(0,0,0,.2)',
   },
   mainFeaturedPostContent: {
     position: 'relative',
+    marginLeft:80,
     padding: theme.spacing(3),
+    // padding:20,
     [theme.breakpoints.up('md')]: {
       padding: theme.spacing(6),
       paddingRight: 0,
@@ -45,7 +47,8 @@ const MyPageBack = () => {
     // style={{ backgroundImage: 'https://source.unsplash.com/random' }}
     >
       {/* Increase the priority of the hero background image */}
-      <img style={{ display: 'none' }} src="https://source.unsplash.com/random" alt='' />
+      {/* <img style={{ display: 'none' }} src="https://source.unsplash.com/random" alt='' /> */}
+      <style></style>
       <div className={classes.overlay} />
       <Grid container>
         <Grid item md={6}>
@@ -57,7 +60,7 @@ const MyPageBack = () => {
               {Cookies.get('user_id')}
             </Typography>
             <Typography variant="h5" color="inherit" paragraph>
-              나의 레시피 & 재료 관리
+              나의 레시피 & 재료 관리 🍅
             </Typography>
           </div>
         </Grid>

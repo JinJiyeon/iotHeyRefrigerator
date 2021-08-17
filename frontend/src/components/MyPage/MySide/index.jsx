@@ -6,26 +6,44 @@ import {
   Paper,
   Typography,
   AppBar,
+  Box,
 } from '@material-ui/core';
 import { CommonContext } from '../../../context/CommonContext';
 import axios from 'axios';
 import { SSL_OP_SSLEAY_080_CLIENT_DH_BUG } from 'constants';
 
 const useStyles = makeStyles((theme) => ({
+  ComponentsGrid: {
+    // margin: 20,
+    // padding: 20,
+    // backgroundColor: theme.palette.primary.main,
+  },
   sidebarAboutBox: {
-    padding: theme.spacing(2),
-    backgroundColor: theme.palette.grey[200],
+    // padding: theme.spacing(1),
+    width: "90%",
+    padding: 15,
   },
   sidebarSection: {
     marginTop: theme.spacing(3),
+    margin:20
   },
   toolbar: {
     minHeight: 128,
     alignItems: 'flex-start',
     paddingTop: theme.spacing(1),
-    paddingBottom: theme.spacing(2),
-    backgroundColor: 'white',
+    paddingBottom: theme.spacing(1),
+    paddingLeft: theme.spacing(1),
+    // backgroundColor: 'white',
+    backgroundColor: theme.palette.primary.main,
+    margin: 20,
   },
+  ingredientComp: {
+    margin: 10,
+  },
+  buttonComp: {
+    margin:3,
+    padding:3,
+  }
 }));
 
 const MyBar = () => {
@@ -75,7 +93,7 @@ const MyBar = () => {
       })
   };
   return (
-    <Grid item xs={12} md={4}>
+    <Grid item xs={12} md={4} className={classes.ComponentsGrid}>
       <AppBar position='sticky' className={classes.toolbar}>
         {/* <ToolBar position='sticky' className={classes.toolbar}> */}
           <Paper elevation={0} className={classes.sidebarAboutBox}>
@@ -84,33 +102,33 @@ const MyBar = () => {
             </Typography>
             {editBtn === '추가' ?
               <div>
-                <Button onClick={()=>{setOpenFoodAdd(true)}}>
+                <Button onClick={()=>{setOpenFoodAdd(true)}} variant="outlined" className={classes.buttonComp}>
                   {editBtn}
+                </Button>
+                <Button onClick={()=>{setEditBtn('편집')}} variant="outlined" className={classes.buttonComp}>
+                  완료
                 </Button>
                 {ingredients.map((ingredient)=>(
                   <Paper>
-                    <Typography>
+                    <Typography className={classes.ingredientComp}>
                       {ingredient.ingredient_name} | 
                       {ingredient.expiration_date} | 
           
-                      <Button onClick={()=>{delIngredient(ingredient)}}>
+                      <Button onClick={()=>{delIngredient(ingredient)}} color="secondary">
                         삭제
                       </Button>
                     </Typography>
                   </Paper>
                 ))}
-                <Button onClick={()=>{setEditBtn('편집')}}>
-                  완료
-                </Button>
               </div>
             :
               <div>
-                <Button onClick={()=>{setEditBtn('추가')}}>
+                <Button onClick={()=>{setEditBtn('추가')}} variant="outlined" className={classes.buttonComp}>
                   {editBtn}
                 </Button>
                 {ingredients.map((ingredient)=>(
                   <Paper>
-                    <Typography>
+                    <Typography className={classes.ingredientComp}>
                       {ingredient.ingredient_name} |
                       {ingredient.expiration_date}
                     </Typography>
