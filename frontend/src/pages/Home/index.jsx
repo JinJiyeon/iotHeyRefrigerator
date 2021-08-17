@@ -17,46 +17,14 @@ import Cookies from 'js-cookie';
 import { palette } from '@material-ui/system';
 
 const useStyles = makeStyles((theme) => ({
-  // NavContent: {
-  //   backgroundColor: theme.palette.background.paper,
-  //   padding: theme.spacing(8, 0, 6),
-  // },
   toolbar: {
     paddingLeft: '80%',
   },
-  // cardGrid: {
-  //   paddingTop: theme.spacing(8),
-  //   paddingBottom: theme.spacing(8),
-  // },
-  // card: {
-  //   height: '170%',
-  //   display: 'flex',
-  //   flexDirection: 'column',
-  //   width: '80%',
-  // },
-  // cardMedia: {
-  //   paddingTop: '56.25%', // 16:9
-  //   height: '170%'
-  // },
-  // cardContent: {
-  //   flexGrow: 1,
-  // },
 }));
-
-const cards = [1, 2];
 
 export default function Home() {  
 
   const classes = useStyles();
-
-  const [visible, setVisible] = useState('로그인안했음');
-
-  const visibleHandler = () => {
-    setVisible('로그인했음');
-  };
-  const invisibleHandler = () => {
-    setVisible('로그인안했음');
-  };
 
    // // 로그인 상태에 따라 MyPage, 로그인 로그아웃 보여주기
   let history = useHistory();
@@ -67,15 +35,6 @@ export default function Home() {
 
   return (    
 
-    // <Button onClick={visibleHandler}> 
-    // {/* 로그인 했을 시 Mypage로 보임 */}
-    //   visible
-    // </Button>
-    // {/* 비로그인시 보이지 않음 */}
-    // <Button onClick={invisibleHandler}>
-    //   invisible
-    // </Button>  
-  
     <React.Fragment>
       <CssBaseline />
       {/* Nav-Bar */}
@@ -89,7 +48,6 @@ export default function Home() {
                   MyPage
                 </Button>
                 <Button onClick={()=>{
-                  // state상태로 담아서 렌더링 바로 되도록? 해주면 더 좋을듯
                   Cookies.remove('user_id')
                   Cookies.remove('refreshToken')
                   Cookies.remove('accessToken')
@@ -109,8 +67,6 @@ export default function Home() {
                 SignIn
               </Button>
             }
-          {/* {visible === '로그인했음' && <Home /> }
-          {visible === '로그인안했음' && <Button>LogIn</Button>}   */}
           </Paper>        
         </Toolbar>
       </AppBar>
@@ -122,26 +78,6 @@ export default function Home() {
             </Typography>                   
           </Container>
         </div>
-        {/* <Container className={classes.cardGrid} maxWidth="md">
-          <Grid container spacing={6}>
-            {cards.map((card) => (
-              <Grid item key={card} xs={12} sm={6}>
-                <Card className={classes.card}>
-                  <CardMedia
-                    className={classes.cardMedia}
-                    image="https://source.unsplash.com/random"
-                    title="Image title"
-                  />
-                  <CardContent className={classes.cardContent}>
-                    <Typography gutterBottom variant="h4" component="h2" align="center">
-                      기능명
-                    </Typography>                    
-                  </CardContent>                  
-                </Card>                
-              </Grid>
-            ))}
-          </Grid>          
-        </Container> */}
         <HomeCard />
       </main>      
     </React.Fragment>    

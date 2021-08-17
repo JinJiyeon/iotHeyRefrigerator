@@ -12,6 +12,7 @@ import InputLabel from '@material-ui/core/InputLabel';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import InputBase from '@material-ui/core/InputBase';
+import SearchBar from '../../components/Recipes/Recipe_Main/SearchBar';
 
 function Copyright() {
   return (
@@ -108,27 +109,7 @@ export default function Recipe_Search() {
     <React.Fragment>
       <CssBaseline />
       <main>
-        <div className={classes.heroContent}>
-          <Container maxWidth="sm" align="center">
-            <FormControl className={classes.search} >
-              <InputLabel htmlFor="demo-customized-textbox">검색</InputLabel>
-              <BootstrapInput id="demo-customized-textbox" />
-            </FormControl>
-            <FormControl className={classes.sort}>
-              <InputLabel id="demo-customized-select-label">분류</InputLabel>
-              <Select
-                labelId="demo-customized-select-label"
-                id="demo-customized-select"
-                value={name}
-                onChange={handleChange}
-                input={<BootstrapInput />}
-              > 
-                <MenuItem value={10}>재료명</MenuItem>
-                <MenuItem value={20}>음식이름</MenuItem>
-              </Select>
-            </FormControl>    
-          </Container>
-        </div>
+        <SearchBar />
 
         <Container className={classes.cardGrid} maxWidth="md">
           {/* End hero unit */}

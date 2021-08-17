@@ -11,9 +11,7 @@ import {
   Divider,
   makeStyles,
 } from '@material-ui/core';
-import { useContext } from 'react';
-import { CommonContext } from '../../context/CommonContext';
-import axios from 'axios';
+
 
 // 간단한 카드 스타일링
 const imgStyle = {
@@ -21,9 +19,7 @@ const imgStyle = {
   paddingTop: '56.25%', // 16:9
   margin: 20,
 };
-// const cardStyle = {
-//   margin: 50,
-// };
+
 const useStyles = makeStyles((theme) => ({
   cardGrid: {
     paddingTop: theme.spacing(8),

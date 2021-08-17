@@ -83,7 +83,7 @@ router.get('/recom/expired', util.isLogin, (req, res, next) => {
 // title search
 router.post('/search/title/:searchWord', (req, res, next) => {
     let searchWord = req.params.searchWord;
-    let limit = 3; // limit 값 논의 필요
+    let limit = 12; // limit 값 논의 필요
 
     let beforeId = req.body.before_recipe_info_id;
     let beforeView = req.body.before_view;
@@ -140,7 +140,7 @@ router.post('/search/title/:searchWord', (req, res, next) => {
 // ingredient search
 router.post('/search/ingredient/:searchWord', (req, res, next) => {
     let searchWord = req.params.searchWord;
-    let limit = 3; // limit 값 논의 필요
+    let limit = 12; // limit 값 논의 필요
 
     let beforeId = req.body.before_recipe_info_id;
     let beforeView = req.body.before_view;
