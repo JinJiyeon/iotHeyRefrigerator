@@ -44,8 +44,8 @@ const useStyles = makeStyles((theme) => ({
 const HomeCard = () => {
 
   const dummy = [
-    { id:1, title:'🥗 레시피 🥘', path:'/Recipes'},
-    { id:2, title:'🥦 재료 🥩', path:'/Foods'},
+    { id:1, title:'🥗 레시피 🥘', path:'/recipes'},
+    { id:2, title:'🥦 MY 🥩', path:'/mypage'},
   ];
   const history = useHistory();
   const classes = useStyles();
