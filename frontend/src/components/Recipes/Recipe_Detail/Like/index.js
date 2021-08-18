@@ -33,8 +33,8 @@ const LikeButton =()=> {
         // console.log(heart)
     }
     return(
-        <React.Fragment>
-            <span className="icons-list">
+        // <React.Fragment>
+            <span className="icons-list" display="inline">
                 {
                 isHeart ?  
                     <HeartFilled className="button red" onClick={onClick}/> :
@@ -46,7 +46,7 @@ const LikeButton =()=> {
                     recipeId 콘솔
                 </button> */}
             </span>
-        </React.Fragment> 
+        // </React.Fragment> 
     )
 }
 

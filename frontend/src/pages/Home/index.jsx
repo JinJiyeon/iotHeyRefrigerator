@@ -22,7 +22,7 @@ import Layout from '../../layout';
 
 const useStyles = makeStyles((theme) => ({
   toolbar: {
-    paddingLeft: '80%',
+    paddingLeft: '90%',
   },
 }));
 
@@ -40,52 +40,19 @@ export default function Home() {
   return (    
 
     <React.Fragment>
-      {/* <Layout /> */}
-
-      <CssBaseline />
-      {/* Nav-Bar */}
-      <AppBar position="relative" style={{ background: 'transparent', boxShadow: 'none'}}>
-      {/* <AppBar position="relative" color="secondary"> */}
-        <Toolbar className={classes.toolbar}>
-          <Paper>
-            {Cookies.get('user_id') ?
-              <div>
-                {/* <Button onClick={onClickBtn} variant="contained" color="primary">
-                  MyPage
-                </Button> */}
-                <Button onClick={()=>{
-                  Cookies.remove('user_id')
-                  Cookies.remove('refreshToken')
-                  Cookies.remove('accessToken')
-                  history.push('/SignIn')
-                }}
-                variant="contained" color="primary"
-                >
-                  SignOut
-                </Button>                                        
-              </div>
-            :
-            <Button onClick={()=>{
-              history.push('/SignIn')
-            }}
-            variant="contained" color="primary"
-            >
-                SignIn
-              </Button>
-            }
-          </Paper>        
-        </Toolbar>
-      </AppBar>
-      <Box bgcolor="warning.light" p={3}>
-        <div className={classes.NavContent}>
-          <Container maxWidth="sm">
-            <Typography variant="h2" align="center" color="secondary">
-              냉장고를 부탁해
-            </Typography>                   
-          </Container>
-        </div>
-        <HomeCard />
-      </Box>      
+      <Layout>
+        <CssBaseline />  
+        <Box bgcolor="warning.light" p={3}>
+          <div className={classes.NavContent}>
+            <Container maxWidth="sm">
+              <Typography variant="h2" align="center" color="secondary">
+                냉장고를 부탁해
+              </Typography>                   
+            </Container>
+          </div>
+          <HomeCard />
+        </Box>      
+      </Layout>
     </React.Fragment>    
   );
 }

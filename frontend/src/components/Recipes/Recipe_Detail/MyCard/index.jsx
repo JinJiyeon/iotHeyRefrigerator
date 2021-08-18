@@ -59,7 +59,7 @@ const MyPageCard = () => {
   return (
     <Box bgcolor="warning.light" p={3}>
       <Grid container spacing={2}>
-        <Grid item lg={6}>
+        <Grid item xs={6}>
           <Card className={classes.card} p={5}>
             <CardMedia 
               className={classes.cardMedia}
@@ -70,13 +70,20 @@ const MyPageCard = () => {
           </Card>    
         </Grid>
 
-        <Grid item lg={6}>
+        <Grid item xs={6}>
           <Card className={classes.card}>
             <div className={classes.cardDetails}>
-              <Typography variant="h2" gutterBottom>
-                {recipeId.title}
-              </Typography>
-              <LikeButton />
+              <Grid container>
+                <Grid item xs={9}>
+                  <Typography variant="h3" component="h2" gutterBottom>
+                    {recipeId.title}
+                  </Typography>  
+                </Grid>
+                <Grid item xs={3}>
+                  <LikeButton />
+                </Grid>
+              </Grid>
+
               
               <CardContent>            
                 {/* 재료가 값이 잇을때 보여주세요. 이걸안하면 map함수 자꾸 비어있다고 안돌아감 */}
@@ -86,7 +93,7 @@ const MyPageCard = () => {
                       {recipe.ingredients.inmyref &&
                       <div>
                         <Typography variant="h4" component="h2" align="left">
-                          갖고 있어요 😋
+                          😋 갖고 있어요 
                         </Typography>
                         {recipe.ingredients.inmyref.map((data)=>(
                           <Typography key={data} variant="h5" display="inline" color="primary">
@@ -96,7 +103,7 @@ const MyPageCard = () => {
                       </div>
                       }
                       <Typography variant="h4" component="h2" align="left">
-                        부족해요 🧐
+                        🧐 부족해요 
                       </Typography>
                       {recipe.ingredients.notinmyref.map((data)=>(
                         <Typography key={data} variant="h5" algin="left" display="inline">

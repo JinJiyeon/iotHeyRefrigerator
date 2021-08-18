@@ -10,7 +10,7 @@ import {
 } from '@material-ui/core';
 import { CommonContext } from '../../../context/CommonContext';
 import axios from 'axios';
-import { SSL_OP_SSLEAY_080_CLIENT_DH_BUG } from 'constants';
+
 
 const useStyles = makeStyles((theme) => ({
   ComponentsGrid: {
@@ -28,7 +28,7 @@ const useStyles = makeStyles((theme) => ({
     margin:20
   },
   toolbar: {
-    minHeight: 128,
+    minHeight: 125,
     alignItems: 'flex-start',
     paddingTop: theme.spacing(1),
     paddingBottom: theme.spacing(1),
@@ -37,12 +37,33 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: theme.palette.primary.main,
     margin: 20,
   },
+  ingredeintRoot: {
+    padding: theme.spacing(1, 1),
+    margin: 10,
+    height: 35,
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "center"
+  },
   ingredientComp: {
     margin: 10,
+    height: 35,
+    flexGrow: 1,
+    textAlign: 'center',
+    align:'justify'
   },
   buttonComp: {
-    margin:3,
-    padding:3,
+    margin:5,
+    padding:1,
+  },
+  sidenavComp: {
+    overflow: 'hidden',
+  },
+  floatLeft: {
+    float:'left',
+  },
+  floatRight: {
+    float:'right',
   }
 }));
 
@@ -51,12 +72,16 @@ const MyBar = () => {
   const {ingredients, setIngredients, setOpenFoodAdd} = useContext(CommonContext);
   const [editBtn, setEditBtn] = useState('편집');
   // const [openFoodAdd, setOpenFoodAdd] = useState(false);
-
+  const moment = require('moment');
+  const today = ((moment()).format('YYYYMMDD')).substr(0, 10);
 
   useEffect(()=>{
     ingredientApi();
   },[])
-
+  // 유통기한 지난 라벨 색변경
+  // const expSty = {
+  //   background : '#B7373B',
+  // };
   // 재료 DB GET
   const ingredientApi =()=>{
     axios.get('/user/myingredients')
@@ -96,24 +121,35 @@ const MyBar = () => {
     <Grid item xs={12} md={4} className={classes.ComponentsGrid}>
       <AppBar position='sticky' className={classes.toolbar}>
         {/* <ToolBar position='sticky' className={classes.toolbar}> */}
-          <Paper elevation={0} className={classes.sidebarAboutBox}>
-            <Typography variant="h6" gutterBottom>
+        <Paper elevation={0} className={classes.sidebarAboutBox}>
+          <div className={classes.sidenavComp}>
+            <Typography variant="h6" gutterBottom className={classes.floatLeft}>
               보유중인 재료
             </Typography>
             {editBtn === '추가' ?
-              <div>
+              <div className={classes.floatRight}>
                 <Button onClick={()=>{setOpenFoodAdd(true)}} variant="outlined" className={classes.buttonComp}>
                   {editBtn}
                 </Button>
                 <Button onClick={()=>{setEditBtn('편집')}} variant="outlined" className={classes.buttonComp}>
                   완료
                 </Button>
-                {ingredients.map((ingredient)=>(
-                  <Paper>
+              </div>
+              :
+              <div className={classes.floatRight}>
+                <Button onClick={() => { setEditBtn('추가') }} variant="outlined" className={classes.buttonComp}>
+                  {editBtn}
+                </Button>
+              </div>
+            }
+          </div>
+            {editBtn === '추가' ?
+              <div>
+              {ingredients.map((ingredient) => (
+                  <Paper className={classes.ingredeintRoot}>
                     <Typography className={classes.ingredientComp}>
                       {ingredient.ingredient_name} | 
                       {ingredient.expiration_date} | 
-          
                       <Button onClick={()=>{delIngredient(ingredient)}} color="secondary">
                         삭제
                       </Button>
@@ -123,15 +159,22 @@ const MyBar = () => {
               </div>
             :
               <div>
-                <Button onClick={()=>{setEditBtn('추가')}} variant="outlined" className={classes.buttonComp}>
-                  {editBtn}
-                </Button>
                 {ingredients.map((ingredient)=>(
-                  <Paper>
+                  <Paper className={classes.ingredeintRoot}>
+                  {/* <Paper>
+                    {
+                    Number((moment(ingredient.expiration_date).format('YYYYMMDD')).substr(0,10))<Number(today)
+                    ?
+                    <Typography className={classes.ingredientComp} style={{background : '#B7373B',}}>
+                      {ingredient.ingredient_name} |
+                      {ingredient.expiration_date} 날짜오바댔을때
+                    </Typography>
+                    : */}
                     <Typography className={classes.ingredientComp}>
                       {ingredient.ingredient_name} |
-                      {ingredient.expiration_date}
+                      {ingredient.expiration_date} | 
                     </Typography>
+                    {/* } */}
                   </Paper>
                 ))}
               </div>
