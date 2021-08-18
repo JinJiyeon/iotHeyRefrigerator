@@ -216,10 +216,6 @@ router.get('/:recipe_id', async (req, res, next) => {
     let recipe_id = req.params.recipe_id;
     const accessToken = req.cookies.accessToken;
     
-    if (typeof (recipe_id) !== 'number') {
-        console.log('숫자가 아님');
-        recipe_id = 420777;
-    }
 
     let user_id = null;
     let LoginCheck = null;
