@@ -15,6 +15,7 @@ import {
 import SearchBar from '../../components/Recipes/Recipe_Main/SearchBar';
 import { CommonContext } from '../../context/CommonContext';
 import { useHistory } from 'react-router-dom';
+import Layout from '../../layout';
 
 function Copyright() {
   return (
@@ -95,6 +96,12 @@ const useStyles = makeStyles((theme) => ({
     width: '10%',
     height: '80%',
   },
+  testbg: {
+    backgroundColor: theme.palette.primary.main,
+  },
+  testbg2: {
+    backgroundColor: 'white',
+  },
 }));
 
 
@@ -110,11 +117,13 @@ export default function Recipe_Search() {
   // };
 
   return (
-    
-      <main style={{height:'100vh', backgroundColor:''}}>
+    <Layout>
+      <main className={classes.testbg} style={{height:'100vh',  margin:'0px 0px -23px 0px'}}>
         <div >
-          <SearchBar />
-          <Box bgcolor="warning.light" p={2} style={{height:'83vh'}}>
+          <div  className={classes.testbg2}>
+            <SearchBar/>
+          </div>
+          <Box bgcolor="warning.light" p={2}>
             <Container className={classes.cardGrid} maxWidth="md">
               {/* End hero unit */}
               <Grid container spacing={4}>
@@ -157,7 +166,8 @@ export default function Recipe_Search() {
           </Box>
           
         </div>
-        <Copyright />
+
       </main>
-  );
+    </Layout>
+  )
 }

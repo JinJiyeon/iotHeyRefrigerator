@@ -59,7 +59,7 @@ const HomeCard = () => {
 
 // list item recipe
   return (
-    <Container  maxWidth="md">
+    <Container  maxWidth="md" >
       <Grid container spacing={6}>
         {dummy.map((dummy, index) => (
         <Grid item xs={6} key={index} >
