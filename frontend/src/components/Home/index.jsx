@@ -38,6 +38,13 @@ const useStyles = makeStyles((theme) => ({
   // cardContent: {
   //   flexGrow: 1,
   // },
+  bigcard: {    
+    minWidth: 400,
+    height: 300,
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: "center"
+  },
 }));
 
 
@@ -52,12 +59,12 @@ const HomeCard = () => {
 
 // list item recipe
   return (
-    <Container className={classes.cardGrid} maxWidth="md">
+    <Container  maxWidth="md">
       <Grid container spacing={6}>
         {dummy.map((dummy, index) => (
-        <Grid item xs={6} key={index}>
+        <Grid item xs={6} key={index} >
           <Card 
-            className={classes.card}
+            className={classes.card, classes.bigcard}
             onClick = {() => {
               history.push(`${dummy.path}`)
             }}

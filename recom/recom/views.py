@@ -25,7 +25,9 @@ def convert_from_retaining_ingredient(cookies):
     col = 'ingredient'
     for r in res:
         tmp_my_ingredient.append(r['ingredient_name'])
+    print('보유 중인 재료 벡터로 변환', tmp_my_ingredient)
     my_ingredinet = pd.DataFrame(data={col:[' '.join(tmp_my_ingredient)]})
+    
     return my_ingredinet
 
 def convert_from_urgent_expiration_date(cookies):
