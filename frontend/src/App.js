@@ -64,14 +64,14 @@ const App = () => {
       }}
     >
       <BrowserRouter>
-        <div>
+        <div style={{height:'100vh', backgroundColor:''}} >
           <Switch >
             <Route exact path="/" component={Home} />
             <Route exact path="/signup" component={SignUp} />
             <Route exact path="/signin" component={SignIn} />
             <Route exact path="/home" component={Home} />
             <Route exact path="/foods" component={Foods} />
-            <Route exact path="/recipes" component={Recipe_Main} />
+            <Route exact path="/recipes" component={Recipe_Main}  />
             <Route exact path="/recipes/:recipeId" component={Recipe_Detail} />
             <Route exact path="/search" component={Recipe_Search} />
             <Route exact path="/notfound" component={NotFound} />

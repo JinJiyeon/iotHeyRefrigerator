@@ -47,7 +47,7 @@ export default function Home() {
     <React.Fragment>
       <Layout>
         <CssBaseline />  
-        <Box bgcolor="warning.light" p={20} minHeight={800}  style={{height:'98vh'}}  >
+        <Box bgcolor="warning.light" p={20} minHeight={800}  style={{height:'97vh'}}  >
           <div className={classes.NavContent}>
             <Container maxWidth="">
               <Typography variant="h2" align="center" color="secondary" className={classes.text}>

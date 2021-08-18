@@ -21,14 +21,16 @@ function Copyright() {
 export default function Recipe_Main() {
  
   return (
-    <React.Fragment>
-      <CssBaseline />
-      <main>
-        <SearchBar /> 
-        <RecipeCard />
-        {/* <RecipeTimer /> */}
-      </main>
-        <Copyright />
-    </React.Fragment>
+    <div style={{height:'100vh'}}>
+      <React.Fragment>
+        <CssBaseline />
+        <main style={{height:'97vh'}}>
+          <SearchBar /> 
+          <RecipeCard/>
+          {/* <RecipeTimer /> */}
+        </main>
+          <Copyright />
+      </React.Fragment>
+    </div>
   );
 }

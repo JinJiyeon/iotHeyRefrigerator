@@ -122,7 +122,7 @@ const RecipeCard = () => {
     prevOpen.current = open;
   }, [open]);
   return (
-    <Box bgcolor="warning.light" p={2}>
+    <Box bgcolor="warning.light" style={{height:'85%'}} p={2}>
       <Container maxWidth="lg">
       <Typography variant="h5" align="left" color="textPrimary" gutterBottom>
         오늘의 추천 레시피

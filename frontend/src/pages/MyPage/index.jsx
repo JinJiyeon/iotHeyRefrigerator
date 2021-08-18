@@ -13,7 +13,7 @@ const Mypage = () => {
 
   return (
     <Layout >
-      <main >
+      <main style={{height:'', backgroundColor:''}}>
         { 
         openFoodAdd
         ?

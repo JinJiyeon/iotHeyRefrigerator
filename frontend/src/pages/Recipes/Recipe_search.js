@@ -111,49 +111,52 @@ export default function Recipe_Search() {
 
   return (
     
-      <main>
-        <SearchBar />
-        <Box bgcolor="warning.light" p={2}>
-          <Container className={classes.cardGrid} maxWidth="md">
-            {/* End hero unit */}
-            <Grid container spacing={4}>
-              {/* 검색결과가 0일때 문구 처리 */}
-              {searchCard ? 
-              <>
-                {searchCard.map((card) => (
-                  <Grid item key={card} xs={12} sm={6} md={4}>
-                      <Card className={classes.card}
-                        onClick={()=>{
-                          setRecipeId(card);
-                          history.push(`/Recipes/${card.recipe_info_id}`);
-                        }}
-                        >
-                        <CardMedia
-                          className={classes.cardMedia}
-                          image={card.recipe_info_image}
-                          title={card.title}
-                          />
-                        <CardContent className={classes.cardContent}>
-                          <Typography gutterBottom variant="h4" component="h2">
-                            {card.title}
-                          </Typography>
-                        </CardContent>
-                      </Card>
-                    </Grid>
-                  ))}
-                  </>
-                :
-                  <>
-                    <Typography>
-                      검색 결과가 없습니다. <br/>
-                      재료와 레시피를 선택 후 검색해주세요
-                    </Typography>
-                  </>
-              }
-              
-            </Grid>
-          </Container>
-        </Box>
+      <main style={{height:'100vh', backgroundColor:''}}>
+        <div >
+          <SearchBar />
+          <Box bgcolor="warning.light" p={2} style={{height:'83vh'}}>
+            <Container className={classes.cardGrid} maxWidth="md">
+              {/* End hero unit */}
+              <Grid container spacing={4}>
+                {/* 검색결과가 0일때 문구 처리 */}
+                {searchCard ? 
+                <>
+                  {searchCard.map((card) => (
+                    <Grid item key={card} xs={12} sm={6} md={4}>
+                        <Card className={classes.card}
+                          onClick={()=>{
+                            setRecipeId(card);
+                            history.push(`/Recipes/${card.recipe_info_id}`);
+                          }}
+                          >
+                          <CardMedia
+                            className={classes.cardMedia}
+                            image={card.recipe_info_image}
+                            title={card.title}
+                            />
+                          <CardContent className={classes.cardContent}>
+                            <Typography gutterBottom variant="h4" component="h2">
+                              {card.title}
+                            </Typography>
+                          </CardContent>
+                        </Card>
+                      </Grid>
+                    ))}
+                    </>
+                  :
+                    <>
+                      <Typography>
+                        검색 결과가 없습니다. <br/>
+                        재료와 레시피를 선택 후 검색해주세요
+                      </Typography>
+                    </>
+                }
+                
+              </Grid>
+            </Container>
+          </Box>
+          
+        </div>
         <Copyright />
       </main>
   );
