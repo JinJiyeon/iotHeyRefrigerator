@@ -92,7 +92,7 @@ const App = () => {
             Cookies.get('user_id') ?  */}
               <Route exact path="/mypage" component={MyPage} />
             {/* :
-              alert('로그인 후 이용해주세요.')
+              alert('로그인 후 이용해주세요.') /
             } */}
             <Route exact path="/foods" component={Foods} />
             <Route exact path="/recipes" component={Recipe_Main} />
