@@ -16,7 +16,6 @@ const Copyright=()=>{
 const Footer = () => {
   return (
     <div>
-      <h2>하이</h2>
       <Copyright />
     </div>
   );

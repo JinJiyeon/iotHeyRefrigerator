@@ -61,7 +61,7 @@ const MyPageBottom = () => {
                   <Grid container>
                     <Grid item xs={8}>
                       <Typography key={data} variant="h5">
-                        {data.step_order} | {data.step_comment}
+                        ({data.step_order}) {data.step_comment}
                       </Typography>
                     </Grid>
                     <Grid item xs={4} align="right">

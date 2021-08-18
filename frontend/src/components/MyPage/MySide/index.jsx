@@ -10,7 +10,7 @@ import {
 } from '@material-ui/core';
 import { CommonContext } from '../../../context/CommonContext';
 import axios from 'axios';
-import { SSL_OP_SSLEAY_080_CLIENT_DH_BUG } from 'constants';
+
 
 const useStyles = makeStyles((theme) => ({
   ComponentsGrid: {
@@ -72,12 +72,16 @@ const MyBar = () => {
   const {ingredients, setIngredients, setOpenFoodAdd} = useContext(CommonContext);
   const [editBtn, setEditBtn] = useState('편집');
   // const [openFoodAdd, setOpenFoodAdd] = useState(false);
-
+  const moment = require('moment');
+  const today = ((moment()).format('YYYYMMDD')).substr(0, 10);
 
   useEffect(()=>{
     ingredientApi();
   },[])
-
+  // 유통기한 지난 라벨 색변경
+  // const expSty = {
+  //   background : '#B7373B',
+  // };
   // 재료 DB GET
   const ingredientApi =()=>{
     axios.get('/user/myingredients')
@@ -146,7 +150,6 @@ const MyBar = () => {
                     <Typography className={classes.ingredientComp}>
                       {ingredient.ingredient_name} | 
                       {ingredient.expiration_date} | 
-          
                       <Button onClick={()=>{delIngredient(ingredient)}} color="secondary">
                         삭제
                       </Button>
@@ -158,10 +161,20 @@ const MyBar = () => {
               <div>
                 {ingredients.map((ingredient)=>(
                   <Paper className={classes.ingredeintRoot}>
+                  {/* <Paper>
+                    {
+                    Number((moment(ingredient.expiration_date).format('YYYYMMDD')).substr(0,10))<Number(today)
+                    ?
+                    <Typography className={classes.ingredientComp} style={{background : '#B7373B',}}>
+                      {ingredient.ingredient_name} |
+                      {ingredient.expiration_date} 날짜오바댔을때
+                    </Typography>
+                    : */}
                     <Typography className={classes.ingredientComp}>
                       {ingredient.ingredient_name} |
                       {ingredient.expiration_date} | 
                     </Typography>
+                    {/* } */}
                   </Paper>
                 ))}
               </div>
