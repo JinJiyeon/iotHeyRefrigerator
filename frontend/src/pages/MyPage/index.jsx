@@ -11,8 +11,8 @@ const Mypage = () => {
   const {openFoodAdd, setOpenFoodAdd} = useContext(CommonContext);
 
   return (
-    <Layout>
-      <main>
+    <Layout >
+      <main >
         { 
         openFoodAdd
         ?
