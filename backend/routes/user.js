@@ -23,6 +23,7 @@ router.get('/myingredients/important', util.isLogin, (req, res, next) => {
     console.log('important 유저 아이디', req.user_id)
     db.query(`SELECT * FROM users_and_ingredients WHERE user_id='${req.user_id}'`, (err, rows) => {
         if (err) next (err)
+        console.log('보유하고 있는 재료', rows)
         res.send(rows)
     })
   });
@@ -35,6 +36,7 @@ router.get('/myingredients/expired', util.isLogin, (req, res, next) => {
                 WHERE user_id='${req.user_id}' 
                 AND DATEDIFF(expiration_date, CURDATE()) < 3`,  (err, rows) => {
         if (err) next (err)
+        console.log('유통기한이 임박한 재료', rows)
         res.send(rows)
     })
 })
