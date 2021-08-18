@@ -154,10 +154,15 @@ export default function SignIn() {
             >
               Sign In
             </Button>
-            <Grid container>
-              <Grid item>                 
-                <Link href="/SignUp" variant="Signup">     {/* Sign up 으로 보내주는거 추가 */}
+            <Grid container xs={12}>
+              <Grid item xs={9}>                 
+                <Link href="/signup" variant="Signup">     {/* Sign up 으로 보내주는거 추가 */}
                   {"회원이 아니신가요?"}
+                </Link>
+              </Grid>
+              <Grid item xs={3}>
+                <Link href="/home" variant="Signup">
+                  {"Home으로"}
                 </Link>
               </Grid>
             </Grid>

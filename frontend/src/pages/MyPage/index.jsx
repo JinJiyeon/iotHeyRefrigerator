@@ -9,14 +9,10 @@ import Layout from '../../layout';
 
 const Mypage = () => {
   const {openFoodAdd, setOpenFoodAdd} = useContext(CommonContext);
-  const imgSize = {
-    margin : 5,
-    height : 150,
-    width : 150
-  }
+
   return (
-    <Layout>
-      <main>
+    <Layout >
+      <main >
         { 
         openFoodAdd
         ?
