@@ -53,13 +53,13 @@ const MyPageBack = () => {
       <Grid container>
         <Grid item md={6}>
           <div className={classes.mainFeaturedPostContent}>
-            <Typography component="h1" variant="h1" color="inherit"
+            <Typography component="h1" variant="h3" color="inherit"
               // gutterBottom : 마진주는 요소
               gutterBottom
             >
               {Cookies.get('user_id')}
             </Typography>
-            <Typography variant="h3" color="inherit" paragraph>
+            <Typography variant="h5" color="inherit" paragraph>
               나의 레시피 & 재료 관리 🍅
             </Typography>
           </div>

@@ -46,17 +46,15 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: "center"
   },
   ingredientComp: {
-    margin: 15,
-    height: 65,
+    margin: 10,
+    height: 35,
     flexGrow: 1,
     textAlign: 'center',
-    align: 'justify',
-    fontSize : 30,
+    align:'justify'
   },
   buttonComp: {
     margin:5,
-    padding: 1,
-    fontSize: 30,
+    padding:1,
   },
   sidenavComp: {
     overflow: 'hidden',
@@ -125,7 +123,7 @@ const MyBar = () => {
         {/* <ToolBar position='sticky' className={classes.toolbar}> */}
         <Paper elevation={0} className={classes.sidebarAboutBox}>
           <div className={classes.sidenavComp}>
-            <Typography variant="h4" gutterBottom className={classes.floatLeft}>
+            <Typography variant="h6" gutterBottom className={classes.floatLeft}>
               보유중인 재료
             </Typography>
             {editBtn === '추가' ?
@@ -152,7 +150,7 @@ const MyBar = () => {
                     <Typography className={classes.ingredientComp}>
                       {ingredient.ingredient_name} | 
                       {ingredient.expiration_date} | 
-                      <Button onClick={()=>{delIngredient(ingredient)}} color="secondary" className={classes.buttonComp}>
+                      <Button onClick={()=>{delIngredient(ingredient)}} color="secondary">
                         삭제
                       </Button>
                     </Typography>
