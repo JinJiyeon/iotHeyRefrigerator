@@ -26,7 +26,7 @@ const Mypage = () => {
         <MyPageBack />
         <Grid container spaicng={5} justifyContent="center">
           <MyPageCard />
-                <MyBar />
+          <MyBar />
         </Grid>
         </div>
         }

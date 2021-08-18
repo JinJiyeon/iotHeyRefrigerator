@@ -12,9 +12,9 @@ const Layout = (props) => {
   return (
     <div>
       <Header />
-      <Container>
-        <div>{children}</div>
-      </Container>
+      {/* <Container> */}
+        {children}
+      {/* </Container> */}
       <Footer />
     </div>
   );

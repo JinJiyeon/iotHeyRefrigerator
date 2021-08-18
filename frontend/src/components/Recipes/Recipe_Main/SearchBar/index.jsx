@@ -1,4 +1,4 @@
-import React, {useState, useContext} from 'react';
+import React, {useState, useContext, useEffect} from 'react';
 import {
   Container,
   FormControl,
@@ -81,14 +81,23 @@ const SearchBar = () => {
   const handleChange = (event) => {
     setSort(event.target.value);
   };
-  
+  // SearchPage 접속시 검색결과가 없다는 문구
+  useEffect(()=>{
+    setSearchCard(0);
+  }, []);
+
   // 레시피검색 API
   const recipeSearchApi =()=>{
     console.log(searchWord, 'api-console')
     axios.post(`recipe/search/title/${searchWord}`, searchWord)
       .then(res=>{
         console.log(res.data, 'search-res')
-        setSearchCard(res.data)
+        // 검색결과가 없을 때 문구 처리
+        if (res.data.length){
+          setSearchCard(res.data);
+        } else {
+          setSearchCard(0);
+        }
       })
       .catch(err=>{
         console.log(err.response, 'search-err')
@@ -100,10 +109,16 @@ const SearchBar = () => {
     axios.post(`recipe/search/ingredient/${searchWord}`, searchWord)
       .then(res=>{
         console.log(res, 'search-res')
-        setSearchCard(res.data)
+        // 검색결과가 없을때 문구 처리
+        if (res.data.length){
+          setSearchCard(res.data);
+        } else {
+          setSearchCard(0);
+        }
       })
       .catch(err=>{
         console.log(err.response, 'search-err')
+        setSearchCard(0)
       })
   };
 
