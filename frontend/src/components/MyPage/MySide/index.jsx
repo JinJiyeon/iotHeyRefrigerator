@@ -129,6 +129,7 @@ const MyBar = () => {
             <Typography variant="h4" gutterBottom className={classes.floatLeft}>
               보유중인 재료
             </Typography>
+            {/* 버튼 */}
             {editBtn === '추가' ?
               <div className={classes.floatRight}>
                 <Button onClick={()=>{setOpenFoodAdd(true)}} variant="outlined" className={classes.buttonComp}>
@@ -145,18 +146,25 @@ const MyBar = () => {
                 </Button>
               </div>
             }
+            {/* 색깔 */}
           </div>
             {editBtn === '추가' ?
               <div>
               {ingredients.map((ingredient) => (
-                  <Paper className={classes.ingredeintRoot}>
-                    <Typography className={classes.ingredientComp}>
-                      {ingredient.ingredient_name} | 
-                      {ingredient.expiration_date} | 
-                      <Button onClick={()=>{delIngredient(ingredient)}} color="secondary" className={classes.buttonComp}>
-                        삭제
-                      </Button>
+                  <Paper className={classes.ingredeintRoot} color='error'>
+                    {
+                    Number((moment(ingredient.expiration_date).format('YYYYMMDD')).substr(0,10))<Number(today)+3
+                    ?
+                    <Typography className={classes.ingredientComp} color='error'>
+                      <Grid>
+                        {ingredient.ingredient_name} {ingredient.expiration_date}
+                      </Grid>
                     </Typography>
+                    :
+                    <Typography className={classes.ingredientComp}>
+                      {ingredient.ingredient_name} {ingredient.expiration_date}  
+                    </Typography>
+                    }
                     
                   </Paper>
                 ))}
@@ -164,22 +172,21 @@ const MyBar = () => {
             :
               <div>
                 {ingredients.map((ingredient)=>(
-                  <Paper className={classes.ingredeintRoot}>
-                  {/* <Paper>
+                  <Paper className={classes.ingredeintRoot} >
+                  {/* <Paper> */}
                     {
-                    Number((moment(ingredient.expiration_date).format('YYYYMMDD')).substr(0,10))<Number(today)
+                    Number((moment(ingredient.expiration_date).format('YYYYMMDD')).substr(0,10))<Number(today)+3
                     ?
                     <Typography className={classes.ingredientComp} color='error'>
                       <Grid>
-                        {ingredient.ingredient_name} {ingredient.expiration_date} 유통기한 임박!
+                        {ingredient.ingredient_name} {ingredient.expiration_date}
                       </Grid>
                     </Typography>
-                    : */}
+                    :
                     <Typography className={classes.ingredientComp}>
-                      {ingredient.ingredient_name} |
-                      {ingredient.expiration_date} | 
+                      {ingredient.ingredient_name} {ingredient.expiration_date} 
                     </Typography>
-                    {/* } */}
+                    }
                   </Paper>
                 ))}
               </div>

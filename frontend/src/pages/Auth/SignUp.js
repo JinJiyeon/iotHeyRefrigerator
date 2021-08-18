@@ -171,6 +171,13 @@ export default function SignUp() {
             >
               확인
             </Button>
+            <Grid container>
+              <Grid item>                 
+                <Link href="/signin" variant="Signup">     {/* Sign up 으로 보내주는거 추가 */}
+                  {"이미 회원이신가요?"}
+                </Link>
+              </Grid>
+              </Grid>
             <Box mt={5}>
               <Copyright />
             </Box>

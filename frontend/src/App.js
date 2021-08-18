@@ -1,6 +1,6 @@
 // eslint-disable-next-line
 import React, {useState} from 'react';
-import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom';
+import { BrowserRouter, Switch, Route, Redirect, } from 'react-router-dom';
 import { CommonContext } from './context/CommonContext';
 
 import SignUp from './pages/Auth/SignUp';
@@ -12,18 +12,9 @@ import Recipe_Main from './pages/Recipes/Recipe_Main';
 import Recipe_Detail from './pages/Recipes/Recipe_Detail';
 import NotFound from './pages/NotFound/';
 import Recipe_Search from './pages/Recipes/Recipe_Search'
-import Cookies from 'js-cookie';
+import RestrictedRoute from './utils/RestrictedRoute';
 
 const App = () => {
-  const [user, setUser] = useState(
-    {
-      user_id: '',
-      user_pwd: '',
-      status: '',
-      token: '',
-    },
-    // 'user',
-  );
   // Foods
   const [infoDialogOpen, setInfoDetailDialogOpen] = useState(false);
   const [openFoodAddForm, setopenFoodAddForm] = useState(false);
@@ -31,12 +22,6 @@ const App = () => {
   const [newFood, setNewFood] = useState([]);
   const [newExp, setNewExp] = useState([]);
 
-
-  const [rows, setRows] = useState([
-    {id:1, date:7, name:'오이'},
-    {id:0, date:-1, name:'당근'},
-    {id:2, date:10, name:'수박'},
-  ]);
   // Recipe
   const [cards, setCards] = useState([]);
   const [searchCard, setSearchCard] = useState([]);
@@ -50,15 +35,11 @@ const App = () => {
   return (
     <CommonContext.Provider
       value={{
-        user,
-        setUser,
         // Foods
         infoDialogOpen,
         setInfoDetailDialogOpen,
         openFoodAddForm,
         setopenFoodAddForm,
-        rows,
-        setRows,
         exp,
         setExp,
         // FoodAdd
@@ -94,7 +75,9 @@ const App = () => {
             <Route exact path="/recipes/:recipeId" component={Recipe_Detail} />
             <Route exact path="/search" component={Recipe_Search} />
             <Route exact path="/notfound" component={NotFound} />
-            <Route exact path="/mypage" component={MyPage} />
+            {/* <Route exact path="/mypage" component={MyPage} /> */}
+            <RestrictedRoute exact path="/mypage" component={MyPage} exact/>
+            
             {/* route외의 주소는 NotFound로 빠지도록 */}
             <Redirect to="/notfound" />
           </Switch>
