@@ -12,7 +12,7 @@ import Recipe_Main from './pages/Recipes/Recipe_Main';
 import Recipe_Detail from './pages/Recipes/Recipe_Detail';
 import NotFound from './pages/NotFound/';
 import Recipe_Search from './pages/Recipes/Recipe_Search'
-
+import Cookies from 'js-cookie';
 
 const App = () => {
   const [user, setUser] = useState(
@@ -88,19 +88,14 @@ const App = () => {
             <Route exact path="/signup" component={SignUp} />
             <Route exact path="/signin" component={SignIn} />
             <Route exact path="/home" component={Home} />
-            {/* {
-            Cookies.get('user_id') ?  */}
-              <Route exact path="/mypage" component={MyPage} />
-            {/* :
-              alert('로그인 후 이용해주세요.')
-            } */}
             <Route exact path="/foods" component={Foods} />
             <Route exact path="/recipes" component={Recipe_Main} />
             <Route exact path="/recipes/:recipeId" component={Recipe_Detail} />
             <Route exact path="/search" component={Recipe_Search} />
             <Route exact path="/notfound" component={NotFound} />
+            <Route exact path="/mypage" component={MyPage} />
             {/* route외의 주소는 NotFound로 빠지도록 */}
-            {/* <Redirect to="/notfound" /> */}
+            <Redirect to="/notfound" />
           </Switch>
         </BrowserRouter>
     </CommonContext.Provider>

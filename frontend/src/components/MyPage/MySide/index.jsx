@@ -10,7 +10,7 @@ import {
 } from '@material-ui/core';
 import { CommonContext } from '../../../context/CommonContext';
 import axios from 'axios';
-import { SSL_OP_SSLEAY_080_CLIENT_DH_BUG } from 'constants';
+
 
 const useStyles = makeStyles((theme) => ({
   ComponentsGrid: {
@@ -51,12 +51,16 @@ const MyBar = () => {
   const {ingredients, setIngredients, setOpenFoodAdd} = useContext(CommonContext);
   const [editBtn, setEditBtn] = useState('편집');
   // const [openFoodAdd, setOpenFoodAdd] = useState(false);
-
+  const moment = require('moment');
+  const today = ((moment()).format('YYYYMMDD')).substr(0, 10);
 
   useEffect(()=>{
     ingredientApi();
   },[])
-
+  // 유통기한 지난 라벨 색변경
+  // const expSty = {
+  //   background : '#B7373B',
+  // };
   // 재료 DB GET
   const ingredientApi =()=>{
     axios.get('/user/myingredients')
@@ -97,6 +101,7 @@ const MyBar = () => {
       <AppBar position='sticky' className={classes.toolbar}>
         {/* <ToolBar position='sticky' className={classes.toolbar}> */}
           <Paper elevation={0} className={classes.sidebarAboutBox}>
+            <button onClick={()=>{console.log(today); console.log((Number(today)))}}>날짜버튼</button>
             <Typography variant="h6" gutterBottom>
               보유중인 재료
             </Typography>
@@ -110,10 +115,9 @@ const MyBar = () => {
                 </Button>
                 {ingredients.map((ingredient)=>(
                   <Paper>
-                    <Typography className={classes.ingredientComp}>
+                    <Typography className={classes.ingredientComp} style={{background : '#B7373B',}}>
                       {ingredient.ingredient_name} | 
                       {ingredient.expiration_date} | 
-          
                       <Button onClick={()=>{delIngredient(ingredient)}} color="secondary">
                         삭제
                       </Button>
@@ -128,10 +132,19 @@ const MyBar = () => {
                 </Button>
                 {ingredients.map((ingredient)=>(
                   <Paper>
+                    {
+                    Number((moment(ingredient.expiration_date).format('YYYYMMDD')).substr(0,10))<Number(today)
+                    ?
+                    <Typography className={classes.ingredientComp} style={{background : '#B7373B',}}>
+                      {ingredient.ingredient_name} |
+                      {ingredient.expiration_date} 날짜오바댔을때
+                    </Typography>
+                    :
                     <Typography className={classes.ingredientComp}>
                       {ingredient.ingredient_name} |
                       {ingredient.expiration_date}
                     </Typography>
+                    }
                   </Paper>
                 ))}
               </div>
