@@ -1,37 +1,55 @@
 import React, { useContext, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
-import Cookies from 'js-cookie';
 import {
   Toolbar,
   Paper,
   Grid,
-  Typography,
   AppBar,
   Button,
-  IconButton,
-  useMediaQuery,
+  useScrollTrigger,
+  Slide,
 } from '@material-ui/core';
+import PropTypes from 'prop-types'
+import Cookies from 'js-cookie';
 import { CommonContext } from '../../context/CommonContext';
 import SearchIcon from '@material-ui/icons/Search';
-// import Wrapper from './styles';
+
+
+const HideOnScroll=(props)=>{
+  const { children, window } = props;
+  const trigger = useScrollTrigger({ target: window ? window() : undefined });
+
+  return (
+    <Slide appear={false} direction="down" in={!trigger}>
+      {children}
+    </Slide>
+  );
+};
+
+HideOnScroll.propTypes = {
+  children: PropTypes.element.isRequired,
+  window: PropTypes.func,
+};
 
 const Header = props => {
   let history = useHistory();
 
   return (
+    <HideOnScroll {...props}>
     <AppBar position="fixed" style={{ background: 'transparent', boxShadow: 'none', marginTop:10}}>
     {/* <AppBar position="relative" color="secondary"> */}
       <Grid container justify="space-around" alignItems="center">
         <Grid item style={{marginRight:200}}>
-          <Paper>
+          {/* <Paper> */}
             <Button
+              size="small"
               onClick={()=>{
                 history.push('/home');
               }}
               >
-              Home
+              <img src="https://img.icons8.com/material-outlined/24/000000/home--v2.png"/>
             </Button>
-          </Paper>
+          {/* </Paper> */}
         </Grid>
         <Grid item>
           <Grid container justify="center" spacing={2}>
@@ -41,7 +59,7 @@ const Header = props => {
                   onClick={()=>{
                     history.push('/search')
                   }}
-                />
+                  />
               </Button>
             </Grid>
             <Grid item>
@@ -77,6 +95,7 @@ const Header = props => {
         </Grid>
       </Grid>
     </AppBar>
+  </HideOnScroll>
   );
 };
 
