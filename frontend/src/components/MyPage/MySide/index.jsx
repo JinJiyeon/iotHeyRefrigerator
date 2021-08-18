@@ -119,6 +119,7 @@ const MyBar = () => {
         console.log(res, 'iot-res')
       })
   };
+
   return (
     <Grid item xs={12} md={4} className={classes.ComponentsGrid}>
       <AppBar position='sticky' className={classes.toolbar}>
@@ -156,6 +157,7 @@ const MyBar = () => {
                         삭제
                       </Button>
                     </Typography>
+                    
                   </Paper>
                 ))}
               </div>
@@ -167,9 +169,10 @@ const MyBar = () => {
                     {
                     Number((moment(ingredient.expiration_date).format('YYYYMMDD')).substr(0,10))<Number(today)
                     ?
-                    <Typography className={classes.ingredientComp} style={{background : '#B7373B',}}>
-                      {ingredient.ingredient_name} |
-                      {ingredient.expiration_date} 날짜오바댔을때
+                    <Typography className={classes.ingredientComp} color='error'>
+                      <Grid>
+                        {ingredient.ingredient_name} {ingredient.expiration_date} 유통기한 임박!
+                      </Grid>
                     </Typography>
                     : */}
                     <Typography className={classes.ingredientComp}>
