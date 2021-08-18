@@ -15,8 +15,8 @@ const Mypage = () => {
     width : 150
   }
   return (
-    <Layout>
-      <main>
+    <Layout >
+      <main >
         { 
         openFoodAdd
         ?

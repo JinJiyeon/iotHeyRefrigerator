@@ -83,7 +83,8 @@ const App = () => {
       }}
     >
       <BrowserRouter>
-          <Switch>
+        <div>
+          <Switch >
             <Route exact path="/" component={Home} />
             <Route exact path="/signup" component={SignUp} />
             <Route exact path="/signin" component={SignIn} />
@@ -97,8 +98,10 @@ const App = () => {
             {/* route외의 주소는 NotFound로 빠지도록 */}
             <Redirect to="/notfound" />
           </Switch>
+          </div>
         </BrowserRouter>
     </CommonContext.Provider>
+    
   );
 };
 
