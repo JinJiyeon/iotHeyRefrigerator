@@ -17,13 +17,12 @@ const useStyles = makeStyles({
     display: 'flex',
     padding: 15,
     margin: 15,
-    minHeight: 260,
   },
   cardDetails: {
     flex: 1,
   },
   cardMedia: {
-    width: 250,
+    width: 160,
   },
 });
 const cards = [1,2,3,4,5,6,7,8,9]
@@ -71,7 +70,7 @@ const MyPageCard = () => {
   // };
   return (
       // <button onClick={()=>{console.log(mylikes)}}>콘솔</button>
-    <Grid item xs={12} md={7}>
+    <Grid item xs={12} md={6}>
       {mylikes.map((like) => (
         <Grid key={like}>
         <CardActionArea component="a"
@@ -83,22 +82,22 @@ const MyPageCard = () => {
         <Card className={classes.card}>
           <div className={classes.cardDetails}>
             <CardContent>
-              <Typography component="h2" variant="h3">
+              <Typography component="h2" variant="h5">
                 {like.title}
               </Typography>
-              <Typography variant="h4" color="textSecondary">
+              <Typography variant="subtitle1" color="textSecondary">
                 필요한 재료
               </Typography>
-              <Typography variant="h5" paragraph>
+              <Typography variant="subtitle1" paragraph>
                 {like.ingredients.map((ingredients)=>(
                   <span>
                     {ingredients.ingredient_name} ,
                   </span>
                       ))}
               </Typography>
-              <Typography variant="h5" color="primary">
+              {/* <Typography variant="subtitle1" color="primary">
                 레시피로 이동
-              </Typography>
+              </Typography> */}
             </CardContent>
           </div>
           <Hidden xsDown>

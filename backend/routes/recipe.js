@@ -212,13 +212,15 @@ router.post('/search/ingredient/:searchWord', (req, res, next) => {
 })
 
 // 라우터
-router.get('/:recipe_id', async (req, res) => {
-    const recipe_id = req.params.recipe_id;
+router.get('/:recipe_id', async (req, res, next) => {
+    let recipe_id = req.params.recipe_id;
     const accessToken = req.cookies.accessToken;
+    
+
     let user_id = null;
     let LoginCheck = null;
 
-    // accessToken이 있는 경우
+    // accessToken이 있는 경우 //
     if (accessToken) {
         LoginCheck = new Promise((resolve, reject) => {
                 jwt.verify(accessToken, process.env.ACCESS_TOKEN_SECRET, (err, decoded) => {
@@ -251,10 +253,13 @@ router.get('/:recipe_id', async (req, res) => {
     let info_promise = new Promise((resolve, reject) => {
         db.query(`select title, view, recipe_info_image from recipe_infos where recipe_info_id=${recipe_id}`, (err, rows) => {
             if (err) {
+                console.log('레시피.js 에서 에러 발생..');
                 console.log(err);
-                // reject(err);
+                reject(err);
+                // return next(err);
+            } else {
+                resolve(rows);
             }
-            resolve(rows);
         })
     })
 
@@ -292,7 +297,7 @@ router.get('/:recipe_id', async (req, res) => {
                     console.log(err);
                     reject(err);
                 }
-                resolve(rows);
+                else resolve(rows);
             })
         })
     }
@@ -303,7 +308,7 @@ router.get('/:recipe_id', async (req, res) => {
                 console.log(err);
                 reject(err);
             }
-            resolve(rows);
+            else resolve(rows);
         })
     })
     
@@ -316,14 +321,17 @@ router.get('/:recipe_id', async (req, res) => {
         })
     }
 
-    if (user_id) {
-        recipe.ingredients.inmyref = await inmyref;
-        recipe.ingredients.notinmyref = await notinmyref;
-    } else {
-        console.log(user_id);
-        recipe.ingredients.notinmyref = '';
-        console.log('notinmyref',notinmyref);
-        recipe.ingredients.notinmyref = await notinmyref;
+    try {
+        if (user_id) {
+            recipe.ingredients.inmyref = await inmyref;
+            recipe.ingredients.notinmyref = await notinmyref;
+        } else {
+            console.log(user_id);
+            recipe.ingredients.notinmyref = '';
+            recipe.ingredients.notinmyref = await notinmyref;
+        }
+    } catch (err) {
+        next(err);
     }
 
     info_promise
@@ -334,16 +342,21 @@ router.get('/:recipe_id', async (req, res) => {
         .then(async (rows) => {
             recipe.steps = rows;
 
-            if (user_id) {
-                const rows = await is_user_like();
-                const isLiked = rows[0].isLiked;
-                recipe.isLiked = isLiked;
-            } else {
-                recipe.isLiked = 0;
+            try {
+                if (user_id) {
+                    const rows = await is_user_like();
+                    const isLiked = rows[0].isLiked;
+                    recipe.isLiked = isLiked;
+                } else {
+                    recipe.isLiked = 0;
+                }
+            } catch (err) {
+                next(err);
             }
             res.send(recipe);
         })
         .catch((err) => {
+            console.log('info promise에서 에러 검출2!');
             next(err);
         })
 })
@@ -389,6 +402,11 @@ router.get('/inmybag/:recipe_id', util.isLogin, (req, res) => {
         .catch((err) => {
             res.status(500).send('server error');
         })
+})
+
+router.use((err, req, res, next) => {
+    console.log('recipe.js error!');
+    res.status(500).send('server error');
 })
 
 //404 middleware

@@ -11,7 +11,12 @@ import {
 import axios from 'axios';
 // import { makeStyles } from '@material-ui/core/styles';
 
-
+const timerSty={
+  position:'fixed',
+  marginTop:20,
+  width:300,
+  borderRadius: 20,
+};
 
 class RecipeTimer extends Component {
   constructor() {
@@ -97,20 +102,20 @@ class RecipeTimer extends Component {
 
     return (
       
-        <Box bgcolor="error.light" p={2} style={{width:300}}>
+        <Box bgcolor="error.light" p={2} style={timerSty}>
           <Container>
           <Typography variant="h2" align="center">Timer</Typography>
           <hr></hr>
           <Typography variant="h5" align="center">시간 설정하기</Typography>
-          <Grid container >
-            <Grid item xs={4} p={1}>
-              <input ref={this.hoursInput} type="number" placeholder={'HH'}  name="hours"  onChange={this.inputHandler}/>
+          <Grid container>
+            <Grid item xs={4} p={5}>
+              <input ref={this.hoursInput} type="number" placeholder={'HH'}  name="hours"  onChange={this.inputHandler} size="5" />
             </Grid>  
             <Grid item xs={4}>
-              <input  ref={this.minutesInput} type="number"  placeholder={'MM'}   name="minutes"  onChange={this.inputHandler} />
+              <input ref={this.minutesInput} type="number"  placeholder={'MM'}   name="minutes"  onChange={this.inputHandler} size="5"/>
             </Grid>
             <Grid item xs={4}>
-              <input   ref={this.secondsInput} type="number"  placeholder={'SS'}  name="seconds"  onChange={this.inputHandler} />
+              <input ref={this.secondsInput} type="number"  placeholder={'SS'}  name="seconds"  onChange={this.inputHandler} size="5"/>
             </Grid>
           </Grid>
           <hr></hr>
@@ -140,12 +145,6 @@ class RecipeTimer extends Component {
           </Grid>
           </Container>
         </Box>
-      
-      
-        
-
-      
-
     );
   }
 }

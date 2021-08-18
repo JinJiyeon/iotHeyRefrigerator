@@ -46,17 +46,15 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: "center"
   },
   ingredientComp: {
-    margin: 15,
-    height: 65,
+    margin: 10,
+    height: 35,
     flexGrow: 1,
     textAlign: 'center',
-    align: 'justify',
-    fontSize : 30,
+    align:'justify'
   },
   buttonComp: {
     margin:5,
-    padding: 1,
-    fontSize: 30,
+    padding:1,
   },
   sidenavComp: {
     overflow: 'hidden',
@@ -119,17 +117,15 @@ const MyBar = () => {
         console.log(res, 'iot-res')
       })
   };
-
   return (
     <Grid item xs={12} md={4} className={classes.ComponentsGrid}>
       <AppBar position='sticky' className={classes.toolbar}>
         {/* <ToolBar position='sticky' className={classes.toolbar}> */}
         <Paper elevation={0} className={classes.sidebarAboutBox}>
           <div className={classes.sidenavComp}>
-            <Typography variant="h4" gutterBottom className={classes.floatLeft}>
+            <Typography variant="h6" gutterBottom className={classes.floatLeft}>
               보유중인 재료
             </Typography>
-            {/* 버튼 */}
             {editBtn === '추가' ?
               <div className={classes.floatRight}>
                 <Button onClick={()=>{setOpenFoodAdd(true)}} variant="outlined" className={classes.buttonComp}>
@@ -146,47 +142,39 @@ const MyBar = () => {
                 </Button>
               </div>
             }
-            {/* 색깔 */}
           </div>
             {editBtn === '추가' ?
               <div>
               {ingredients.map((ingredient) => (
-                  <Paper className={classes.ingredeintRoot} color='error'>
-                    {
-                    Number((moment(ingredient.expiration_date).format('YYYYMMDD')).substr(0,10))<Number(today)+3
-                    ?
-                    <Typography className={classes.ingredientComp} color='error'>
-                      <Grid>
-                        {ingredient.ingredient_name} {ingredient.expiration_date}
-                      </Grid>
-                    </Typography>
-                    :
+                  <Paper className={classes.ingredeintRoot}>
                     <Typography className={classes.ingredientComp}>
-                      {ingredient.ingredient_name} {ingredient.expiration_date}  
+                      {ingredient.ingredient_name} | 
+                      {ingredient.expiration_date} | 
+                      <Button onClick={()=>{delIngredient(ingredient)}} color="secondary">
+                        삭제
+                      </Button>
                     </Typography>
-                    }
-                    
                   </Paper>
                 ))}
               </div>
             :
               <div>
                 {ingredients.map((ingredient)=>(
-                  <Paper className={classes.ingredeintRoot} >
-                  {/* <Paper> */}
+                  <Paper className={classes.ingredeintRoot}>
+                  {/* <Paper>
                     {
-                    Number((moment(ingredient.expiration_date).format('YYYYMMDD')).substr(0,10))<Number(today)+3
+                    Number((moment(ingredient.expiration_date).format('YYYYMMDD')).substr(0,10))<Number(today)
                     ?
-                    <Typography className={classes.ingredientComp} color='error'>
-                      <Grid>
-                        {ingredient.ingredient_name} {ingredient.expiration_date}
-                      </Grid>
+                    <Typography className={classes.ingredientComp} style={{background : '#B7373B',}}>
+                      {ingredient.ingredient_name} |
+                      {ingredient.expiration_date} 날짜오바댔을때
                     </Typography>
-                    :
+                    : */}
                     <Typography className={classes.ingredientComp}>
-                      {ingredient.ingredient_name} {ingredient.expiration_date} 
+                      {ingredient.ingredient_name} |
+                      {ingredient.expiration_date} | 
                     </Typography>
-                    }
+                    {/* } */}
                   </Paper>
                 ))}
               </div>
