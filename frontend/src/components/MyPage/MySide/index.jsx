@@ -96,12 +96,12 @@ const MyBar = () => {
         console.log(res, 'iot-res')
       })
   };
+
   return (
     <Grid item xs={12} md={4} className={classes.ComponentsGrid}>
       <AppBar position='sticky' className={classes.toolbar}>
         {/* <ToolBar position='sticky' className={classes.toolbar}> */}
           <Paper elevation={0} className={classes.sidebarAboutBox}>
-            <button onClick={()=>{console.log(today); console.log((Number(today)))}}>날짜버튼</button>
             <Typography variant="h6" gutterBottom>
               보유중인 재료
             </Typography>
@@ -115,13 +115,23 @@ const MyBar = () => {
                 </Button>
                 {ingredients.map((ingredient)=>(
                   <Paper>
-                    <Typography className={classes.ingredientComp} style={{background : '#B7373B',}}>
-                      {ingredient.ingredient_name} | 
-                      {ingredient.expiration_date} | 
+                  {
+                    Number((moment(ingredient.expiration_date).format('YYYYMMDD')).substr(0,10))<Number(today)
+                    ?
+                    <Typography className={classes.ingredientComp} color='error'>
+                      {ingredient.ingredient_name} {ingredient.expiration_date}
                       <Button onClick={()=>{delIngredient(ingredient)}} color="secondary">
                         삭제
                       </Button>
                     </Typography>
+                    :
+                    <Typography className={classes.ingredientComp}>
+                      {ingredient.ingredient_name} {ingredient.expiration_date}
+                      <Button onClick={()=>{delIngredient(ingredient)}} color="secondary">
+                        삭제
+                      </Button>
+                    </Typography>
+                    }
                   </Paper>
                 ))}
               </div>
@@ -132,18 +142,18 @@ const MyBar = () => {
                 </Button>
                 {ingredients.map((ingredient)=>(
                   <Paper>
-                    {
+                  {
                     Number((moment(ingredient.expiration_date).format('YYYYMMDD')).substr(0,10))<Number(today)
                     ?
-                    <Typography className={classes.ingredientComp} style={{background : '#B7373B',}}>
-                      {ingredient.ingredient_name} |
-                      {ingredient.expiration_date} 날짜오바댔을때
+                    <Typography className={classes.ingredientComp} color='error'>
+                      <Grid>
+                        {ingredient.ingredient_name} {ingredient.expiration_date} 유통기한 임박!
+                      </Grid>
                     </Typography>
                     :
-                    <Typography className={classes.ingredientComp}>
-                      {ingredient.ingredient_name} |
-                      {ingredient.expiration_date}
-                    </Typography>
+                      <Typography className={classes.ingredientComp}>
+                        {ingredient.ingredient_name} {ingredient.expiration_date}
+                      </Typography>
                     }
                   </Paper>
                 ))}
