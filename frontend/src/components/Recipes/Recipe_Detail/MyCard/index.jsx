@@ -93,7 +93,8 @@ const MyPageCard = () => {
                       {recipe.ingredients.inmyref &&
                       <div>
                         <Typography variant="h4" component="h2" align="left">
-                          😋 갖고 있어요 
+                        <img src="https://image.flaticon.com/icons/png/512/2307/2307719.png" height="32px" />
+                         갖고 있어요
                         </Typography>
                         {recipe.ingredients.inmyref.map((data)=>(
                           <Typography key={data} variant="h5" display="inline" color="primary">
@@ -102,8 +103,9 @@ const MyPageCard = () => {
                         ))}
                       </div>
                       }
-                      <Typography variant="h4" component="h2" align="left">
-                        🧐 부족해요 
+                    <Typography variant="h4" component="h2" align="left">
+                      <img src="https://image.flaticon.com/icons/png/512/2307/2307709.png" height="32px" />
+                         부족해요 
                       </Typography>
                       {recipe.ingredients.notinmyref.map((data)=>(
                         <Typography key={data} variant="h5" algin="left" display="inline">

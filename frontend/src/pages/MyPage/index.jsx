@@ -7,12 +7,13 @@ import FoodAdd from '../../components/Foods/FoodAdd';
 import { CommonContext } from '../../context/CommonContext';
 import Layout from '../../layout';
 
+
 const Mypage = () => {
   const {openFoodAdd, setOpenFoodAdd} = useContext(CommonContext);
 
   return (
-    <Layout>
-      <main>
+    <Layout >
+      <main >
         { 
         openFoodAdd
         ?

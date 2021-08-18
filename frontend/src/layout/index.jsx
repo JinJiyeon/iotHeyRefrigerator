@@ -10,7 +10,7 @@ const Layout = (props) => {
   const {children} = props;
 
   return (
-    <div>
+    <div style={{height:'100vh'}} >
       <Header />
       {/* <Container> */}
         {children}
