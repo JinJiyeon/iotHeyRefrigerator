@@ -224,7 +224,7 @@ router.get('/:recipe_id', async (req, res, next) => {
     let user_id = null;
     let LoginCheck = null;
 
-    // accessToken이 있는 경우
+    // accessToken이 있는 경우 //
     if (accessToken) {
         LoginCheck = new Promise((resolve, reject) => {
                 jwt.verify(accessToken, process.env.ACCESS_TOKEN_SECRET, (err, decoded) => {
