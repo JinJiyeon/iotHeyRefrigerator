@@ -14,15 +14,17 @@ const LikeButton =()=> {
         if (recipe.isLiked) {
             setIsHeart(true)
         }
-    }, [])
+
+    }, [recipe])
 
     const onClick = () => {
-        {
-            isHeart ?
-            setIsHeart(false)
-            :
-            setIsHeart(true)
-        }
+        setIsHeart(!isHeart);
+        // {
+        //     isHeart ?
+        //     setIsHeart(false)
+        //     :
+        //     setIsHeart(true)
+        // }
         axios.get(`/user/likes/${recipeId.recipe_info_id}`)
             .then(res=>{
                 console.log(res.data, 'like-axios');

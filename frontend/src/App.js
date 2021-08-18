@@ -76,7 +76,7 @@ const App = () => {
             <Route exact path="/search" component={Recipe_Search} />
             <Route exact path="/notfound" component={NotFound} />
             {/* <Route exact path="/mypage" component={MyPage} /> */}
-            <RestrictedRoute exact path="/mypage" component={MyPage} exact/>
+            <RestrictedRoute restricted={true} path="/mypage" component={MyPage} exact/>
             
             {/* route외의 주소는 NotFound로 빠지도록 */}
             <Redirect to="/notfound" />
