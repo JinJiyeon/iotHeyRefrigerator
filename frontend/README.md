@@ -41,13 +41,27 @@ React의 장점을 활용하여 재사용성이 높고 체계적인 구조
 
 - Auth
 
+![Signin](README.assets/Signin.png)
+
+Sing in 페이지
+
+![SignUp](README.assets/SignUp.PNG)
+
+Sign Up 페이지
 
 
 
+- Recipe
+
+![레시피(메인) 데모](README.assets/레시피(메인) 데모.PNG)
+
+레시피_메인 페이지  (데모)
+
+![레시피(검색) 데모](README.assets/레시피(검색) 데모.PNG)
+
+레시피_검색결과 페이지 (데모)
 
 
 
-
-
-
+- Ingredients
 

@@ -3,7 +3,6 @@ const dotenv = require('dotenv');
 const express = require('express');
 const morgan = require('morgan');
 const cookieParser = require('cookie-parser');
-const session = require('express-session');
 const path = require('path');
 const cors = require('cors');
 
@@ -13,54 +12,51 @@ dotenv.config({
 });
 
 
-// 앱 실행
-
+// router require
 const userRouter = require('./routes/user');
 const recipeRouter = require('./routes/recipe');
 const authRouter = require('./routes/auth');
 const app = express();
+const iotRouter = require('./routes/iot');
 app.set('port', process.env.PORT || 3000);
 
 
-
-// 미들웨어
+// middleware
 app.use(morgan('dev'));
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
+
+// django와 통신하기 위함
 app.use(cors({
 	origin: true,
 	credentials: true,
-}));                                // Django 서버와 통신하기 위함
+}));
 
-// // 배포할 때 dotenv 수정해주기!
-// app.use((req, res, next) => {
-//   global.django_origin = process.env.DJANGO_ORIGIN||'http://localhost:8000'
-//   console.log(django_origin)
-//   next()
-// })
 
-// 라우터
+// router
 app.use('/user', userRouter);
 app.use('/recipe', recipeRouter);
 app.use('/auth', authRouter);
+// backend app.js 에서 추가하는 라우터 코드
+app.use('/iot', iotRouter);
 
 app.get('/', (req, res) => {
+  console.log('hello node')
   res.send('hello node')
 })
 
 
-// 에러 미들웨어
-//404
+//404 middleware
 app.use(function (req, res, next) {
   console.log(`${req.method} ${req.url} 라우터가 없습니다.`);
-  res.status(404).redirect('/');
+  res.status(404).send('404 error');
 })
 
 //err middleware
 app.use((err, req, res, next) => {
-  console.log('app.js error! redirect main page.');
+  console.log('app.js error!');
   console.log(err);
-  res.redirect('/');
+  res.status(500).send('server error');
 })
 
 

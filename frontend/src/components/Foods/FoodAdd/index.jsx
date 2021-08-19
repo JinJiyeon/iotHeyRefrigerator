@@ -14,73 +14,98 @@ import {
   makeStyles,
   Divider,
   Dialog,
+  Title,
   DialogTitle,
 } from '@material-ui/core';
+import axios from 'axios';
 
 const FoodAdd = () => {
-  const {openForm, setOpenForm, rows, setRows} = useContext(CommonContext);
+  const {openFoodAddForm, setopenFoodAddForm, rows, setRows} = useContext(CommonContext);
   const {newFood, setNewFood, newExp, setNewExp} = useContext(CommonContext);
+  const {setOpenFoodAdd} = useContext(CommonContext);
+
   // 기존 Food, newFood Add
   // 날짜 추가
 
   // Dialog 닫기
   const onClose = () => {
-    setOpenForm(false);
+    setopenFoodAddForm(false);
   };
   // 폼 인풋 마진 스타일
   const form = {
     margin: 10,
   };
 
-  // const changeInputName = e => {
-  //   setNewFood(e.target.value)
-  //   // console.log(e.target.value,'name')
-  // }
-  // const changeInputExp = e => {
-  //   setNewExp(e.target.value)
-  //   // console.log(e.target.value,'exp')
-  // }
-
-  // createData_Dummy
-  const createData = (id, name, date) => {
-    return { id, name, date };
-  }
   // addFood
   const addFood = (e) => {
     e.preventDefault();
-    rows.push(createData(rows.length, newFood, newExp))
     console.log(rows, 'addFood')
-    setOpenForm(false);
+    setopenFoodAddForm(false);
+    // new (mypage)
+    setOpenFoodAdd(false);
+    let body = {
+      ingredient_name : newFood,
+      expiration_date : newExp,
+    }
+    axios.post('user/myingredients/add', body)
+      .then(res=>{
+        console.log(res.data, 'FoodAdd-res');
+      })
+      .catch(err=>{
+        console.log(err.response,'FoodAdd-err')
+      })
   }
   return (
-    <Dialog open={openForm} onClose={ onClose }>
+    <Container open={openFoodAddForm} onClose={ onClose } style={{height:'100vh', margin: '0px 0px -23px 0px', padding:70, marginLeft:'15%'}}>
       <DialogTitle>
         Add Food
       </DialogTitle>
-      <form action="" onSubmit={addFood}>
-        <TextField 
-          onChange={ e => {setNewFood(e.target.value)}}
-          style={form}
-          id="outlined-basic"
-          label="name"
-          variant="outlined"
-        >          
-        </TextField>
-        <TextField 
-          style={form}
-          onChange={e => {setNewExp(e.target.value)}}
-          id="outlined-basic"
-          label="exp"
-          variant="outlined"
-          // **기본값을 5로 주고, onChange가 아니더라도 ExpItem이 입력이 되도록
-          // defaultValue="5"
-        >          
-        </TextField>
-        <Button type='submit'>
-          등록
-        </Button>
-      </form>
-    </Dialog>
+        <form action="" onSubmit={addFood} style={{display:'flex', justifyContent:'center'}}>
+        {/* <Grid container style={{marginLeft:0}}> */}
+          {/* <Grid item xs={3}> */}
+            <TextField 
+              onChange={ e => {setNewFood(e.target.value)}}
+              style={form}
+              id="outlined-basic"
+              label="name"
+              variant="outlined"
+              // style={{width:'100%'}}
+            >          
+            </TextField>
+          {/* </Grid> */}
+          {/* <Grid item xs={3}> */}
+            <TextField 
+              style={form}
+              onChange={e => {setNewExp(e.target.value)}}
+              id="outlined-basic"
+              type="date"
+              // label="exp"
+              variant="outlined"
+              // **기본값을 5로 주고, onChange가 아니더라도 ExpItem이 입력이 되도록
+              // defaultValue="5"
+              // style={{width:'100%'}}
+            >          
+            </TextField>
+          {/* </Grid> */}
+          {/* <Grid item xs={1}> */}
+            <Button type='submit' variant="outlined">
+              <Typography variant="h5">
+                등록
+              </Typography>
+            </Button>
+          {/* </Grid> */}
+          {/* <Grid item xs={1}> */}
+            <Button onClick={()=>{setOpenFoodAdd(false);}} variant="outlined">
+              <Typography variant="h5">
+                취소
+              </Typography>
+            </Button>
+          {/* </Grid> */}
+          {/* </Grid> */}
+        </form>
+
+      
+    </Container>
   );
 };
 

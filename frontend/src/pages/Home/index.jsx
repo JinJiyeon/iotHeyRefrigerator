@@ -1,76 +1,63 @@
-import React, {useState, useContext } from 'react';
+import React, {useState}  from 'react';
 import { useHistory } from 'react-router-dom';
-import HomeCard from '../../components/Home';
 import {
-  Grid,
+  Box,
+  AppBar,
+  Button,
   Card,
   CardContent,
   CardMedia,
+  CssBaseline,
+  Grid,
+  Paper,
+  Toolbar,
   Typography,
-  Button,
-  Divider,
-} from '@material-ui/core';
-import { CommonContext } from '../../context/CommonContext';
+  makeStyles,
+  Container,
+} from '@material-ui/core/';
+import HomeCard from '../../components/Home';
+import Cookies from 'js-cookie';
+import { palette } from '@material-ui/system';
+import Layout from '../../layout';
 
-// 간단한 카드 스타일링
-const imgStyle = {
-  height: 0,
-  paddingTop: '56.25%', // 16:9
-  margin: 20,
-};
-const cardStyle = {
-  margin: 50,
-};
+const useStyles = makeStyles((theme) => ({
+  toolbar: {
+    paddingLeft: '90%',
+  },
+  text: {
+    margin: '0px 0px 20px 0px',
+    fontSize: "8.5rem",
+    color: 'rgb(81,57,36)'
+  }
+}));
 
-// 로그인 상태에 따라 MyPage, 로그인 로그아웃 보여주기
-const MyPageBtn = () => {
+export default function Home() {  
+
+  const classes = useStyles();
+
+   // // 로그인 상태에 따라 MyPage, 로그인 로그아웃 보여주기
   let history = useHistory();
 
-  const onClickBtn = () => {
-    history.push('/MyPage');
+    const onClickBtn = () => {
+      history.push('/mypage');
   };
 
+  return (    
 
-  return (
-    <div>
-      <Button onClick={onClickBtn}>
-        MyPage
-      </Button>
-      <Button>
-        LogOut
-      </Button>
-    </div>
+    <React.Fragment>
+      <Layout>
+        <CssBaseline />  
+        <Box bgcolor="warning.light" p={20}   style={{height:'100vh', margin: '0px 0px -23px 0px'}}  >
+          <div className={classes.NavContent}>
+            <Container maxWidth="">
+              <Typography variant="h2" align="center" color="secondary" className={classes.text}>
+                냉장고를 부탁해
+              </Typography>                   
+            </Container>
+          </div>
+          <HomeCard />
+        </Box>      
+      </Layout>
+    </React.Fragment>    
   );
-};
-
-const Home = () => {
-
-  const [visible, setVisible] = useState('로그인안했음');
-  const visibleHandler = () => {
-    setVisible('로그인했음');
-  };
-  const invisibleHandler = () => {
-    setVisible('로그인안했음');
-  };
-
-  return (
-    <div>
-      <p>로그인에 따른
-        <Button onClick={visibleHandler}>
-          visible
-        </Button>
-        <Button onClick={invisibleHandler}>
-          invisible
-        </Button>
-      </p>
-      <Divider />
-      {visible === '로그인했음' && <MyPageBtn /> }
-      {visible === '로그인안했음' && <Button>LogIn</Button>}
-
-      <h1>7링바이브</h1>
-    <HomeCard />
-    </div>
-  );
-};
-
-export default Home;
+}
