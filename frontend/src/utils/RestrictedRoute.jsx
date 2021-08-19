@@ -9,7 +9,6 @@ const RestrictedRoute = ({component: Component, restricted, ...rest}) => {
       <Component {...props} /> 
       : 
       <Redirect to="/signin" /> )} />
-
   );
 };
 

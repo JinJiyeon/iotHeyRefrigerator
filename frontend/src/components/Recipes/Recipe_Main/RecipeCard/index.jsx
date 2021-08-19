@@ -45,17 +45,21 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const RecipeCard = () => {
-  const { cards, setCards, recipeId, setRecipeId } = useContext(CommonContext);
+  const { cards, setCards, recipeId, setRecipeId, recomMenu, setRecomMenu } = useContext(CommonContext);
   const classes = useStyles();
   const [open, setOpen] = useState(false);
   const anchorRef = React.useRef(null);
   // 메뉴 이름
-  const [recomMenu, setRecomMenu] = useState('레시피 추천');
+  // const [recomMenu, setRecomMenu] = useState('레시피 추천');
   let history = useHistory();
   // 페이지가 렌더링됐을때 마운트시킬 레시피
   useEffect(() => {
-    setRecomMenu('레시피 추천')
-    // setCards([{title:'hi', recipe_info_image:'https://source.unsplash.com/random' },{title:'hi', recipe_info_image:'https://source.unsplash.com/random' },{title:'hi', recipe_info_image:'https://source.unsplash.com/random' }])
+    if (recomMenu ==='레시피 추천'){
+      randomApi();
+    }
+  }, [])
+  // 랜덤 레시피 추천
+  const randomApi =()=>{
     axios.get('/recipe/recom/main')
     .then(res => {
       setCards(res.data)
@@ -64,13 +68,17 @@ const RecipeCard = () => {
     .catch(err => {
       console.log(err)
     })
-  }, [])
+  };
 
-  // 추천 좋아요 menu
+  // 기본 추천 menu
   const likeApi = () => {
     axios.get('/recipe/recom/important')
     .then(res => {
-        console.log(res.data, 'recipe data')
+        console.log(res.data, 'like-data')
+        if (res.data.length===0) {
+          alert('냉장고가 텅 비었어요!')
+          history.push('/mypage')
+        }
         setCards(res.data)
         console.log(cards, 'like cards')
       })
@@ -86,6 +94,10 @@ const RecipeCard = () => {
     axios.get('/recipe/recom/expired')
     .then(res => {
         console.log(res.data)
+        if (res.data.length===0) {
+          alert('냉장고가 텅 비었어요!')
+          history.push('/mypage')
+        }
         setCards(res.data)
         console.log(cards, 'exp cards')
       })
@@ -122,7 +134,7 @@ const RecipeCard = () => {
     prevOpen.current = open;
   }, [open]);
   return (
-    <Box bgcolor="warning.light" style={{height:'85%'}} p={2}>
+    <Box bgcolor="warning.light" style={{height:''}} p={2}>
       <Container maxWidth="lg">
       <Typography variant="h5" align="left" color="textPrimary" gutterBottom>
         오늘의 추천 레시피
@@ -147,6 +159,12 @@ const RecipeCard = () => {
                 <Paper>
                   <ClickAwayListener onClickAway={handleClose}>
                     <MenuList autoFocusItem={open} id="menu-list-grow" onKeyDown={handleListKeyDown}>
+                      <MenuItem onClick={() => {
+                        setRecomMenu('레시피 추천');
+                        randomApi();
+                      }}>
+                        레시피 추천
+                      </MenuItem>
                       <MenuItem onClick={() => {
                         if (Cookies.get('user_id')) {
                           setOpen(false);

@@ -106,7 +106,7 @@ export default function SignIn() {
                   history.push('/')
                 })
                 .catch(err => {
-                  if (err.response.data == 'login failed') {
+                  if (err.response.data === 'login failed') {
                     alert('아이디나 비밀번호를 확인해주세요.')
                     // 아이디 없을 때,
                     // 아이디나 비밀번호가 틀렸을 때,
@@ -140,6 +140,7 @@ export default function SignIn() {
               type="password"
               id="password"
               autoComplete="current-password"
+              color="primary"
             />
             <FormControlLabel
               control={<Checkbox value="remember" color="primary" />}

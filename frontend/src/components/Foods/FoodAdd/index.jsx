@@ -36,14 +36,9 @@ const FoodAdd = () => {
     margin: 10,
   };
 
-  // createData_Dummy
-  const createData = (id, name, date) => {
-    return { id, name, date };
-  }
   // addFood
   const addFood = (e) => {
     e.preventDefault();
-    rows.push(createData(rows.length, newFood, newExp))
     console.log(rows, 'addFood')
     setopenFoodAddForm(false);
     // new (mypage)
