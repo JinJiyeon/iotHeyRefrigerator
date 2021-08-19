@@ -30,7 +30,6 @@ const FoodAdd = () => {
   const addFood = (e) => {
     e.preventDefault();
     setopenFoodAddForm(false);
-    // new (mypage)
     setOpenFoodAdd(false);
     let body = {
       ingredient_name : newFood,
