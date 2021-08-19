@@ -154,7 +154,7 @@ export default function Recipe_Search() {
                     </>
                   :
                     <>
-                      <Typography>
+                      <Typography align="center" variant="h2">
                         검색 결과가 없습니다. <br/>
                         재료와 레시피를 선택 후 검색해주세요
                       </Typography>
