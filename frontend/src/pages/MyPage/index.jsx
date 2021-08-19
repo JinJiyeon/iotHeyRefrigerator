@@ -17,7 +17,7 @@ const Mypage = () => {
 
   return (
     <Layout >
-      <main style={{height:'', backgroundColor:''}}>
+      <main style={{minHeight:'100vh',margin: '0px 0px -23px 0px'}}>
         { 
         openFoodAdd
         ?
