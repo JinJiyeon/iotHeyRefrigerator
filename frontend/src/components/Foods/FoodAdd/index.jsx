@@ -56,37 +56,55 @@ const FoodAdd = () => {
       })
   }
   return (
-    <Container open={openFoodAddForm} onClose={ onClose }>
+    <Container open={openFoodAddForm} onClose={ onClose } style={{height:'100vh', margin: '0px 0px -23px 0px'}}>
       <DialogTitle>
         Add Food
       </DialogTitle>
-      <form action="" onSubmit={addFood}>
-        <TextField 
-          onChange={ e => {setNewFood(e.target.value)}}
-          style={form}
-          id="outlined-basic"
-          label="name"
-          variant="outlined"
-        >          
-        </TextField>
-        <TextField 
-          style={form}
-          onChange={e => {setNewExp(e.target.value)}}
-          id="outlined-basic"
-          type="date"
-          // label="exp"
-          variant="outlined"
-          // **기본값을 5로 주고, onChange가 아니더라도 ExpItem이 입력이 되도록
-          // defaultValue="5"
-        >          
-        </TextField>
-        <Button type='submit'>
-          등록
-        </Button>
-        <Button onClick={()=>{setOpenFoodAdd(false);}}>
-          취소
-        </Button>
-      </form>
+        <form action="" onSubmit={addFood} style={{display:'flex', justifyContent:'center'}}>
+        {/* <Grid container style={{marginLeft:0}}> */}
+          {/* <Grid item xs={3}> */}
+            <TextField 
+              onChange={ e => {setNewFood(e.target.value)}}
+              style={form}
+              id="outlined-basic"
+              label="name"
+              variant="outlined"
+              // style={{width:'100%'}}
+            >          
+            </TextField>
+          {/* </Grid> */}
+          {/* <Grid item xs={3}> */}
+            <TextField 
+              style={form}
+              onChange={e => {setNewExp(e.target.value)}}
+              id="outlined-basic"
+              type="date"
+              // label="exp"
+              variant="outlined"
+              // **기본값을 5로 주고, onChange가 아니더라도 ExpItem이 입력이 되도록
+              // defaultValue="5"
+              // style={{width:'100%'}}
+            >          
+            </TextField>
+          {/* </Grid> */}
+          {/* <Grid item xs={1}> */}
+            <Button type='submit' variant="outlined">
+              <Typography variant="h5">
+                등록
+              </Typography>
+            </Button>
+          {/* </Grid> */}
+          {/* <Grid item xs={1}> */}
+            <Button onClick={()=>{setOpenFoodAdd(false);}} variant="outlined">
+              <Typography variant="h5">
+                취소
+              </Typography>
+            </Button>
+          {/* </Grid> */}
+          {/* </Grid> */}
+        </form>
+
+      
     </Container>
   );
 };
