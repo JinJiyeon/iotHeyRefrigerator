@@ -60,7 +60,7 @@ const MyPageBack = () => {
               {Cookies.get('user_id')}
             </Typography>
             <Typography variant="h3" color="inherit" paragraph>
-              나의 레시피 & 재료 관리 🍅
+              나의 레시피 & 재료 관리
             </Typography>
           </div>
         </Grid>

@@ -51,8 +51,8 @@ const useStyles = makeStyles((theme) => ({
 const HomeCard = () => {
 
   const dummy = [
-    { id:1, title:'🥗 레시피 🥘', path:'/recipes'},
-    { id:2, title:'🥦 MY 🥩', path:'/mypage'},
+    { id:1, title:'레시피', path:'/recipes'},
+    { id: 2, title: 'MY PAGE', path: '/mypage' },
   ];
   const history = useHistory();
   const classes = useStyles();
@@ -70,8 +70,15 @@ const HomeCard = () => {
             }}
           >
             <CardContent className={classes.cardContent}>
-              <Typography variant="h2" component="h2" align="center" color="warning">
-                {dummy.title}
+                <Typography variant="h2" component="h2" align="center" color="warning">
+                  {dummy.title === '레시피' ?
+                    <img src="https://image.flaticon.com/icons/png/512/3565/3565418.png" height="180px" />
+                    :
+                    <img src="https://image.flaticon.com/icons/png/512/3449/3449449.png" height="180px" />
+                  }
+                  <div>
+                    {dummy.title}
+                  </div>
               </Typography>                    
             </CardContent>
           </Card>
