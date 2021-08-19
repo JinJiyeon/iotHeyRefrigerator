@@ -11,7 +11,7 @@ import Foods from './pages/Foods/';
 import Recipe_Main from './pages/Recipes/Recipe_Main';
 import Recipe_Detail from './pages/Recipes/Recipe_Detail';
 import NotFound from './pages/NotFound/';
-import Recipe_Search from './pages/Recipes/Recipe_Search'
+import Recipe_Search from './pages/Recipes/Recipe_search'
 import RestrictedRoute from './utils/RestrictedRoute';
 
 const App = () => {

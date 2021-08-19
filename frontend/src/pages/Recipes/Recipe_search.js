@@ -113,7 +113,7 @@ export default function Recipe_Search() {
     
       <main>
         <SearchBar />
-        <Box bgcolor="warning.light" p={2}>
+        <Box bgcolor="warning.light" p={2} minHeight={80} style={{height:'60vh'}} >
           <Container className={classes.cardGrid} maxWidth="md">
             {/* End hero unit */}
             <Grid container spacing={4}>
@@ -133,8 +133,8 @@ export default function Recipe_Search() {
                           image={card.recipe_info_image}
                           title={card.title}
                           />
-                        <CardContent className={classes.cardContent}>
-                          <Typography gutterBottom variant="h4" component="h2">
+                        <CardContent className={classes.cardContent} >
+                          <Typography gutterBottom variant="h4" component="h2" >
                             {card.title}
                           </Typography>
                         </CardContent>
@@ -144,7 +144,7 @@ export default function Recipe_Search() {
                   </>
                 :
                   <>
-                    <Typography>
+                    <Typography align="center" variant="h2">
                       검색 결과가 없습니다. <br/>
                       재료와 레시피를 선택 후 검색해주세요
                     </Typography>
