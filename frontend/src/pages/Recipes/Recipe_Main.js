@@ -1,7 +1,5 @@
 import React from 'react';
 import CssBaseline from '@material-ui/core/CssBaseline';
-import Typography from '@material-ui/core/Typography';
-// 추가
 import SearchBar from '../../components/Recipes/Recipe_Main/SearchBar';
 import RecipeCard from '../../components/Recipes/Recipe_Main/RecipeCard';
 import { makeStyles} from '@material-ui/core';
@@ -18,18 +16,6 @@ const useStyles = makeStyles((theme) => ({
   }
 })
 )
-function Copyright() {
-  return (
-    
-    <Typography variant="body2" color="textSecondary" align="center" style={{height:'23px'}} >
-      {'Copyright © '}      
-        7링 바이브      
-      {new Date().getFullYear()}
-      {'.'}
-    </Typography>
-    
-    );
-  }
   
   export default function Recipe_Main() {
     const classes = useStyles();
@@ -45,12 +31,7 @@ function Copyright() {
           <div style={{minHeight:'100vh', margin:'0px 0px -23px 0px'}}>
             <RecipeCard/>
           </div>
-
-          {/* <RecipeTimer /> */}
         </main>
-          {/* <div className={classes.testbg3}>
-            <Copyright />
-          </div> */}
       </React.Fragment>
     </Layout>
   );

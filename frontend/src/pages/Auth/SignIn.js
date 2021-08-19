@@ -65,10 +65,6 @@ export default function SignIn() {
   let history = useHistory();
 
   const classes = useStyles();
-  // axios 로그인 테슽
-  // const userRequest = axios.post('/auth/login')
-  //   .then(res => {res.data})
-  //   .catch(err=> {console.log(err)})
   const [user_id, setUser_id] = useState('')
   const [password, setPassword] = useState('')
   
@@ -157,7 +153,7 @@ export default function SignIn() {
             </Button>
             <Grid container xs={12}>
               <Grid item xs={9}>                 
-                <Link href="/signup" variant="Signup">     {/* Sign up 으로 보내주는거 추가 */}
+                <Link href="/signup" variant="Signup">   
                   {"회원이 아니신가요?"}
                 </Link>
               </Grid>

@@ -6,20 +6,13 @@ import {
   Paper,
   Typography,
   AppBar,
-  Box,
 } from '@material-ui/core';
 import { CommonContext } from '../../../context/CommonContext';
 import axios from 'axios';
 
 
 const useStyles = makeStyles((theme) => ({
-  ComponentsGrid: {
-    // margin: 20,
-    // padding: 20,
-    // backgroundColor: theme.palette.primary.main,
-  },
   sidebarAboutBox: {
-    // padding: theme.spacing(1),
     width: "90%",
     padding: 15,
   },
@@ -33,7 +26,6 @@ const useStyles = makeStyles((theme) => ({
     paddingTop: theme.spacing(1),
     paddingBottom: theme.spacing(1),
     paddingLeft: theme.spacing(1),
-    // backgroundColor: 'white',
     backgroundColor: theme.palette.primary.main,
     margin: 20,
   },
@@ -71,17 +63,13 @@ const MyBar = () => {
   const classes = useStyles();
   const {ingredients, setIngredients, setOpenFoodAdd} = useContext(CommonContext);
   const [editBtn, setEditBtn] = useState('편집');
-  // const [openFoodAdd, setOpenFoodAdd] = useState(false);
   const moment = require('moment');
   const today = ((moment()).format('YYYYMMDD')).substr(0, 10);
 
   useEffect(()=>{
     ingredientApi();
   },[])
-  // 유통기한 지난 라벨 색변경
-  // const expSty = {
-  //   background : '#B7373B',
-  // };
+
   // 재료 DB GET
   const ingredientApi =()=>{
     axios.get('/user/myingredients')
@@ -120,7 +108,6 @@ const MyBar = () => {
   return (
     <Grid item xs={12} md={4} className={classes.ComponentsGrid}>
       <AppBar position='sticky' className={classes.toolbar}>
-        {/* <ToolBar position='sticky' className={classes.toolbar}> */}
         <Paper elevation={0} className={classes.sidebarAboutBox}>
           <div className={classes.sidenavComp}>
             <Typography variant="h6" gutterBottom className={classes.floatLeft}>
@@ -161,26 +148,15 @@ const MyBar = () => {
               <div>
                 {ingredients.map((ingredient)=>(
                   <Paper className={classes.ingredeintRoot}>
-                  {/* <Paper>
-                    {
-                    Number((moment(ingredient.expiration_date).format('YYYYMMDD')).substr(0,10))<Number(today)
-                    ?
-                    <Typography className={classes.ingredientComp} style={{background : '#B7373B',}}>
-                      {ingredient.ingredient_name} |
-                      {ingredient.expiration_date} 날짜오바댔을때
-                    </Typography>
-                    : */}
                     <Typography className={classes.ingredientComp}>
                       {ingredient.ingredient_name} |
                       {ingredient.expiration_date} | 
                     </Typography>
-                    {/* } */}
                   </Paper>
                 ))}
               </div>
             }
           </Paper>
-        {/* </ToolBar> */}
       </AppBar>
     </Grid>
   );

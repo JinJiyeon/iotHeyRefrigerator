@@ -1,14 +1,10 @@
-import React, { useContext, useState,useEffect } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import {
-  Divider,
   Box,
   Grid,
   Card,
-  CardContent,
   Typography,
-  Paper,
-  Container,
   CardMedia
 } from '@material-ui/core'
 import { CommonContext } from '../../../../context/CommonContext';
@@ -37,7 +33,6 @@ const MyPageBottom = () => {
   }, [])
   // 액시오스
   const recipeApi = () => {
-    // console.log('here')
     console.log(recipeId.recipe_info_id)
     axios.get(`/recipe/${recipeId.recipe_info_id}`)
       .then(res => {
@@ -51,7 +46,6 @@ const MyPageBottom = () => {
 
   return (
     <Box p={3}>
-
         <div className={classes.cardDetails}>
         {
           recipe.steps && 
@@ -59,7 +53,6 @@ const MyPageBottom = () => {
               {recipe.steps.map((data)=>(
                 <Card>
                   <Grid container spacing={3}>
-
                     <Grid item xs={4} align="right">
                       <CardMedia 
                         className={classes.cardMedia}
@@ -71,17 +64,14 @@ const MyPageBottom = () => {
                       <Typography key={data} variant="h5">
                         ({data.step_order}) {data.step_comment}
                       </Typography>
-                    </Grid> 
-                    
+                    </Grid>                     
                   </Grid>
                 </Card>
               ))}
             </div>
         }
         </div>
-
     </Box>
-
   );
 }
 

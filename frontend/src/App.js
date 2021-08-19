@@ -7,11 +7,10 @@ import SignUp from './pages/Auth/SignUp';
 import SignIn from './pages/Auth/SignIn';
 import Home from './pages/Home';
 import MyPage from './pages/MyPage/';
-import Foods from './pages/Foods/';
 import Recipe_Main from './pages/Recipes/Recipe_Main';
 import Recipe_Detail from './pages/Recipes/Recipe_Detail';
 import NotFound from './pages/NotFound/';
-import Recipe_search from './pages/Recipes/Recipe_search'
+import Recipe_Search from './pages/Recipes/Recipe_Search'
 import RestrictedRoute from './utils/RestrictedRoute';
 
 const App = () => {
@@ -73,12 +72,10 @@ const App = () => {
             <Route exact path="/signup" component={SignUp} />
             <Route exact path="/signin" component={SignIn} />
             <Route exact path="/home" component={Home} />
-            <Route exact path="/foods" component={Foods} />
             <Route exact path="/recipes" component={Recipe_Main}  />
             <Route exact path="/recipes/:recipeId" component={Recipe_Detail} />
-            <Route exact path="/search" component={Recipe_search} />
+            <Route exact path="/search" component={Recipe_Search} />
             <Route exact path="/notfound" component={NotFound} />
-            {/* <Route exact path="/mypage" component={MyPage} /> */}
             <RestrictedRoute restricted={true} path="/mypage" component={MyPage} exact/>
             
             {/* route외의 주소는 NotFound로 빠지도록 */}

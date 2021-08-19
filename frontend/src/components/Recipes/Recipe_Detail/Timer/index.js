@@ -4,12 +4,9 @@ import {
   Grid,
   Typography,
   Button,
-  Divider,
-  makeStyles,
   Box
 } from '@material-ui/core';
 import axios from 'axios';
-// import { makeStyles } from '@material-ui/core/styles';
 
 const timerSty={
   position:'fixed',

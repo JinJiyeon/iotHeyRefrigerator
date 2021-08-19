@@ -9,9 +9,6 @@ import {
   withStyles,
   InputBase,
   Box,
-  TextField,
-  Button,
-  rgbToHex,
 } from '@material-ui/core';
 import axios from 'axios';
 import {CommonContext} from '../../../../context/CommonContext'
@@ -144,7 +141,6 @@ const SearchBar = () => {
                               id="demo-customized-textbox"
                               onChange={(e)=>{
                                 setSearchWord(e.target.value);
-                                // console.log(e.target.value);
                               }}
                             />
                           {/* </TextField> */}

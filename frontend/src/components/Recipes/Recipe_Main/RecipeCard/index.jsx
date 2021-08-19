@@ -51,7 +51,6 @@ const RecipeCard = () => {
   const [open, setOpen] = useState(false);
   const anchorRef = React.useRef(null);
   // 메뉴 이름
-  // const [recomMenu, setRecomMenu] = useState('레시피 추천');
   let history = useHistory();
   // 페이지가 렌더링됐을때 마운트시킬 레시피
   useEffect(() => {
@@ -111,9 +110,6 @@ const RecipeCard = () => {
   };
 
   const handleClose = (e) => {
-    // if (anchorRef.current && anchorRef.current.contains(e.target)) {
-    //   return;
-    // }
     setOpen(false);
   };
 

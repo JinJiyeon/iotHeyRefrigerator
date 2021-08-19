@@ -1,5 +1,5 @@
 import React, {useContext, useEffect} from 'react';
-import { Divider, Grid, Avatar, Paper } from '@material-ui/core';
+import {Grid} from '@material-ui/core';
 import MyPageBack from '../../components/MyPage/MyBack';
 import MyPageCard from '../../components/MyPage/MyCard';
 import MyBar from '../../components/MyPage/MySide';

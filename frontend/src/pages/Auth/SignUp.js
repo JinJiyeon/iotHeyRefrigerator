@@ -5,8 +5,6 @@ import {
   Button,
   CssBaseline,
   TextField,
-  FormControlLabel,
-  Checkbox,
   Link,
   Paper,
   Box,
@@ -16,7 +14,6 @@ import {
 } from '@material-ui/core/';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import axios from 'axios';
-import Cookies from 'js-cookie';
 
 function Copyright() {
   return (
@@ -53,7 +50,7 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: theme.palette.secondary.main,
   },
   form: {
-    width: '100%', // Fix IE 11 issue.
+    width: '100%', 
     marginTop: theme.spacing(1),
   },
   submit: {
@@ -96,8 +93,6 @@ export default function SignUp() {
               axios.post('/auth/signup', body)
                 .then(res => {
                   console.log(res)
-                  // accessToken, 로그인 저장 후 메인페이지로 이동
-                  // localStorage.setItem('jwt', Cookies.get('accessToken'))
                   axios.get('/iot/led')
                   .then(iot=>{
                     console.log(iot, 'iot')
@@ -160,8 +155,7 @@ export default function SignUp() {
               type="password"
               id="password2"
               autoComplete="password2"
-            />
-           
+            />           
             <Button
               type="submit"
               fullWidth
@@ -173,7 +167,7 @@ export default function SignUp() {
             </Button>
             <Grid container>
               <Grid item>                 
-                <Link href="/signin" variant="Signup">     {/* Sign up 으로 보내주는거 추가 */}
+                <Link href="/signin" variant="Signup">   
                   {"이미 회원이신가요?"}
                 </Link>
               </Grid>

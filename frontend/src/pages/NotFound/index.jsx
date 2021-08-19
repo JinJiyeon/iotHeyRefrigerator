@@ -15,7 +15,6 @@ const NotFound = () => {
         </Typography>
       </Grid>
       <Grid item>
-        {/* <Card style={notFoundCard}> */}
           <CardMedia style={{height:600, width:600}} image="https://img.icons8.com/metro/452/under-construction.png" title="삽질! 삽질!" />
             <Typography variant='h2' color='primary'>알고 계시나요?</Typography>
             <br/>
@@ -23,7 +22,6 @@ const NotFound = () => {
           <Box bgcolor='text.disabled'>
             <Link href='/home'>...누르지 않으면 당신의 컴퓨터는 디도스 공격을 받게 됩니다.</Link>
           </Box>
-        {/* </Card> */}
       </Grid>
       <Grid item>
         <Typography variant='h3'>

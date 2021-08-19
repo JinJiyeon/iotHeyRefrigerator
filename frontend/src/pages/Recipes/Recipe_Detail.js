@@ -2,7 +2,6 @@ import React from 'react';
 import { useHistory } from 'react-router';
 import {
   Grid,
-  Container,
   Button,
 } from '@material-ui/core';
 import RecipeCard from '../../components/Recipes/Recipe_Detail/MyCard';
@@ -12,11 +11,6 @@ import RecipeTimer from '../../components/Recipes/Recipe_Detail/Timer'
 const backBtn ={
   position:"fixed",
   marginTop:"25%",
-  // hover: {
-  //   "&:hover": {
-  //     backgroundColor: 'rgb(7, 177, 77, 0.42)'
-  //   },
-  // }
 }
 
 const Recipe = () => {

@@ -44,32 +44,12 @@ const MyPageCard = () => {
       console.log(res.data.likes);
       setMylikes(res.data.likes);
     })
-    // .then(()=>{
-    //   recipeApi();
-    //   console.log(likedRecipe,'axios-liked')
-    // })
     .catch(err=>{
       console.log(err.response);
     })
   }, [])
 
-  // const recipeApi = () => {
-  //   // console.log('here')
-  //   console.log(mypage,'mypage')
-  //   for (let i=0; i<mypage.length; i++) {
-  //     axios.get(`/recipe/${mypage[i].recipe_info_id}`)
-  //     .then(res => {
-  //       console.log(res.data, 'axios');
-  //       console.log(likedRecipe,'likedRecipe')
-  //       setLikedRecipe([...likedRecipe, res.data]);
-  //     })
-  //     .catch(err => {
-  //       console.log(err.response);
-  //     })
-  //   }
-  // };
   return (
-      // <button onClick={()=>{console.log(mylikes)}}>콘솔</button>
     <Grid item xs={12} md={6}>
       {mylikes.map((like) => (
         <Grid key={like}>
@@ -95,9 +75,6 @@ const MyPageCard = () => {
                   </span>
                       ))}
               </Typography>
-              {/* <Typography variant="subtitle1" color="primary">
-                레시피로 이동
-              </Typography> */}
             </CardContent>
           </div>
           <Hidden xsDown>

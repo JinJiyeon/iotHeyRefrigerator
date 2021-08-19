@@ -5,39 +5,20 @@ import {
   Grid,
   Card,
   CardContent,
-  CardMedia,
   Typography,
-  Button,
-  Divider,
   makeStyles,
 } from '@material-ui/core';
 
-
-// 간단한 카드 스타일링
-const imgStyle = {
-  height: 0,
-  paddingTop: '56.25%', // 16:9
-  margin: 20,
-};
 
 const useStyles = makeStyles((theme) => ({
   cardGrid: {
     paddingTop: theme.spacing(8),
     paddingBottom: theme.spacing(8),
   },
-  // card: {
-  //   height: '170%',
-  //   display: 'flex',
-  //   flexDirection: 'column',
-  //   width: '80%',
-  // },
   cardMedia: {
     paddingTop: '56.25%', // 16:9
     height: '170%'
   },
-  // cardContent: {
-  //   flexGrow: 1,
-  // },
   bigcard: {    
     minWidth: 400,
     height: 300,

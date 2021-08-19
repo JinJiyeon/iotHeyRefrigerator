@@ -1,5 +1,5 @@
 import React from 'react';
-import { useContext, useState,useEffect } from 'react';
+import { useContext, useEffect } from 'react';
 import {
   Typography,
   Grid,
@@ -13,7 +13,6 @@ import { makeStyles } from '@material-ui/core/styles';
 import { CommonContext } from '../../../../context/CommonContext';
 import LikeButton from '../Like';
 import axios from 'axios';
-import { typography } from '@material-ui/system';
 
 const useStyles = makeStyles({
   card: {
@@ -22,9 +21,6 @@ const useStyles = makeStyles({
     height: '100%',
     flex: 1,
   },
-  // cardDetails: {
-  //   flex: 1,
-  // },
   cardMedia: {
     width: '100%',
     height: '100%',
@@ -44,7 +40,6 @@ const MyPageCard = () => {
   }, [])
   // 액시오스
   const recipeApi = () => {
-    // console.log('here')
     console.log(recipeId.recipe_info_id)
     axios.get(`/recipe/${recipeId.recipe_info_id}`)
       .then(res => {
@@ -66,7 +61,6 @@ const MyPageCard = () => {
               image={recipeId.recipe_info_image}
             >
             </CardMedia>
-            {/* <img className={classes.sidebarAboutBox} style={{ display: '' }} src={recipeId.recipe_info_image} alt='' xsDown />     */}
           </Card>    
         </Grid>
 

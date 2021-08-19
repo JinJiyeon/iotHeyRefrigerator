@@ -1,7 +1,6 @@
-import React, { useContext, useEffect } from 'react';
+import React from 'react';
 import { useHistory } from 'react-router-dom';
 import {
-  Toolbar,
   Paper,
   Grid,
   AppBar,
@@ -11,7 +10,6 @@ import {
 } from '@material-ui/core';
 import PropTypes from 'prop-types'
 import Cookies from 'js-cookie';
-import { CommonContext } from '../../context/CommonContext';
 import SearchIcon from '@material-ui/icons/Search';
 
 
@@ -66,9 +64,6 @@ const Header = props => {
               <Paper>
                 {Cookies.get('user_id') ?
                   <div>
-                    {/* <Button onClick={onClickBtn} variant="contained" color="primary">
-                      MyPage
-                    </Button> */}
                     <Button onClick={()=>{
                       Cookies.remove('user_id')
                       Cookies.remove('refreshToken')
