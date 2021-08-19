@@ -50,35 +50,36 @@ const MyPageBottom = () => {
   };
 
   return (
-    <Box bgcolor="warning.light" p={3}>
-      <Card className={classes.card}>
+    <Box p={3}>
+
         <div className={classes.cardDetails}>
         {
           recipe.steps && 
             <div>
               {recipe.steps.map((data)=>(
                 <Card>
-                  <Grid container>
-                    <Grid item xs={8}>
-                      <Typography key={data} variant="h5">
-                        ({data.step_order}) {data.step_comment}
-                      </Typography>
-                    </Grid>
+                  <Grid container spacing={3}>
+
                     <Grid item xs={4} align="right">
                       <CardMedia 
                         className={classes.cardMedia}
                         image={data.image_source}
                       >
                       </CardMedia>
-                      
                     </Grid>
+                    <Grid item xs={8} p={3}>
+                      <Typography key={data} variant="h5">
+                        ({data.step_order}) {data.step_comment}
+                      </Typography>
+                    </Grid> 
+                    
                   </Grid>
                 </Card>
               ))}
             </div>
         }
         </div>
-      </Card>
+
     </Box>
 
   );
