@@ -25,6 +25,7 @@ const App = () => {
   // Recipe
   const [cards, setCards] = useState([]);
   const [searchCard, setSearchCard] = useState([]);
+  const [recomMenu, setRecomMenu] = useState('레시피 추천');
   // main
   const [recipeId, setRecipeId] = useState([]);
   // detail
@@ -56,6 +57,8 @@ const App = () => {
         setRecipeId,
         recipe,
         setRecipe,
+        recomMenu,
+        setRecomMenu,
         // mypage
         ingredients,
         setIngredients,

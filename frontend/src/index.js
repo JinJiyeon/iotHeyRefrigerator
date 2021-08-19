@@ -12,7 +12,11 @@ const theme = createMuiTheme({
     fontFamily: "fontPrimary",
     h4: {
       fontFamily: "fontSecondary"
+    },
+    pass: {
+      fontFamily: "Monaco"
     }
+
   },
   palette: {
     primary: {

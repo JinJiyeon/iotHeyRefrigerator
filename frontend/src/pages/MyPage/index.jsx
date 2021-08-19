@@ -1,4 +1,4 @@
-import React, {useContext} from 'react';
+import React, {useContext, useEffect} from 'react';
 import { Divider, Grid, Avatar, Paper } from '@material-ui/core';
 import MyPageBack from '../../components/MyPage/MyBack';
 import MyPageCard from '../../components/MyPage/MyCard';
@@ -10,6 +10,10 @@ import Layout from '../../layout';
 
 const Mypage = () => {
   const {openFoodAdd, setOpenFoodAdd} = useContext(CommonContext);
+  // 들어왔을때 항상 닫혀있도록
+  useEffect(()=>{
+    setOpenFoodAdd(false);
+  }, []);
 
   return (
     <Layout >
