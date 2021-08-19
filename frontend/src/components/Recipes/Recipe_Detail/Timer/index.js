@@ -109,13 +109,13 @@ class RecipeTimer extends Component {
           <Typography variant="h5" align="center">시간 설정하기</Typography>
           <Grid container>
             <Grid item xs={4} p={5}>
-              <input ref={this.hoursInput} type="number" placeholder={'HH'}  name="hours"  onChange={this.inputHandler} size="5" />
+                <input ref={this.hoursInput} type="number" placeholder={'HH'}  name="hours"  onChange={this.inputHandler} size="5" style={{width:'100%'}} />
             </Grid>  
             <Grid item xs={4}>
-              <input ref={this.minutesInput} type="number"  placeholder={'MM'}   name="minutes"  onChange={this.inputHandler} size="5"/>
+              <input ref={this.minutesInput} type="number"  placeholder={'MM'}   name="minutes"  onChange={this.inputHandler} size="5" style={{width:'100%'}}/>
             </Grid>
             <Grid item xs={4}>
-              <input ref={this.secondsInput} type="number"  placeholder={'SS'}  name="seconds"  onChange={this.inputHandler} size="5"/>
+              <input ref={this.secondsInput} type="number"  placeholder={'SS'}  name="seconds"  onChange={this.inputHandler} size="5" style={{width:'100%'}}/>
             </Grid>
           </Grid>
           <hr></hr>

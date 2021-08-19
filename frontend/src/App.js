@@ -11,7 +11,7 @@ import Foods from './pages/Foods/';
 import Recipe_Main from './pages/Recipes/Recipe_Main';
 import Recipe_Detail from './pages/Recipes/Recipe_Detail';
 import NotFound from './pages/NotFound/';
-import Recipe_Search from './pages/Recipes/Recipe_search'
+import Recipe_search from './pages/Recipes/Recipe_search'
 import RestrictedRoute from './utils/RestrictedRoute';
 
 const App = () => {
@@ -25,6 +25,7 @@ const App = () => {
   // Recipe
   const [cards, setCards] = useState([]);
   const [searchCard, setSearchCard] = useState([]);
+  const [recomMenu, setRecomMenu] = useState('레시피 추천');
   // main
   const [recipeId, setRecipeId] = useState([]);
   // detail
@@ -56,6 +57,8 @@ const App = () => {
         setRecipeId,
         recipe,
         setRecipe,
+        recomMenu,
+        setRecomMenu,
         // mypage
         ingredients,
         setIngredients,
@@ -64,16 +67,16 @@ const App = () => {
       }}
     >
       <BrowserRouter>
-        <div>
+        <div style={{height:'100vh', backgroundColor:''}} >
           <Switch >
             <Route exact path="/" component={Home} />
             <Route exact path="/signup" component={SignUp} />
             <Route exact path="/signin" component={SignIn} />
             <Route exact path="/home" component={Home} />
             <Route exact path="/foods" component={Foods} />
-            <Route exact path="/recipes" component={Recipe_Main} />
+            <Route exact path="/recipes" component={Recipe_Main}  />
             <Route exact path="/recipes/:recipeId" component={Recipe_Detail} />
-            <Route exact path="/search" component={Recipe_Search} />
+            <Route exact path="/search" component={Recipe_search} />
             <Route exact path="/notfound" component={NotFound} />
             {/* <Route exact path="/mypage" component={MyPage} /> */}
             <RestrictedRoute restricted={true} path="/mypage" component={MyPage} exact/>
