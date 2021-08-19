@@ -30,7 +30,7 @@ const Recipe = () => {
         >
           <img width="70px" src="https://image.flaticon.com/icons/png/512/93/93634.png" />
         </Button>
-        <Container>
+
           <RecipeCard />     
           <Grid container spacing={3}>
             <Grid item xs={9}>
@@ -40,7 +40,7 @@ const Recipe = () => {
               <RecipeTimer />
             </Grid>
           </Grid>
-        </Container>
+
       </main>
     </div>
   );
