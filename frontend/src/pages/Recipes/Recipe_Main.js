@@ -1,11 +1,9 @@
-import React, {useState, useEffect, useRef, useContext} from 'react';
+import React from 'react';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Typography from '@material-ui/core/Typography';
 // 추가
 import SearchBar from '../../components/Recipes/Recipe_Main/SearchBar';
 import RecipeCard from '../../components/Recipes/Recipe_Main/RecipeCard';
-import RecipeTimer from '../../components/Recipes/Recipe_Detail/Timer';
-import { palette } from '@material-ui/system';
 import { makeStyles} from '@material-ui/core';
 import Layout from '../../layout'
 const useStyles = makeStyles((theme) => ({

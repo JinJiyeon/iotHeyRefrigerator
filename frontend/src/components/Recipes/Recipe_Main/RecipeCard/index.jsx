@@ -46,7 +46,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const RecipeCard = () => {
-  const { cards, setCards, recipeId, setRecipeId, recomMenu, setRecomMenu } = useContext(CommonContext);
+  const { cards, setCards, setRecipeId, recomMenu, setRecomMenu } = useContext(CommonContext);
   const classes = useStyles();
   const [open, setOpen] = useState(false);
   const anchorRef = React.useRef(null);
@@ -58,6 +58,7 @@ const RecipeCard = () => {
     if (recomMenu ==='레시피 추천'){
       randomApi();
     }
+    setRecomMenu('레시피 추천')
   }, [])
   // 랜덤 레시피 추천
   const randomApi =()=>{
@@ -90,8 +91,6 @@ const RecipeCard = () => {
   
   // 추천 유통기한 menu
   const expApi = () => {
-    // setCards([{title:'hi', recipe_info_image:'https://source.unsplash.com/random' },{title:'hi', recipe_info_image:'https://source.unsplash.com/random' },{title:'hi', recipe_info_image:'https://source.unsplash.com/random' }])
-    // 추천 메뉴가 똑같아서 임시적으로 랜덤이미지를 보여줍니다
     axios.get('/recipe/recom/expired')
     .then(res => {
         console.log(res.data)

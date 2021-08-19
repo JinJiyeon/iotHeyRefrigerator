@@ -12,7 +12,9 @@ const LikeButton =()=> {
     useEffect(()=>{
         console.log('useEffect')
         if (recipe.isLiked) {
-            setIsHeart(true)
+            setIsHeart(true);
+        } else{
+            setIsHeart(false);
         }
 
     }, [recipe])
