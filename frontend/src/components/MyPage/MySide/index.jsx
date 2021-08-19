@@ -158,11 +158,17 @@ const MyBar = () => {
                     <Typography className={classes.ingredientComp} color='error'>
                       <Grid>
                         {ingredient.ingredient_name} {ingredient.expiration_date}
+                      <Button onClick={()=>{delIngredient(ingredient)}} color="secondary">
+                        삭제
+                      </Button>
                       </Grid>
                     </Typography>
                     :
                     <Typography className={classes.ingredientComp}>
                       {ingredient.ingredient_name} {ingredient.expiration_date}  
+                      <Button onClick={()=>{delIngredient(ingredient)}} color="secondary">
+                        삭제
+                      </Button>
                     </Typography>
                     }
                     
