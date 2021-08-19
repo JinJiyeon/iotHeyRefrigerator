@@ -4,7 +4,7 @@ import {
 } from '@material-ui/core';
 const Copyright=()=>{
   return (
-    <Typography variant="body2" color="textSecondary" align="center">
+    <Typography variant="body2" color="textSecondary" align="center" style={{height:'23px'}}>
       {'Copyright © '}      
         7링 바이브      
       {new Date().getFullYear()}
@@ -15,8 +15,10 @@ const Copyright=()=>{
 
 const Footer = () => {
   return (
-    <div>
+    <div style={{backgroundColor: 'rgb(254,254,254)', display:'flex', justifyContent:'center', alignItems:'center'}}>
+      <div>
       <Copyright />
+      </div>
     </div>
   );
 };

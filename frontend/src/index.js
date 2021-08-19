@@ -32,6 +32,7 @@ const theme = createMuiTheme({
 });
 
 ReactDOM.render(
+  
   <React.StrictMode>
     <MuiThemeProvider theme={theme}>
       <App />
