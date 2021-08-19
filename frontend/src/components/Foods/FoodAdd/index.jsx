@@ -56,7 +56,7 @@ const FoodAdd = () => {
       })
   }
   return (
-    <Container open={openFoodAddForm} onClose={ onClose } style={{height:'100vh', margin: '0px 0px -23px 0px'}}>
+    <Container open={openFoodAddForm} onClose={ onClose } style={{height:'100vh', margin: '0px 0px -23px 0px', padding:70, marginLeft:'15%'}}>
       <DialogTitle>
         Add Food
       </DialogTitle>
