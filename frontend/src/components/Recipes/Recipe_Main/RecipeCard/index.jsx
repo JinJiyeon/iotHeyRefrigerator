@@ -40,6 +40,7 @@ const useStyles = makeStyles((theme) => ({
   },
   root: {
     display: 'flex',
+    alignItems: 'center',
     float: "right"
   },
 }));
@@ -134,67 +135,70 @@ const RecipeCard = () => {
     prevOpen.current = open;
   }, [open]);
   return (
-    <Box bgcolor="warning.light" style={{height:''}} p={2}>
-      <Container maxWidth="lg">
-      <Typography variant="h5" align="left" color="textPrimary" gutterBottom>
-        오늘의 추천 레시피
-      </Typography>
-      <div className={classes.root}>
-        <div>
-          <Button
-            ref={anchorRef}
-            aria-controls={open ? 'me  nu-list-grow' : undefined}
-            aria-haspopup="true"
-            onClick={handleToggle}    
-            align = "right"          
-            >
-            {recomMenu}
-          </Button>
-          <Popper open={open} anchorEl={anchorRef.current} role={undefined} transition disablePortal>
-            {({ TransitionProps, placement }) => (
-              <Grow
-              {...TransitionProps}
-              style={{ transformOrigin: placement === 'bottom' ? 'center top' : 'center bottom' }}
+    <Box bgcolor="warning.light" style={{height:''}} p={10} >
+      <Container>
+        <Typography variant="h5" align="left" color="textPrimary" gutterBottom>
+          오늘의 추천 레시피
+        </Typography>
+        <div className={classes.root}>
+          {/* <div> */}
+            <Button
+              ref={anchorRef}
+              aria-controls={open ? 'me  nu-list-grow' : undefined}
+              aria-haspopup="true"
+              onClick={handleToggle}    
+              align = "right"          
               >
-                <Paper>
-                  <ClickAwayListener onClickAway={handleClose}>
-                    <MenuList autoFocusItem={open} id="menu-list-grow" onKeyDown={handleListKeyDown}>
-                      <MenuItem onClick={() => {
-                        setRecomMenu('레시피 추천');
-                        randomApi();
-                      }}>
-                        레시피 추천
-                      </MenuItem>
-                      <MenuItem onClick={() => {
-                        if (Cookies.get('user_id')) {
-                          setOpen(false);
-                          likeApi();
-                          setRecomMenu('기본 추천');
-                        } else {
-                          alert('로그인 유저만 이용가능한 서비스입니다.')
-                        }
-                      }}>
-                        기본 추천
-                      </MenuItem>
-                      <MenuItem onClick={() => {
-                        if (Cookies.get('user_id')) {
-                          setOpen(false);
-                          expApi();
-                          setRecomMenu('유통기한 추천');
-                        } else {
-                          alert('로그인 유저만 이용가능한 서비스입니다.')
-                        }
-                      }}>
-                        유통기한 우선 추천
-                      </MenuItem>
-                    </MenuList>
-                  </ClickAwayListener>
-                </Paper>
-              </Grow>
-            )}
-          </Popper>
+              {recomMenu}
+            </Button>
+            <Popper open={open} anchorEl={anchorRef.current} 
+              role={undefined} transition disablePortal
+              style={{display:'flex', justifyContent:'center', alignItems:'center'}}
+            >
+              {({ TransitionProps, placement }) => (
+                <Grow
+                {...TransitionProps}
+                style={{ transformOrigin: placement === 'bottom' ? 'center top' : 'center bottom' }}
+                >
+                  <Paper p={15}>
+                    <ClickAwayListener onClickAway={handleClose}>
+                      <MenuList autoFocusItem={open} id="menu-list-grow" onKeyDown={handleListKeyDown}>
+                        <MenuItem onClick={() => {
+                          setRecomMenu('레시피 추천');
+                          randomApi();
+                        }}>
+                          레시피 추천
+                        </MenuItem>
+                        <MenuItem onClick={() => {
+                          if (Cookies.get('user_id')) {
+                            setOpen(false);
+                            likeApi();
+                            setRecomMenu('기본 추천');
+                          } else {
+                            alert('로그인 유저만 이용가능한 서비스입니다.')
+                          }
+                        }}>
+                          기본 추천
+                        </MenuItem>
+                        <MenuItem onClick={() => {
+                          if (Cookies.get('user_id')) {
+                            setOpen(false);
+                            expApi();
+                            setRecomMenu('유통기한 추천');
+                          } else {
+                            alert('로그인 유저만 이용가능한 서비스입니다.')
+                          }
+                        }}>
+                          유통기한 우선 추천
+                        </MenuItem>
+                      </MenuList>
+                    </ClickAwayListener>
+                  </Paper>
+                </Grow>
+              )}
+            </Popper>
+          {/* </div> */}
         </div>
-      </div>
       </Container>
     <Container className={classes.cardGrid} maxWidth="md">
       { 
