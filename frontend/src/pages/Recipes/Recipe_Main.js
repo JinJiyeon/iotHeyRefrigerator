@@ -44,8 +44,10 @@ function Copyright() {
           <div className={classes.testbg3}  >
             <SearchBar className={classes.testbg2} /> 
           </div>
-          
-          <RecipeCard/>
+          <div style={{minHeight:'100vh', margin:'0px 0px -23px 0px'}}>
+            <RecipeCard/>
+          </div>
+
           {/* <RecipeTimer /> */}
         </main>
           {/* <div className={classes.testbg3}>
