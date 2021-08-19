@@ -159,6 +159,15 @@ router.post('/search/ingredient/:searchWord', (req, res, next) => {
     if (beforeId === undefined || beforeView === undefined) {
         ingredient_promise = new Promise((resolve, reject) => {
             db.query(`
+                select recipe_infos.recipe_info_id as recipe_info_id, title, view, recipe_info_image
+                from ingredients_and_recipe_infos inner join recipe_infos using(recipe_info_id)
+                where ingredient_name in
+                    (	
+                        select ingredient_name
+                        from ingredients_preprocessing
+                        where original like '%${searchWord}%'
+                    )
+                union distinct 
                 select *
                 from recipe_infos
                 where recipe_info_id in
@@ -166,7 +175,7 @@ router.post('/search/ingredient/:searchWord', (req, res, next) => {
                     from ingredients_and_recipe_infos
                     where ingredient_name like '%${searchWord}%'
                     group by recipe_info_id)
-                order by view desc, recipe_info_id desc
+                order by view desc
                 limit ${limit}`, (err, rows) => {
                 if (err) {
                     console.log(err);

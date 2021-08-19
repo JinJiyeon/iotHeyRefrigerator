@@ -76,6 +76,7 @@ const useStyles = makeStyles((theme) => ({
   cardGrid: {
     paddingTop: theme.spacing(8),
     paddingBottom: theme.spacing(8),
+    
   },
   card: {
     height: '100%',
@@ -118,7 +119,7 @@ export default function Recipe_Search() {
 
   return (
     <Layout>
-      <main className={classes.testbg} style={{height:'100vh',  margin:'0px 0px -23px 0px'}}>
+      <main className={classes.testbg} style={{minHeight:'100vh',  margin:'0px 0px -23px 0px'}}>
         <div >
           <div  className={classes.testbg2}>
             <SearchBar/>
@@ -154,10 +155,12 @@ export default function Recipe_Search() {
                     </>
                   :
                     <>
-                      <Typography align="center" variant="h2">
+                      <div>
+                      <Typography align="center" variant="h2" style={{marginTop: '20vh'}}>
                         검색 결과가 없습니다. <br/>
                         재료와 레시피를 선택 후 검색해주세요
                       </Typography>
+                      </div>
                     </>
                 }
                 
