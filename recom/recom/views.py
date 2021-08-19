@@ -13,54 +13,27 @@ DJANGO_ORIGIN = os.environ.get("DJANGO_ORIGIN")
 RETAINING = '/user/myingredients/important'
 EXPIRE = '/user/myingredients/expired'
 
-def calculate(request):
-    url = NODE_ORIGIN + '/user/send/retaining'
-    # print(request)
-    # print(request.headers)
-    # print(request.headers.get('Cookie'))
-    # print(request.headers.get('Cookie').split('=')[1])
-    # cookies = dict(from_django='from_django')
-
-    # too 하드코딩.. 고쳐야 함. 쿠키파서 같은 거 찾아보자
-    # 얘는 뭐 갠춘함. axios에서 보내주는 거 하나밖에 없으니까
-    cookies = dict(accessToken=request.headers.get('Cookie').split('=')[1])
-    res = requests.get(url, cookies=cookies)
-    # json_data = res.json()
-    # print(res)
-    # print(res.headers.get('Set-Cookie'))
-    # print(res.headers.get('Set-Cookie').split(';')[0].split('=')[1])
-    print(res.json())
-    json_data = {'res':'tmp_res'}
-    return JsonResponse(json_data, safe=False)
 
 
-
-
-
-def convert_from_retaining_ingredient(user_id, request):
-    print(request.COOKIES)
+def convert_from_retaining_ingredient(cookies):
     # node에서 보유 중인 재료 가져오기
-    url = NODE_ORIGIN + RETAINING
-    
-    res = requests.get(url+f'/{user_id}').json()
+    url = NODE_ORIGIN + RETAINING  
+    res = requests.get(url, cookies=cookies).json()
 
     # 계산할 형식에 맞추기 (dataframe으로, 반정규화, 문자열로)
     tmp_my_ingredient = []
     col = 'ingredient'
     for r in res:
         tmp_my_ingredient.append(r['ingredient_name'])
+    print('보유 중인 재료 벡터로 변환', tmp_my_ingredient)
     my_ingredinet = pd.DataFrame(data={col:[' '.join(tmp_my_ingredient)]})
+    
     return my_ingredinet
 
 def convert_from_urgent_expiration_date(cookies):
     # node에서 보유 중인 재료 가져오기
-    print('====================================================')
     url = NODE_ORIGIN + EXPIRE
     res = requests.get(url, cookies=cookies).json()
-    print('****************************************************')
-    print(res)
-
-
     # 계산할 형식에 맞추기 (dataframe으로, 반정규화, 문자열로)
     tmp_my_ingredient = []
     col = 'ingredient'
@@ -103,30 +76,38 @@ def find_similar_recipe(recipe_df, tmp):
     return similar_recipes_id
 
 
-def recommend_from_retaining_ingredient(request, user_id):
+def recommend_from_retaining_ingredient(request):
     # 계산 형식에 맞추기
-    my_ingredient = convert_from_retaining_ingredient(user_id, request)
-    recipe_df = get_recipe_df()
-    tmp = recipe_df[['ingredient']].append(my_ingredient, ignore_index=True)
-
-    # 유사한 recipe_id node에 넘겨주기
-    similar_recipes_id = find_similar_recipe(recipe_df, tmp)
+    cookies = dict(accessToken=request.headers.get('Cookie').split('=')[1])
+    my_ingredient = convert_from_retaining_ingredient(cookies)
+    
+    # 보유한 재료가 없으면 빈 배열을 보냄
+    if not my_ingredient.iloc[0,0]:
+        similar_recipes_id = []
+    # 보유한 재료가 있으면 추천 레시피를 계산함
+    else:
+        recipe_df = get_recipe_df()
+        tmp = recipe_df[['ingredient']].append(my_ingredient, ignore_index=True)
+        similar_recipes_id = find_similar_recipe(recipe_df, tmp)
+    
+    # 노드에 넘겨줌
     to_node = {'similar_recipe_id':similar_recipes_id}
     return JsonResponse(to_node, safe=False)
 
 def recommend_from_urgent_expiration_date(request):
     # 계산 형식에 맞추기
     cookies = dict(accessToken=request.headers.get('Cookie').split('=')[1])
-    
-    my_ingredient = convert_from_urgent_expiration_date(cookies)    
-    print('~~~~~~~~',my_ingredient.iloc[0,0])
+    my_ingredient = convert_from_urgent_expiration_date(cookies) 
+
+    # 임박한 재료가 없으면 빈 배열을 보냄
     if not my_ingredient.iloc[0,0]:
         similar_recipes_id = []
+    # 보유한 재료가 있으면 추천 레시피를 계산함
     else:
         recipe_df = get_recipe_df()
         tmp = recipe_df[['ingredient']].append(my_ingredient, ignore_index=True)
-        # 유사한 recipe_id node에 넘겨주기
-        
         similar_recipes_id = find_similar_recipe(recipe_df, tmp)
+    
+    # 노드에 넘겨줌
     to_node = {'similar_recipe_id':similar_recipes_id}
     return JsonResponse(to_node, safe=False)

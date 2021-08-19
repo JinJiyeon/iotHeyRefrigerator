@@ -1,6 +1,7 @@
 import React from 'react';
 import {useHistory} from 'react-router-dom';
 import {
+  Container,
   Grid,
   Card,
   CardContent,
@@ -8,9 +9,9 @@ import {
   Typography,
   Button,
   Divider,
+  makeStyles,
 } from '@material-ui/core';
-import { useContext } from 'react';
-import { CommonContext } from '../../context/CommonContext';
+
 
 // 간단한 카드 스타일링
 const imgStyle = {
@@ -18,39 +19,73 @@ const imgStyle = {
   paddingTop: '56.25%', // 16:9
   margin: 20,
 };
-const cardStyle = {
-  margin: 50,
-};
+
+const useStyles = makeStyles((theme) => ({
+  cardGrid: {
+    paddingTop: theme.spacing(8),
+    paddingBottom: theme.spacing(8),
+  },
+  // card: {
+  //   height: '170%',
+  //   display: 'flex',
+  //   flexDirection: 'column',
+  //   width: '80%',
+  // },
+  cardMedia: {
+    paddingTop: '56.25%', // 16:9
+    height: '170%'
+  },
+  // cardContent: {
+  //   flexGrow: 1,
+  // },
+  bigcard: {    
+    minWidth: 400,
+    height: 300,
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: "center"
+  },
+}));
+
 
 const HomeCard = () => {
 
   const dummy = [
-    { id:1, title:'레시피', path:'/Recipes', img:"https://image.flaticon.com/icons/png/512/291/291990.png"},
-    { id:2, title:'재료', path:'/Foods', img:"https://as1.ftcdn.net/v2/jpg/01/66/42/76/1000_F_166427637_p7cgjDJ4nSI8OMSmMOy6o2P1an4NETOu.jpg"},
+    { id:1, title:'레시피', path:'/recipes'},
+    { id: 2, title: 'MY PAGE', path: '/mypage' },
   ];
   const history = useHistory();
+  const classes = useStyles();
+
 // list item recipe
   return (
-    <Grid container spacing={5}>
-      {dummy.map((dummy, index) => (
-      <Grid item xs={6} key={index}>
-        <Card style={cardStyle}
-          onClick = {() => {
-            history.push(`${dummy.path}`)
-          }}
-        >
-          <CardMedia
-            style = {imgStyle}
-            image={dummy.img}
-            title={dummy.title}
-          />
-          <CardContent>
-            {dummy.title}
-          </CardContent>
-        </Card>
-        </Grid>
-      ))}
-   </Grid>
+    <Container  maxWidth="md" >
+      <Grid container spacing={6}>
+        {dummy.map((dummy, index) => (
+        <Grid item xs={6} key={index} >
+          <Card 
+            className={classes.card, classes.bigcard}
+            onClick = {() => {
+              history.push(`${dummy.path}`)
+            }}
+          >
+            <CardContent className={classes.cardContent}>
+                <Typography variant="h2" component="h2" align="center" color="warning">
+                  {dummy.title === '레시피' ?
+                    <img src="https://image.flaticon.com/icons/png/512/3565/3565418.png" height="180px" />
+                    :
+                    <img src="https://image.flaticon.com/icons/png/512/3449/3449449.png" height="180px" />
+                  }
+                  <div>
+                    {dummy.title}
+                  </div>
+              </Typography>                    
+            </CardContent>
+          </Card>
+          </Grid>
+        ))}
+      </Grid>
+    </Container>
   );
 };
 

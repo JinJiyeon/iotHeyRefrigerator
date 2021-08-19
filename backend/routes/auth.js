@@ -56,14 +56,28 @@ const db_email_info = (email) => {
     })
   })
 }
+// email 양식 확인
+const email_form_Check = (email) => {
+  return new Promise((resolve, reject)=>{
+    const regExp = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
 
-// 회원가입 시 비밀번호 일치 확인
+    if (email.match(regExp) != null) {
+      resolve();
+    } else {
+      reject('이메일 양식이 맞지 않습니다');
+    }
+  })
+}
+
+
+// 회원가입 시 입력된 두 비밀번호 일치 확인
 const passwordCheck = (password, password2) => {
   return new Promise((resolve, reject)=> {
     if (password !== password2) { reject('비밀번호를 확인해주세요')}
     else resolve('비밀번호가 일치합니다')
   })
 }
+
 
 
 // 사용자 존재 확인
@@ -97,32 +111,34 @@ const userCheck = (req, res, next) => {
 
 // 1. 로그인
 // ~user/login
-router.post('/login', util.isNotLogin, (req, res, next)=>{
-  const user_id = req.body.user_id
-  const password = req.body.password
+router.post('/login', util.isNotLogin, (req, res, next) => {
+  const { user_id, password } = req.body;
+  
   // db에서 user_id를 기준으로 있는 id인지 확인 (있어야 통과)
   const login_info = new Promise((resolve, reject)=> {
     db.query('SELECT * FROM users WHERE user_id=?', [user_id], (err, rows) => {
       if (err) reject(err)
-      if (rows.length === 0) reject('아이디가 없습니다.')
+      if (rows.length === 0) reject('login failed')
       else resolve(rows[0])
     })
   })
   // db 비밀번호와 입력 비밀번호 대조
-  const check_password = function(password, db_password){
-    return new Promise(function(resolve, reject){
-      if (password === db_password){
+  const check_password = function(password_salt, db_password){
+    return new Promise(function (resolve, reject) {
+      const hashpassword = crypto.createHash("sha512").update(password_salt).digest("hex")
+      if (hashpassword === db_password){
         resolve('비밀번호가 같습니다')
       }else{
-        reject('비밀번호를 확인해주세요')
+        reject('login failed')
       }
     })
   }
 
   login_info
-    .then(function(result){ // 아이디가 db에 있으면
+    .then(function (result) { // 아이디가 db에 있으면
+      const db_salt = result.salt;
       const db_password = result.password
-      return check_password(password, db_password) // 비밀번호 대조
+      return check_password(password+db_salt, db_password) // 비밀번호 대조
     })
     .then(function(){ // 비밀번호가 같으면
       accessToken = generateAccessToken(user_id) // 토큰 발급
@@ -134,8 +150,11 @@ router.post('/login', util.isNotLogin, (req, res, next)=>{
       
     })
     .catch((err)=>{
-      console.log(err)
-      res.redirect('login') 
+      console.log(err);
+      res.status(401).send(err);
+
+      // res.send(new Error('아이디가 없습니다.'));
+      // res.status(500).send('')
     })
 })
 
@@ -144,20 +163,16 @@ router.post('/login', util.isNotLogin, (req, res, next)=>{
 
 // 2. 회원가입(C)
 // ~user/signup
-router.post('/signup', util.isNotLogin, (req, res, next)=> {
-  const user_id = req.body.user_id
-  const password = req.body.password
-  const password2 = req.body.password2
-  const email = req.body.email
-
+router.post('/signup', util.isNotLogin, (req, res, next) => {
+  const { user_id, password, password2, email } = req.body;
   //암호화 - db 이슈 해결되면 추가됨 
-  // let salt = Math.round((new Date().valueOf()*Math.random())) +""
-  // var hashpassword = crypto.createHash("sha512").update(password).digest("hex")
+  let salt = Math.round((new Date().valueOf()*Math.random())) +""
+  let hashpassword = crypto.createHash("sha512").update(password+salt).digest("hex")
 
   // 회원가입 공백 체크
   const isEmpty = function(user_id, password, password2, email){
     return new Promise((resolve, reject) => {
-      if (user_id === "" || password ==="" || password2 === "", email === ""){
+      if (user_id.length === 0 || password.length === 0 || password2.length === 0 || email.length === 0) {
         reject('공란을 확인해주세요')
       } else {
         resolve()
@@ -165,11 +180,12 @@ router.post('/signup', util.isNotLogin, (req, res, next)=> {
     })
   }
   // 회원 정보 db에 저장(회원가입)
-  // db.query => promise?
   const createUser = function(user_id, password, email){
-    db.query('INSERT INTO users (user_id, password, email) VALUES(?,?,?)', [user_id, password, email], function(err, rows){
-      if (err){ reject(err)}
-      else {resolve(rows[0])}
+    return new Promise((resolve, reject)=>{
+      db.query('INSERT INTO users (user_id, password, email, salt) VALUES(?,?,?,?)', [user_id, hashpassword, email, salt], function(err, rows){
+        if (err){ reject(err)}
+        else resolve (rows[0])
+      })
     })
   }
   isEmpty(user_id, password, password2, email)
@@ -182,8 +198,11 @@ router.post('/signup', util.isNotLogin, (req, res, next)=> {
     .then(function(){
       return db_email_info(email) //email이 기존 db에 존재하나 체크
     })
+    .then(function () {
+      return email_form_Check(email);
+    })
     .then(function(){
-      return createUser // 회원가입(저장)
+      return createUser(user_id, password, email) // 회원가입(저장)
     })
     .then(function(){ // 자동 로그인
       accessToken = generateAccessToken(user_id)
@@ -191,19 +210,23 @@ router.post('/signup', util.isNotLogin, (req, res, next)=> {
       res.cookie('accessToken', accessToken )
       res.cookie('refreshToken', refreshToken)
       res.cookie('user_id', user_id) // 로그인 시 쿠키에 아이디 저장
-      res.redirect('/')
-      
+      res.send();
     })
     .catch((err)=>{
       console.log(err)
-      res.redirect('signup')
+      res.status(400).send(err);
+      // res.redirect('signup')
     })
     
 })
 
 
 // 회원가입
-router.get('/signup', (req, res) => {
+/*
+ 2021 / 08 / 06 / 박민상
+ 미 로그인시에만 회원가입 페이지를 전송하도록 수정
+ */
+router.get('/signup', util.isNotLogin, (req, res) => {
   res.send(`
     <form action="/auth/signup" method="post">
         email : <input type="text" name="email" /> <br />
@@ -217,7 +240,11 @@ router.get('/signup', (req, res) => {
 
 
 // 로그인
-router.get('/login', (req, res) => {
+/*
+ 2021 / 08 / 06 / 박민상
+ 미 로그인시에만 로그인 페이지를 전송하도록 수정
+ */
+router.get('/login', util.isNotLogin, (req, res) => {
   res.send(`
     <form action="/auth/login" method="post">
         name : <input type="text" name="user_id" /> <br />
