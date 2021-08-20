@@ -20,8 +20,6 @@ const db = require('../lib/db'); // mysql 연결
 
 
 
-// 로그인,  회원가입(C), 회원 정보(R)
-// 업데이트, 탈퇴 -> (x)
 
 // access token을 secret key 기반으로 생성
 const generateAccessToken = (user_id) => {
@@ -150,11 +148,7 @@ router.post('/login', util.isNotLogin, (req, res, next) => {
       
     })
     .catch((err)=>{
-      console.log(err);
       res.status(401).send(err);
-
-      // res.send(new Error('아이디가 없습니다.'));
-      // res.status(500).send('')
     })
 })
 
@@ -213,59 +207,15 @@ router.post('/signup', util.isNotLogin, (req, res, next) => {
       res.send();
     })
     .catch((err)=>{
-      console.log(err)
       res.status(400).send(err);
-      // res.redirect('signup')
     })
     
 })
 
 
-// 회원가입
-/*
- 2021 / 08 / 06 / 박민상
- 미 로그인시에만 회원가입 페이지를 전송하도록 수정
- */
-router.get('/signup', util.isNotLogin, (req, res) => {
-  res.send(`
-    <form action="/auth/signup" method="post">
-        email : <input type="text" name="email" /> <br />
-        name : <input type="text" name="user_id" /> <br />
-        password : <input type="text" name="password" /> <br />
-        password2 : <input type="text" name="password2" /> <br />
-        <input type="submit">
-    </form>
-  `)
-})
-
-
-// 로그인
-/*
- 2021 / 08 / 06 / 박민상
- 미 로그인시에만 로그인 페이지를 전송하도록 수정
- */
-router.get('/login', util.isNotLogin, (req, res) => {
-  res.send(`
-    <form action="/auth/login" method="post">
-        name : <input type="text" name="user_id" /> <br />
-        password : <input type="text" name="password" /> <br />
-        <input type="submit">
-    </form>
-  `)
-})
-
-
-// // test
-// router.get('/test', util.checkToken, (req, res) =>{
-//   console.log('테스트')
-//   res.send('테스트')
-// })
 
 //err middleware
 router.use((err, req, res, next) => {
-  console.log('auth.js 에러 미들웨어');
-  console.log(err);
-  // res.send('err')
   res.redirect('/');
 })
 
