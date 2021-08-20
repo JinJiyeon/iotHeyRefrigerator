@@ -50,9 +50,7 @@ React, Node.js, Django, DB(Mysql), 아두이노, 라즈베리파이, Whimsical, 
 
 #### :classical_building: ERD
 
-![ERD](README.assets/ERD.png)
-
-
+![ERD](README.assets/ERD-1629428052595.png)
 
 ### :triangular_ruler: 시퀀스 다이어그램
 
@@ -199,41 +197,46 @@ gantt
     %%발표준비 :11-26, 2d
 ```
 
-## :package: 진행과정
+##  :rainbow: 결과물
 
-### B107팀 2주차 정리
+> #### 결과물 간략 요약 페이지 예시 사진입니다.
+>
+> ### :star:  회원페이지
+>
+> ![signin](README.assets/signin.jpg)
+>
+> 
+>
+> ### :star:  홈페이지
+>
+> ![home](README.assets/home.jpg)
+>
+> 
+>
+> ### :star:  레시피
+>
+> ![recipe](README.assets/recipe.jpg)
+>
+> 
+>
+> ### :star:  레시피 서치
+>
+> ![search](README.assets/search.jpg)
+>
+> 
+>
+> ### :star:  레시피 디테일
+>
+> ![recipe-detail](README.assets/recipe-detail.jpg)
+>
+> 
+>
+> ### :star:  유통기한 추천
+>
+> ![expired-recommend](README.assets/expired-recommend.jpg)
 
 
 
-기획) 
+## 기획 산출물
 
-- 1주차 내용 기반 와이어프레임 작성
-- 자체 회의 피드백 내용들과 팀미팅 피드백 내용 관련 와이어 프레임 수정
-- IoT 활용 기능 적용 및 세부 항목 개선 후 와이어 프레임 수정
-- 주제, 개요, 기술스택, 단계별 목표 총정리
-- 화면정의서 작성
-
-프론트)
-
-- 폴더 트리 설계
-- 기본 페이지 구현 (Auth, Main, Ingredients, Recipes, Mypage, NotFound)
-- 컴포넌트 구현 (Ingredients, Recipes)
-- 반응형 컴포넌트 로직 생성 (ResponsiveSign, ResponsiveDialog)
-- 리액트 useContext, useEffect, react-router-dom 추가 조사 및 공부
-
-백엔드)
-
-- AWS EC2 테스트 성공 확인
-- 데이터 전처리 체크 후 크롤링 진행
-- 크롤링 완료 후 DB저장하고 중복데이터 걸러내는 중
-- 유저 CRUD 구현, 로그인 부분 구현 진행 중
-- 검색 로직 구현 진행 중
-- 추천로직 조사 중
-
-기타)
-
-- 자체 친목도모 시간 가짐 [Skribbl](https://skribbl.io/)
-- Jira 환경 설정 및 틀잡기
-- 개별 Jira 요구 스토리 포인트 모두 충족
-- 전체적인 현황 파악을 위해 주 2회 테크리더와 팀장간 회의 진행
-
+![와이어프레임 및 화면정의서_1](README.assets/와이어프레임 및 화면정의서_1.png)
